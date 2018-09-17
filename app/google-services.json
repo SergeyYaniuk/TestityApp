@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "1065947060317",
+    "firebase_url": "https://testity-tests.firebaseio.com",
+    "project_id": "testity-tests",
+    "storage_bucket": "testity-tests.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065947060317:android:68c85641e116d6e8",
+        "android_client_info": {
+          "package_name": "com.sergeyyaniuk.testity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065947060317-v35bo9i39mqkfq9o0ofr0f24sjhggjk1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sergeyyaniuk.testity",
+            "certificate_hash": "6d2e807185c546e112e30861b2a64041fb8d34af"
+          }
+        },
+        {
+          "client_id": "1065947060317-p53lu2inpvb92lq93ga5g0qetdr6j7b3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChRk0dJPNyXIcgqr7GlEZS31uvv4OWtvA"
+        },
+        {
+          "current_key": "AIzaSyChRk0dJPNyXIcgqr7GlEZS31uvv4OWtvA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065947060317-p53lu2inpvb92lq93ga5g0qetdr6j7b3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
