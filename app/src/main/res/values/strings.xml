@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Testity</string>
+
+    <!--MainActivity buttons !-->
+    <string name="create_test">CREATE TEST</string>
+    <string name="pass_test">PASS TEST</string>
+    <string name="results">RESULTS</string>
+    <string name="useful_tools">USEFUL TOOLS</string>
+    <string name="invite_friend">INVITE FRIEND</string>
+    <string name="rate_us">RATE US</string>
+    <string name="title_activity_login">Sign in</string>
+
+
+    <!-- Login activity !-->
+    <string name="username">Email</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="create_account">Create account</string>
+    <string name="or">or</string>
+    <string name="loading">Loading…</string>
+
 </resources>
