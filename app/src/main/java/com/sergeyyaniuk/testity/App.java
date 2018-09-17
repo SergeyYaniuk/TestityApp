@@ -2,5 +2,13 @@ package com.sergeyyaniuk.testity;
 
 import android.app.Application;
 
-public class App extends Application {
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
+
+
+public class App extends DaggerApplication {
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerAppComponent.builder().application(this).build();
+    }
 }
