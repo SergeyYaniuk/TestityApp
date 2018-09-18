@@ -1,15 +1,15 @@
 package com.sergeyyaniuk.testity.ui.login;
 
 import com.sergeyyaniuk.testity.ui.base.BasePresenterContract;
-import com.sergeyyaniuk.testity.ui.base.BaseView;
+import com.sergeyyaniuk.testity.ui.base.BaseViewContract;
 
 public interface LoginContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseViewContract{
 
     }
 
-    interface Presenter extends BasePresenterContract<View>{
+    interface Presenter<V extends LoginContract.View> extends BasePresenterContract<V> {
 
     }
 }

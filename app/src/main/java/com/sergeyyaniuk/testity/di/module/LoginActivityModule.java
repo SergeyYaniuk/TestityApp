@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public abstract class LoginActivityModule {
+public class LoginActivityModule {
 
     private LoginActivity mActivity;
 
@@ -27,6 +27,8 @@ public abstract class LoginActivityModule {
     }
 
     @ActivityScope
-    @Binds
-    abstract LoginContract.Presenter provideLoginPresenter(LoginPresenter presenter);
+    @Provides
+    public LoginContract.Presenter provideLoginPresenter(LoginPresenter presenter){
+        return presenter;
+    }
 }

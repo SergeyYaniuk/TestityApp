@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.sergeyyaniuk.testity.R;
 
-public class BaseActivity extends AppCompatActivity implements BaseView{
+public class BaseActivity extends AppCompatActivity implements BaseViewContract {
 
     private ProgressDialog mProgressDialog;
 

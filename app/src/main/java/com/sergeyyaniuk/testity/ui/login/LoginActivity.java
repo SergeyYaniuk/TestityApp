@@ -6,13 +6,14 @@ import android.view.View;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.ActivityScope;
+import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-@ActivityScope
-public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
+
+public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Inject
     LoginContract.Presenter mPresenter;
