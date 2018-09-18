@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- MainActivity image sizes !-->
+    <dimen name="image_width">80dp</dimen>
+    <dimen name="image_height">80dp</dimen>
+
+    <!--elevation!-->
+    <dimen name="elevation">2dp</dimen>
+
+    <!--margin!-->
+    <dimen name="margin_small">3dp</dimen>
+    <dimen name="margin_middle">6dp</dimen>
+    <dimen name="margin_large">12dp</dimen>
+    <dimen name="margin_xlarge">18dp</dimen>
+
+    <!--padding!-->
+    <dimen name="padding_small">3dp</dimen>
+    <dimen name="padding_middle">6dp</dimen>
+    <dimen name="padding_large">12dp</dimen>
+    <dimen name="padding_xlarge">18dp</dimen>
+
+    <!-- text size !-->
+    <dimen name="text_size_small">6sp</dimen>
+    <dimen name="text_size_middle">10sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="text_size_xlarge">22sp</dimen>
+
+</resources>

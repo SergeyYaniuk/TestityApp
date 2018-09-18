@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- MainActivity image sizes !-->
+    <dimen name="image_width">130dp</dimen>
+    <dimen name="image_height">130dp</dimen>
+
+    <!--elevation!-->
+    <dimen name="elevation">4dp</dimen>
+
+    <!--margin!-->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_middle">8dp</dimen>
+    <dimen name="margin_large">12dp</dimen>
+    <dimen name="margin_xlarge">18dp</dimen>
+
+    <!--padding!-->
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_middle">8dp</dimen>
+    <dimen name="padding_large">12dp</dimen>
+    <dimen name="padding_xlarge">18dp</dimen>
+
+    <!-- text size !-->
+    <dimen name="text_size_small">8sp</dimen>
+    <dimen name="text_size_middle">16sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_xlarge">28sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>

@@ -1,18 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/margin_middle"
+        android:layout_marginTop="@dimen/margin_middle"
+        android:layout_marginEnd="@dimen/margin_middle"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:orientation="horizontal">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/create_test_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_middle"
+            android:layout_marginTop="@dimen/margin_middle"
+            android:layout_marginEnd="@dimen/margin_middle"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_background"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/create_test_image"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_height"
+                android:padding="@dimen/padding_small"
+                android:src="@drawable/create_test_image" />
+
+            <TextView
+                android:id="@+id/create_test_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:padding="@dimen/padding_small"
+                android:text="@string/create_test"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pass_test_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_middle"
+            android:layout_marginTop="@dimen/margin_middle"
+            android:layout_marginEnd="@dimen/margin_middle"
+            android:layout_marginBottom="@dimen/margin_small"
+
+            android:layout_weight="1"
+            android:background="@drawable/buttons_background"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/pass_test_image"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_height"
+                android:padding="@dimen/padding_small"
+                android:src="@drawable/pass_test_image" />
+
+            <TextView
+                android:id="@+id/pass_test_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:padding="@dimen/padding_small"
+                android:text="@string/pass_test"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/margin_middle"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_middle"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/results_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_middle"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_background"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/results_image"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_height"
+                android:padding="@dimen/padding_small"
+                android:src="@drawable/results_image" />
+
+            <TextView
+                android:id="@+id/results_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:padding="@dimen/padding_small"
+                android:text="@string/results"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/useful_tools_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_middle"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_background"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/useful_tools_image"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_height"
+                android:padding="@dimen/padding_small"
+                android:src="@drawable/useful_tools_image" />
+
+            <TextView
+                android:id="@+id/useful_tools_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:padding="@dimen/padding_small"
+                android:text="@string/useful_tools"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/margin_middle"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_middle"
+        android:layout_marginBottom="@dimen/margin_middle"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/invite_friend_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_middle"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_middle"
+            android:layout_marginBottom="@dimen/margin_middle"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_background"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/invite_friend_image"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_height"
+                android:padding="@dimen/padding_small"
+                android:src="@drawable/invite_friend_image" />
+
+            <TextView
+                android:id="@+id/invite_friend_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:padding="@dimen/padding_small"
+                android:text="@string/invite_friend"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rateus_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_middle"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_middle"
+            android:layout_marginBottom="@dimen/margin_middle"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_background"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/rateus_image"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_height"
+                android:padding="@dimen/padding_small"
+                android:src="@drawable/rate_us_image" />
+
+            <TextView
+                android:id="@+id/rateus_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:padding="@dimen/padding_small"
+                android:text="@string/rate_us"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
