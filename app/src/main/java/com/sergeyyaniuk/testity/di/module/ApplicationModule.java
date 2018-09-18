@@ -10,7 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public abstract class ApplicationModule {
+public class ApplicationModule {
 
     Application mApplication;
 
@@ -20,7 +20,7 @@ public abstract class ApplicationModule {
 
     @Provides
     @Singleton
-    Application providesApplication(){
+    Application provideApplication(){
         return mApplication;
     }
 

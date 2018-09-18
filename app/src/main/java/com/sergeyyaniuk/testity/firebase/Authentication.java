@@ -7,16 +7,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-@Singleton
-public class Authentication implements AuthenticationContract {
+public class Authentication {
 
     private Application mApplication;
     private FirebaseAuth mAuth;
 
-    @Inject
     public Authentication(Application application){
         this.mApplication = application;
-        mAuth = FirebaseAuth.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
     }
 
 

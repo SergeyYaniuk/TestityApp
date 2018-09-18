@@ -1,7 +1,8 @@
 package com.sergeyyaniuk.testity.di.module;
 
+import android.app.Application;
+
 import com.sergeyyaniuk.testity.firebase.Authentication;
-import com.sergeyyaniuk.testity.firebase.AuthenticationContract;
 
 import javax.inject.Singleton;
 
@@ -13,7 +14,7 @@ public class FirebaseModule {
 
     @Provides
     @Singleton
-    public AuthenticationContract provideAuthentication(Authentication authentication){
-        return authentication;
+    public Authentication provideAuthentication(Application application){
+        return new Authentication(application);
     }
 }

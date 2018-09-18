@@ -1,13 +1,10 @@
 package com.sergeyyaniuk.testity.di.module;
 
-import android.support.v7.app.AlertDialog;
-
 import com.sergeyyaniuk.testity.di.ActivityScope;
+import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
-import com.sergeyyaniuk.testity.ui.login.LoginContract;
 import com.sergeyyaniuk.testity.ui.login.LoginPresenter;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
@@ -28,7 +25,7 @@ public class LoginActivityModule {
 
     @ActivityScope
     @Provides
-    public LoginContract.Presenter provideLoginPresenter(LoginPresenter presenter){
-        return presenter;
+    LoginPresenter provideLoginPresenter(Authentication authentication){
+        return new LoginPresenter(mActivity, authentication);
     }
 }

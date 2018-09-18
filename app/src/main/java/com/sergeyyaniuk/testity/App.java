@@ -1,6 +1,7 @@
 package com.sergeyyaniuk.testity;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.sergeyyaniuk.testity.di.component.AppComponent;
 import com.sergeyyaniuk.testity.di.component.DaggerAppComponent;
@@ -13,7 +14,7 @@ import dagger.android.DaggerApplication;
 
 public class App extends Application {
 
-    AppComponent mAppComponent;
+    private AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
@@ -27,5 +28,9 @@ public class App extends Application {
 
     public AppComponent getAppComponent() {
         return mAppComponent;
+    }
+
+    public static App get(Context context) {
+        return (App) context.getApplicationContext();
     }
 }
