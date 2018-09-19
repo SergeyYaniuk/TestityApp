@@ -14,10 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppMainTheme">
         <activity
-            android:name=".ui.main.MainActivity">
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/AppMainTheme">
         </activity>
         <activity
-            android:name=".ui.login.LoginActivity">
+            android:name=".ui.login.LoginActivity"
+            android:theme="@style/AppMainTheme">
         </activity>
         <activity
             android:name=".ui.splash.SplashActivity"

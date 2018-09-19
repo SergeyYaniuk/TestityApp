@@ -56,6 +56,7 @@ public class LoginPresenter extends BasePresenter{
 
     }
 
+    //Auth with Facebook
     protected CallbackManager loginWithFacebook(){
         CallbackManager callbackManager = mAuthentication.getUserWithFacebook();
         LoginManager.getInstance().logInWithReadPermissions(mActivity, Arrays.asList("email", "public_profile"));
@@ -95,4 +96,27 @@ public class LoginPresenter extends BasePresenter{
                     }
                 });
     }
+
+    //Auth with Email
+    protected void loginWithEmail(final String email, final String password){
+        mActivity.showProgressDialog();
+        mAuthentication.getUserWithEmail(email, password)
+                .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            mActivity.hidePregressDialog();
+                            mActivity.authSuccessful();
+                        }
+                        else{
+                            mActivity.hidePregressDialog();
+                            mActivity.authFailed();
+                        }
+                    }
+                });
+    }
+
+
+
+
 }

@@ -61,6 +61,13 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.google_button)
+    public void onLoginButton() {
+        String email = mEmail.getText().toString();
+        String password = mPassword.getText().toString();
+        mPresenter.loginWithEmail(email, password);
+    }
+
 
     @OnClick(R.id.google_button)
     public void onGoogleButton(){

@@ -68,4 +68,12 @@ public class Authentication {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         return mAuth.signInWithCredential(credential);
     }
+
+    public Task<AuthResult> getUserWithEmail(String email, String password) {
+        return mAuth.signInWithEmailAndPassword(email, password);
+    }
+
+    public Task<AuthResult> createUserWithEmail(String email, String password) {
+        return mAuth.createUserWithEmailAndPassword(email, password);
+    }
 }
