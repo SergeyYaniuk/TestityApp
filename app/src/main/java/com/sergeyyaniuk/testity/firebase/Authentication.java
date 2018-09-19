@@ -3,30 +3,23 @@ package com.sergeyyaniuk.testity.firebase;
 import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 public class Authentication {
 
@@ -35,6 +28,9 @@ public class Authentication {
 
     //for google auth
     GoogleApiClient mGoogleApiClient;
+
+    //for facebook auth;
+    CallbackManager mCallbackManager;
 
     public Authentication(Application application){
         this.mApplication = application;
@@ -62,8 +58,14 @@ public class Authentication {
         return mAuth.signInWithCredential(credential);
     }
 
+    public CallbackManager getUserWithFacebook() {
+        FacebookSdk.sdkInitialize(mApplication);
+        mCallbackManager = CallbackManager.Factory.create();
+        return mCallbackManager;
+    }
 
-
-
-
+    public Task<AuthResult> getAuthWithFacebook(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        return mAuth.signInWithCredential(credential);
+    }
 }

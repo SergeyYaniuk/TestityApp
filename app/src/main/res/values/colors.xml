@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#29abe2</color>
     <color name="colorPrimaryDark">#01579b</color>
     <color name="colorAccent">#76FF03</color>
-    <color name="background_material_light">#f5f5f5</color>
+    <color name="background_material_light" tools:override = "true" >#f5f5f5</color>
 
     <color name="color_white">#FFFFFF</color>
 

@@ -1,17 +1,27 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Application main theme. -->
-    <style name="AppMainTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppMainTheme" parent="Theme.Design.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:colorBackground" tools:override = "true" >@color/background_material_light</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
     </style>
 
     <!-- LaunchActivity theme !-->
     <style name="AppMainTheme.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen</item>
-
     </style>
+
+    <!--LoginActivity theme !-->
+    <style name="TextStyle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/black_overlay</item>
+    </style>
+
 </resources>
