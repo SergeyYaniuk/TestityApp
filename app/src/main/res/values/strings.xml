@@ -19,6 +19,8 @@
     <string name="create_account">Create account</string>
     <string name="or">or</string>
     <string name="loading">Loading…</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 
     <!-- For Facebook login !-->
     <string name="facebook_app_id">694422630950774</string>

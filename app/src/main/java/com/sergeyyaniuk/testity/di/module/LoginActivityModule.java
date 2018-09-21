@@ -1,5 +1,7 @@
 package com.sergeyyaniuk.testity.di.module;
 
+import android.support.v7.app.AlertDialog;
+
 import com.sergeyyaniuk.testity.di.ActivityScope;
 import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
@@ -27,5 +29,11 @@ public class LoginActivityModule {
     @Provides
     LoginPresenter provideLoginPresenter(Authentication authentication){
         return new LoginPresenter(mActivity, authentication);
+    }
+
+    @ActivityScope
+    @Provides
+    AlertDialog.Builder provideAlerDialogBuilder() {
+        return new AlertDialog.Builder(mActivity);
     }
 }

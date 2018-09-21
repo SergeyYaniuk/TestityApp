@@ -1,7 +1,12 @@
 package com.sergeyyaniuk.testity.ui.login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements CreateAccountDialog.EditDialogListener {
 
     public static final int REQUEST_SIGN_GOOGLE = 9001;
 
@@ -48,6 +53,8 @@ public class LoginActivity extends BaseActivity {
 
     @Inject
     LoginPresenter mPresenter;
+    @Inject
+    AlertDialog.Builder mAlertDialog;
     FirebaseAuth mAuth;
     // just for facebook login
     private CallbackManager mCallbackManager;
@@ -68,6 +75,10 @@ public class LoginActivity extends BaseActivity {
         mPresenter.loginWithEmail(email, password);
     }
 
+    @OnClick(R.id.create_account_tv)
+    public void onCreateButton(){
+        showCreateDialog();
+    }
 
     @OnClick(R.id.google_button)
     public void onGoogleButton(){
@@ -106,7 +117,18 @@ public class LoginActivity extends BaseActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void changeText(){
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+    public void requiredField(){
+        Toast.makeText(LoginActivity.this, "Required field.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    public void showCreateDialog(){
+        DialogFragment createAccountDialog = new CreateAccountDialog();
+        createAccountDialog.show(getSupportFragmentManager(), "createAccountDialog");
+    }
+
+    @Override
+    public void onEdit(String email, String password) {
+        mPresenter.createAccount(email, password);
     }
 }
