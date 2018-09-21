@@ -30,10 +30,4 @@ public class LoginActivityModule {
     LoginPresenter provideLoginPresenter(Authentication authentication){
         return new LoginPresenter(mActivity, authentication);
     }
-
-    @ActivityScope
-    @Provides
-    AlertDialog.Builder provideAlerDialogBuilder() {
-        return new AlertDialog.Builder(mActivity);
-    }
 }

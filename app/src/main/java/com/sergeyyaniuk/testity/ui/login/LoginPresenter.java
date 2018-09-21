@@ -100,9 +100,6 @@ public class LoginPresenter extends BasePresenter{
 
     //Auth with Email
     protected void loginWithEmail(final String email, final String password){
-        if (!validateForm(email, password)) {
-            return;
-        }
         mActivity.showProgressDialog();
         mAuthentication.getUserWithEmail(email, password)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
@@ -122,10 +119,6 @@ public class LoginPresenter extends BasePresenter{
 
     //create account
     protected void createAccount(String email, String password){
-        if (!validateForm(email, password)) {
-            return;
-        }
-
         mActivity.showProgressDialog();
         mAuthentication.createUserWithEmail(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -142,16 +135,4 @@ public class LoginPresenter extends BasePresenter{
                     }
                 });
     }
-
-    private boolean validateForm(String email, String password) {
-        boolean valid = true;
-
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            mActivity.requiredField();
-            valid = false;
-        }
-        return valid;
-    }
-
-
 }

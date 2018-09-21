@@ -1,12 +1,10 @@
 package com.sergeyyaniuk.testity.ui.login;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.text.InputType;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.module.LoginActivityModule;
@@ -77,6 +74,9 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
 
     @OnClick(R.id.create_account_tv)
     public void onCreateButton(){
+        if (!validateForm()) {
+            return;
+        }
         showCreateDialog();
     }
 
@@ -117,9 +117,26 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void requiredField(){
-        Toast.makeText(LoginActivity.this, "Required field.",
-                Toast.LENGTH_SHORT).show();
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String email = mEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            mEmail.setError("Required.");
+            valid = false;
+        } else {
+            mEmail.setError(null);
+        }
+
+        String password = mPassword.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            mPassword.setError("Required.");
+            valid = false;
+        } else {
+            mPassword.setError(null);
+        }
+
+        return valid;
     }
 
     public void showCreateDialog(){

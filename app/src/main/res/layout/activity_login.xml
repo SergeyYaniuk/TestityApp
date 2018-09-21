@@ -119,11 +119,10 @@
 
         <TextView
             android:id="@+id/create_account_tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:padding="@dimen/margin_middle"
-            android:layout_gravity="bottom"
+            android:layout_gravity="end"
             android:clickable="true"
             android:textColor="@color/black_overlay"
             android:text="@string/create_account"/>
