@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
@@ -75,5 +77,27 @@ public class Authentication {
 
     public Task<AuthResult> createUserWithEmail(String email, String password) {
         return mAuth.createUserWithEmailAndPassword(email, password);
+    }
+
+    public FirebaseUser getCurrentUser(){
+        return mAuth.getCurrentUser();
+    }
+
+    public Task<Void> sendPasswordResetEmail(String email){
+        return mAuth.sendPasswordResetEmail(email);
+    }
+
+    public void signOut(){
+        mAuth.signOut();
+        if (AccessToken.getCurrentAccessToken() != null){
+            LoginManager.getInstance().logOut();
+        } else if(mGoogleApiClient.isConnected()){
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+        }
+    }
+
+    public boolean isSignIn(){
+        return (mAuth.getCurrentUser()!= null || AccessToken.getCurrentAccessToken()!= null ||
+                mGoogleApiClient.isConnected());
     }
 }

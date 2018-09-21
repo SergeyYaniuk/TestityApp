@@ -8,9 +8,6 @@ import com.sergeyyaniuk.testity.di.component.DaggerAppComponent;
 import com.sergeyyaniuk.testity.di.module.ApplicationModule;
 import com.sergeyyaniuk.testity.di.module.FirebaseModule;
 
-import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
-
 
 public class App extends Application {
 

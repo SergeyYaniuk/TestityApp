@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
@@ -45,11 +46,11 @@ public class LoginPresenter extends BasePresenter{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                mActivity.hidePregressDialog();
-                                mActivity.authSuccessful();
+                                FirebaseUser currentUser = mAuthentication.getCurrentUser();
+                                mActivity.updateUI(currentUser);
                             }
-                            else{
-                                mActivity.authFailed();
+                            else {
+                                mActivity.updateUI(null);
                             }
                         }
                     });
@@ -87,12 +88,11 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            mActivity.hidePregressDialog();
-                            mActivity.authSuccessful();
+                            FirebaseUser currentUser = mAuthentication.getCurrentUser();
+                            mActivity.updateUI(currentUser);
                         }
-                        else{
-                            mActivity.hidePregressDialog();
-                            mActivity.authFailed();
+                        else {
+                            mActivity.updateUI(null);
                         }
                     }
                 });
@@ -100,18 +100,20 @@ public class LoginPresenter extends BasePresenter{
 
     //Auth with Email
     protected void loginWithEmail(final String email, final String password){
+        if (!mActivity.validateForm()) {
+            return;
+        }
         mActivity.showProgressDialog();
         mAuthentication.getUserWithEmail(email, password)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            mActivity.hidePregressDialog();
-                            mActivity.authSuccessful();
+                            FirebaseUser currentUser = mAuthentication.getCurrentUser();
+                            mActivity.updateUI(currentUser);
                         }
-                        else{
-                            mActivity.hidePregressDialog();
-                            mActivity.authFailed();
+                        else {
+                            mActivity.updateUI(null);
                         }
                     }
                 });
@@ -125,14 +127,30 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            mActivity.hidePregressDialog();
-                            mActivity.authSuccessful();
+                            FirebaseUser currentUser = mAuthentication.getCurrentUser();
+                            mActivity.updateUI(currentUser);
                         }
-                        else{
-                            mActivity.hidePregressDialog();
-                            mActivity.authFailed();
+                        else {
+                            mActivity.updateUI(null);
                         }
                     }
                 });
+    }
+
+    protected void sendEmailReset(String email){
+        mAuthentication.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            //email sent
+                        }
+                    }
+                });
+    }
+
+    public boolean userExist(){
+        FirebaseUser existUser = mAuthentication.getCurrentUser();
+        return existUser != null;
     }
 }

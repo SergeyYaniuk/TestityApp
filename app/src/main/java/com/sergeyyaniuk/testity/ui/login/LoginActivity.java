@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,10 +19,12 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.module.LoginActivityModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
+import com.sergeyyaniuk.testity.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -50,9 +53,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
 
     @Inject
     LoginPresenter mPresenter;
-    @Inject
-    AlertDialog.Builder mAlertDialog;
-    FirebaseAuth mAuth;
+
     // just for facebook login
     private CallbackManager mCallbackManager;
 
@@ -65,7 +66,16 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.google_button)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mPresenter.userExist()){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+    }
+
+    @OnClick(R.id.login_button)
     public void onLoginButton() {
         String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
@@ -74,9 +84,6 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
 
     @OnClick(R.id.create_account_tv)
     public void onCreateButton(){
-        if (!validateForm()) {
-            return;
-        }
         showCreateDialog();
     }
 
@@ -89,6 +96,11 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
     @OnClick(R.id.facebook_button)
     public void onFacebookButton(){
         mCallbackManager = mPresenter.loginWithFacebook();
+    }
+
+    @OnClick(R.id.forgot_password)
+    public void forgotPassword(){
+
     }
 
     @Override
@@ -117,7 +129,8 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
                 Toast.LENGTH_SHORT).show();
     }
 
-    private boolean validateForm() {
+    //required not empty fields
+    public boolean validateForm() {
         boolean valid = true;
 
         String email = mEmail.getText().toString();
@@ -144,8 +157,19 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
         createAccountDialog.show(getSupportFragmentManager(), "createAccountDialog");
     }
 
+    //get email and password from dialog fragment
     @Override
     public void onEdit(String email, String password) {
         mPresenter.createAccount(email, password);
+    }
+
+    public void updateUI(FirebaseUser user){
+        hidePregressDialog();
+        if (user != null) {
+            authSuccessful();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        } else {
+            authFailed();
+        }
     }
 }
