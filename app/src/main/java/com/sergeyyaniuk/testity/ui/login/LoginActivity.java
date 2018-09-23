@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity implements CreateAccountDialog.EditDialogListener {
+public class LoginActivity extends BaseActivity implements CreateAccountDialog.CreateDialogListener {
 
     public static final int REQUEST_SIGN_GOOGLE = 9001;
 
@@ -160,12 +160,13 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
     }
 
     public void showForgotDialog(){
-
+        DialogFragment forgotPasswordDialog = new ForgotPasswordDialog();
+        forgotPasswordDialog.show(getSupportFragmentManager(), "forgotPasswordDialog");
     }
 
     //get email and password from dialog fragment
     @Override
-    public void onEdit(String email, String password) {
+    public void addNewUser(String email, String password) {
         mPresenter.createAccount(email, password);
     }
 

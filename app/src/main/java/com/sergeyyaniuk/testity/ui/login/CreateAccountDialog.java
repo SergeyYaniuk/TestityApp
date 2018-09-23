@@ -29,11 +29,10 @@ public class CreateAccountDialog extends DialogFragment{
     @BindView(R.id.cancel_button)
     Button mCancelButton;
 
+    CreateDialogListener mListener;
 
-    EditDialogListener mListener;
-
-    public interface EditDialogListener{
-        void onEdit(String email, String password);
+    public interface CreateDialogListener{
+        void addNewUser(String email, String password);
     }
 
     public CreateAccountDialog(){
@@ -54,7 +53,7 @@ public class CreateAccountDialog extends DialogFragment{
         if (!validateForm()) {
             return;
         }
-        mListener.onEdit(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString());
+        mListener.addNewUser(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString());
         CreateAccountDialog.this.getDialog().dismiss();
     }
 
@@ -66,7 +65,7 @@ public class CreateAccountDialog extends DialogFragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = (EditDialogListener)context;
+        mListener = (CreateDialogListener) context;
     }
 
     private boolean validateForm() {
