@@ -23,7 +23,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user =mAuth.getCurrentUser();
+        String name = user.getDisplayName();
         mName = (TextView)findViewById(R.id.user_name);
+        mName.setText(name);
     }
 
     @Override
@@ -35,8 +38,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        String name = currentUser.getDisplayName();
-        mName.setText(name);
     }
 }

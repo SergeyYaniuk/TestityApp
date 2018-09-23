@@ -69,10 +69,10 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
     @Override
     protected void onStart() {
         super.onStart();
-        if (mPresenter.userExist()){
+        /*if (mPresenter.userExist()){
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
-        }
+        }*/
     }
 
     @OnClick(R.id.login_button)
@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
     }
 
     @OnClick(R.id.forgot_password)
-    public void forgotPassword(){
+    public void onForgotButton(){
 
     }
 
@@ -129,6 +129,8 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
                 Toast.LENGTH_SHORT).show();
     }
 
+
+
     //required not empty fields
     public boolean validateForm() {
         boolean valid = true;
@@ -155,6 +157,10 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.E
     public void showCreateDialog(){
         DialogFragment createAccountDialog = new CreateAccountDialog();
         createAccountDialog.show(getSupportFragmentManager(), "createAccountDialog");
+    }
+
+    public void showForgotDialog(){
+
     }
 
     //get email and password from dialog fragment

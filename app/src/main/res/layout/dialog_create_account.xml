@@ -2,13 +2,13 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/margin_large"
     android:layout_marginStart="@dimen/margin_large"
     android:layout_marginEnd="@dimen/margin_large"
     android:layout_margin="@dimen/margin_large"
-    android:layout_gravity="center">
+    android:gravity="center">
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:layout_marginBottom="@dimen/margin_middle"
         android:padding="@dimen/margin_small"
         android:inputType="textEmailAddress"
-        android:hint="@string/login" />
+        android:hint="@string/email_hint" />
 
     <EditText
         android:id="@+id/password_edit_text"
@@ -41,7 +41,7 @@
         android:layout_marginBottom="@dimen/margin_middle"
         android:padding="@dimen/margin_small"
         android:inputType="textPassword"
-        android:hint="@string/password" />
+        android:hint="@string/password_hint" />
 
     <LinearLayout
         android:layout_width="wrap_content"

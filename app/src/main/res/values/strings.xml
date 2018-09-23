@@ -12,15 +12,15 @@
 
 
     <!-- Login activity !-->
-    <string name="username">Email</string>
-    <string name="password">Password</string>
-    <string name="login">LOGIN</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">LOGIN</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="create_account">Create account</string>
-    <string name="or">or</string>
     <string name="loading">Loading…</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
+    <string name="send_new_password">SEND NEW PASSWORD</string>
 
     <!-- For Facebook login !-->
     <string name="facebook_app_id">694422630950774</string>
