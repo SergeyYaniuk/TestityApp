@@ -137,13 +137,16 @@ public class LoginPresenter extends BasePresenter{
                 });
     }
 
+    //send new password
     protected void sendEmailReset(String email){
         mAuthentication.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            //email sent
+                            mActivity.emailSent();
+                        } else {
+                            mActivity.cannotSendEmail();
                         }
                     }
                 });

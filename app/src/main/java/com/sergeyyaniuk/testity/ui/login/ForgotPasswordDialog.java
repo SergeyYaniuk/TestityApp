@@ -30,7 +30,7 @@ public class ForgotPasswordDialog extends DialogFragment {
     ForgotDialogListener mListener;
 
     public interface ForgotDialogListener{
-        void onSendPassword(String email);
+        void sendPassword(String email);
     }
 
     //required empty constructor
@@ -51,7 +51,7 @@ public class ForgotPasswordDialog extends DialogFragment {
         if (!validateForm()) {
             return;
         }
-        mListener.onSendPassword(mEmail.getText().toString());
+        mListener.sendPassword(mEmail.getText().toString());
         ForgotPasswordDialog.this.getDialog().dismiss();
     }
 

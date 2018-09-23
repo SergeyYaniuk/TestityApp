@@ -32,7 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity implements CreateAccountDialog.CreateDialogListener {
+public class LoginActivity extends BaseActivity implements CreateAccountDialog.CreateDialogListener,
+        ForgotPasswordDialog.ForgotDialogListener{
 
     public static final int REQUEST_SIGN_GOOGLE = 9001;
 
@@ -129,6 +130,15 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
                 Toast.LENGTH_SHORT).show();
     }
 
+    public void emailSent(){
+        Toast.makeText(LoginActivity.this, "New password has been sent to your mail",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    public void cannotSendEmail(){
+        Toast.makeText(LoginActivity.this, "Unable to send password",
+                Toast.LENGTH_SHORT).show();
+    }
 
 
     //required not empty fields
@@ -168,6 +178,12 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     @Override
     public void addNewUser(String email, String password) {
         mPresenter.createAccount(email, password);
+    }
+
+    //get email from forgotPasswordDialog
+    @Override
+    public void sendPassword(String email) {
+        mPresenter.sendEmailReset(email);
     }
 
     public void updateUI(FirebaseUser user){
