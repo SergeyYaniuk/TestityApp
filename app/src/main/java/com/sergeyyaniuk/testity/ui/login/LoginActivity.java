@@ -101,7 +101,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     @OnClick(R.id.forgot_password)
     public void onForgotButton(){
-
+        showForgotDialog();
     }
 
     @Override
