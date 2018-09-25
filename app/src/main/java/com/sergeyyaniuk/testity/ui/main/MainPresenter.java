@@ -1,11 +1,13 @@
 package com.sergeyyaniuk.testity.ui.main;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.firebase.Authentication;
+import com.sergeyyaniuk.testity.ui.login.LoginActivity;
 
 public class MainPresenter {
 
@@ -29,6 +31,7 @@ public class MainPresenter {
     protected void setUserPhoto(ImageView imageView){
         Uri photo = mAuthentication.getUserPhoto();
         if (photo != null){
+            imageView.setImageURI(null);
             imageView.setImageURI(photo);
         } else {
             imageView.setImageResource(R.drawable.user_icon);
@@ -38,6 +41,4 @@ public class MainPresenter {
     protected void signOut(){
         mAuthentication.signOut();
     }
-
-
 }

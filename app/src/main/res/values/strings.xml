@@ -6,10 +6,13 @@
     <string name="pass_test">PASS TEST</string>
     <string name="results">RESULTS</string>
     <string name="useful_tools">USEFUL TOOLS</string>
-    <string name="invite_friend">INVITE FRIEND</string>
+    <string name="invite_friends">INVITE FRIENDS</string>
     <string name="rate_us">RATE US</string>
     <string name="sign_out">Sign Out</string>
     <string name="anonymous">Anonymous user</string>
+    <string name="sign_out_message">Do you want to sign out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
     <!-- Login activity !-->

@@ -119,9 +119,9 @@ public class Authentication {
         mAuth.signOut();
         if (AccessToken.getCurrentAccessToken() != null){
             LoginManager.getInstance().logOut();
-        } else if(mGoogleApiClient.isConnected()){
+        } /*else if(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)!=null){
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-        }
+        }*/
     }
 
     public boolean isSignIn(){

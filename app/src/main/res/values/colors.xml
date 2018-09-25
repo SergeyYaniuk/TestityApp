@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#01579b</color>
     <color name="colorAccent">#76FF03</color>
     <color name="background_material_light" tools:override = "true" >#f5f5f5</color>
-
+    <color name="green">#64C37D</color>
+    <color name="gray">#A9A8AE</color>
     <color name="color_white">#FFFFFF</color>
-
     <color name="black_overlay">#66000000</color>
 </resources>

@@ -3,7 +3,8 @@
 
     <item
         android:id="@+id/sign_out"
-        app:showAsAction="never"
-        android:title="@string/sign_out">
+        app:showAsAction="ifRoom"
+        android:title="@string/sign_out"
+        android:icon="@drawable/logout_custom">
     </item>
 </menu>
