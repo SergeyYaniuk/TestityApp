@@ -12,5 +12,9 @@ public class MainPresenter {
         this.mAuthentication = authentication;
     }
 
-    
+    protected String provideUserName(){
+        return mAuthentication.getUserName();
+    }
+
+
 }

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 
@@ -86,6 +87,19 @@ public class Authentication {
     public Task<Void> sendPasswordResetEmail(String email){
         return mAuth.sendPasswordResetEmail(email);
     }
+
+    public String getUserName(){
+        String name = null;
+        FirebaseUser user = getCurrentUser();
+        if (user != null){
+            for (UserInfo profile : user.getProviderData()){
+                name = profile.getDisplayName();
+            }
+        }
+        return name;
+    }
+
+
 
     public void signOut(){
         mAuth.signOut();

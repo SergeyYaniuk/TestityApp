@@ -70,10 +70,10 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     @Override
     protected void onStart() {
         super.onStart();
-        /*if (mPresenter.userExist()){
+        if (mPresenter.userExist()){
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
-        }*/
+        }
     }
 
     @OnClick(R.id.login_button)
