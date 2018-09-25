@@ -2,6 +2,7 @@ package com.sergeyyaniuk.testity.firebase;
 
 import android.app.Application;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.facebook.AccessToken;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
+
+import java.net.URL;
 
 public class Authentication {
 
@@ -97,6 +100,17 @@ public class Authentication {
             }
         }
         return name;
+    }
+
+    public Uri getUserPhoto(){
+        Uri photoUri = null;
+        FirebaseUser user = getCurrentUser();
+        if (user != null){
+            for (UserInfo profile : user.getProviderData()){
+                photoUri = profile.getPhotoUrl();
+            }
+        }
+        return photoUri;
     }
 
 

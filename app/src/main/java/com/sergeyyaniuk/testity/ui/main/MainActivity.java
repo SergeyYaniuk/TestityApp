@@ -3,6 +3,7 @@ package com.sergeyyaniuk.testity.ui.main;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
@@ -20,8 +21,8 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.user_name)
     TextView mUserName;
-
-
+    @BindView(R.id.user_icon)
+    ImageView mUserPhoto;
 
     @Inject
     MainPresenter mPresenter;
@@ -34,20 +35,14 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);  //remove label from toolbar
         //Dagger injection
         App.get(this).getAppComponent().createMainComponent(new MainActivityModule(this)).inject(this);
         //ButterKnife
         ButterKnife.bind(this);
-        //set user name in toolbar
-        setUserName();
-    }
-
-    protected void setUserName(){
-        if (mPresenter.provideUserName() != null){
-            mUserName.setText(mPresenter.provideUserName());
-        } else {
-            mUserName.setText(R.string.anonymous);
-        }
+        //set user name and photo in toolbar
+        mPresenter.setUserName(mUserName);
+        mPresenter.setUserPhoto(mUserPhoto);
     }
 
     @Override
