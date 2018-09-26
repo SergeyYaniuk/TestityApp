@@ -1,12 +1,15 @@
 package com.sergeyyaniuk.testity.ui.main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
@@ -19,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements ExitDialogFragment.ExitDialogListener{
 
@@ -29,6 +33,8 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
     TextView mUserName;
     @BindView(R.id.user_icon)
     ImageView mUserPhoto;
+    @BindView(R.id.rateus_button)
+    LinearLayout mRateUs;
 
     @Inject
     MainPresenter mPresenter;
@@ -49,6 +55,19 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         //set user name and photo in toolbar
         mPresenter.setUserName(mUserName);
         mPresenter.setUserPhoto(mUserPhoto);
+    }
+
+
+
+    @OnClick(R.id.rateus_button)
+    public void rateUs(View view) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + this.getPackageName())));
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+        }
     }
 
     @Override
