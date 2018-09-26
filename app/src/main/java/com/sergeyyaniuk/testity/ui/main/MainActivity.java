@@ -3,8 +3,10 @@ package com.sergeyyaniuk.testity.ui.main;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.module.MainActivityModule;
@@ -24,8 +30,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements ExitDialogFragment.ExitDialogListener{
+public class MainActivity extends BaseActivity implements ExitDialogFragment.ExitDialogListener,
+        GoogleApiClient.OnConnectionFailedListener{
 
+    private static final int REQUEST_INVITE = 0;
+    private static final String TAG = "MainActivity";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -35,6 +44,8 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
     ImageView mUserPhoto;
     @BindView(R.id.rateus_button)
     LinearLayout mRateUs;
+    @BindView(R.id.invite_friend_button)
+    LinearLayout mInviteFriend;
 
     @Inject
     MainPresenter mPresenter;
@@ -55,9 +66,36 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         //set user name and photo in toolbar
         mPresenter.setUserName(mUserName);
         mPresenter.setUserPhoto(mUserPhoto);
+        mPresenter.getInvitation();  //get invitation if exist
     }
 
+    @OnClick(R.id.invite_friend_button)
+    public void inviteFriend(){
+        Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
+                .setMessage(getString(R.string.invitation_message))
+                .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))
+                .setCustomImage(Uri.parse(getString(R.string.invitation_custom_image)))
+                .setCallToActionText(getString(R.string.invitation_cta))
+                .build();
+        startActivityForResult(intent, REQUEST_INVITE);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                // Get the invitation IDs of all sent messages
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                for (String id : ids) {
+                    Log.d(TAG, "onActivityResult: sent invitation " + id);
+                }
+            } else {
+                showToast(MainActivity.this, R.string.send_invitation_failed);
+
+            }
+        }
+    }
 
     @OnClick(R.id.rateus_button)
     public void rateUs(View view) {
@@ -99,5 +137,10 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
     public void exit() {
         mPresenter.signOut();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        showToast(MainActivity.this, R.string.google_play_services_error);
     }
 }

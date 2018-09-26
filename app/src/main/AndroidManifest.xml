@@ -50,6 +50,22 @@
             </intent-filter>
         </activity>
 
+        <!-- Activity to handle deep link !-->
+        <activity
+            android:name=".ui.main.DeepLinkActivity"
+            android:theme="@style/AppMainTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:host="example.com" android:scheme="http"/>
+                <data android:host="example.com" android:scheme="https"/>
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

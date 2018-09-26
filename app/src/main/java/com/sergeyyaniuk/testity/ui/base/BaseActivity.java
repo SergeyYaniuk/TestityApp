@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.base;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -8,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.ui.login.LoginActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -18,6 +21,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public void showToast(Activity activity, Integer message){
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 
     public void showProgressDialog(){
