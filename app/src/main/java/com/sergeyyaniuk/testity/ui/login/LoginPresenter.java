@@ -38,6 +38,7 @@ public class LoginPresenter extends BasePresenter{
 
     protected void getAuthWithGoogle(GoogleSignInResult result){
         mActivity.showProgressDialog();
+        mAuthentication.signOut(); //test
         if (result.isSuccess()){
             final GoogleSignInAccount account = result.getSignInAccount();
             mAuthentication.getAuthWithGoogle(mActivity, account)
@@ -82,6 +83,7 @@ public class LoginPresenter extends BasePresenter{
 
     protected void getAuthWithFacebook(final AccessToken accessToken) {
         mActivity.showProgressDialog();
+        mAuthentication.signOut(); //test
         mAuthentication.getAuthWithFacebook(accessToken)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -103,6 +105,7 @@ public class LoginPresenter extends BasePresenter{
             return;
         }
         mActivity.showProgressDialog();
+        mAuthentication.signOut(); //test
         mAuthentication.getUserWithEmail(email, password)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -121,6 +124,7 @@ public class LoginPresenter extends BasePresenter{
     //create account
     protected void createAccount(String email, String password){
         mActivity.showProgressDialog();
+        mAuthentication.signOut(); //test
         mAuthentication.createUserWithEmail(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

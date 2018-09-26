@@ -13,6 +13,7 @@
     <!-- LaunchActivity theme !-->
     <style name="AppMainTheme.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
     <!--LoginActivity theme !-->
