@@ -31,6 +31,7 @@ public class Authentication {
 
     private Application mApplication;
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
 
     //for google auth
     GoogleApiClient mGoogleApiClient;
@@ -84,7 +85,8 @@ public class Authentication {
     }
 
     public FirebaseUser getCurrentUser(){
-        return mAuth.getCurrentUser();
+        mUser = mAuth.getCurrentUser();
+        return mUser;
     }
 
     public Task<Void> sendPasswordResetEmail(String email){
@@ -117,9 +119,16 @@ public class Authentication {
 
     public void signOut(){
         mAuth.signOut();
+        LoginManager.getInstance().logOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+        mUser = null;
+        
+
+
+        /*mAuth.signOut();
         if (AccessToken.getCurrentAccessToken() != null){
             LoginManager.getInstance().logOut();
-        } /*else if(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)!=null){
+        }else if(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)!=null){
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         }*/
     }
