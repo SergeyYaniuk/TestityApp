@@ -36,16 +36,6 @@ public class MainPresenter {
         }
     }
 
-    protected void setUserPhoto(ImageView imageView){
-        Uri photo = mAuthentication.getUserPhoto();
-        if (photo != null){
-            imageView.setImageURI(null);
-            imageView.setImageURI(photo);
-        } else {
-            imageView.setImageResource(R.drawable.user_icon);
-        }
-    }
-
     protected void signOut(){
         mAuthentication.signOut();
     }

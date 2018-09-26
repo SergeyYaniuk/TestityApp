@@ -10,7 +10,9 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -34,7 +36,7 @@ public class Authentication {
     private FirebaseUser mUser;
 
     //for google auth
-    GoogleApiClient mGoogleApiClient;
+    GoogleSignInClient mGoogleSignInClient;
 
     //for facebook auth;
     CallbackManager mCallbackManager;
@@ -49,15 +51,9 @@ public class Authentication {
                 .requestIdToken(activity.getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(activity)
-                .enableAutoManage(activity, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        return Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+
+        mGoogleSignInClient = GoogleSignIn.getClient(activity, gso);
+        return mGoogleSignInClient.getSignInIntent();
     }
 
     public Task<AuthResult> getAuthWithGoogle(final BaseActivity activity, GoogleSignInAccount account){
@@ -104,37 +100,10 @@ public class Authentication {
         return name;
     }
 
-    public Uri getUserPhoto(){
-        Uri photoUri = null;
-        FirebaseUser user = getCurrentUser();
-        if (user != null){
-            for (UserInfo profile : user.getProviderData()){
-                photoUri = profile.getPhotoUrl();
-            }
-        }
-        return photoUri;
-    }
-
-
-
     public void signOut(){
         mAuth.signOut();
         LoginManager.getInstance().logOut();
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+        mGoogleSignInClient.signOut();
         mUser = null;
-        
-
-
-        /*mAuth.signOut();
-        if (AccessToken.getCurrentAccessToken() != null){
-            LoginManager.getInstance().logOut();
-        }else if(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)!=null){
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-        }*/
-    }
-
-    public boolean isSignIn(){
-        return (mAuth.getCurrentUser()!= null || AccessToken.getCurrentAccessToken()!= null ||
-                mGoogleApiClient.isConnected());
     }
 }
