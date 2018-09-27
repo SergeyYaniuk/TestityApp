@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +46,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     @BindView(R.id.forgot_password)
     TextView mForgotTextView;
     @BindView(R.id.login_button)
-    Button mLoginButton;
+    ImageButton mLoginButton;
     @BindView(R.id.google_button)
     SignInButton mGoogleButton;
     @BindView(R.id.facebook_button)
@@ -65,6 +67,9 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         setContentView(R.layout.activity_login);
         App.get(this).getAppComponent().createLoginComponent(new LoginActivityModule(this)).inject(this);
         ButterKnife.bind(this);
+
+        //customize buttons
+        //mGoogleButton.setSize(SignInButton.SIZE_ICON_ONLY);
     }
 
     @Override

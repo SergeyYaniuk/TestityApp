@@ -1,6 +1,6 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fb="http://schemas.android.com/tools"
     android:id="@+id/login_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -71,6 +71,7 @@
                     android:gravity="center|start|bottom"
                     android:inputType="textPassword"
                     android:maxLength="50"
+                    android:hint="@string/password_hint"
                     android:paddingBottom="10dp"
                     android:textColor="@color/black_overlay"
                     android:textSize="18sp" />
@@ -86,15 +87,13 @@
                 android:clickable="true"
                 android:text="@string/forgot_password" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="15dp"
-                android:padding="10dp"
-                android:text="->"
-                android:textSize="18sp" />
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -102,19 +101,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="40dp"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <com.google.android.gms.common.SignInButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/google_button"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/margin_small"
+                app:buttonSize="wide"/>
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/facebook_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"/>
         </LinearLayout>
 
         <TextView
