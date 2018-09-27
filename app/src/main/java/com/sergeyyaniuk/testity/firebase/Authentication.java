@@ -62,7 +62,7 @@ public class Authentication {
     }
 
     public CallbackManager getUserWithFacebook() {
-        FacebookSdk.sdkInitialize(mApplication);
+        //FacebookSdk.sdkInitialize(mApplication);
         mCallbackManager = CallbackManager.Factory.create();
         return mCallbackManager;
     }

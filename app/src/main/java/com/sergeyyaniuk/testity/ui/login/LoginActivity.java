@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         App.get(this).getAppComponent().createLoginComponent(new LoginActivityModule(this)).inject(this);
@@ -120,27 +120,6 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         }
     }
 
-    public void authFailed(){
-        Toast.makeText(LoginActivity.this, "Authentication failed.",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    public void authSuccessful(){
-        Toast.makeText(LoginActivity.this, "Authentication successful.",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    public void emailSent(){
-        Toast.makeText(LoginActivity.this, "New password has been sent to your mail",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    public void cannotSendEmail(){
-        Toast.makeText(LoginActivity.this, "Unable to send password",
-                Toast.LENGTH_SHORT).show();
-    }
-
-
     //required not empty fields
     public boolean validateForm() {
         boolean valid = true;
@@ -186,13 +165,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         mPresenter.sendEmailReset(email);
     }
 
-    public void updateUI(FirebaseUser user){
-        hidePregressDialog();
-        if (user != null) {
-            authSuccessful();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        } else {
-            authFailed();
-        }
+    public void startIntent(){
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 }

@@ -26,6 +26,10 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="send_new_password">SEND NEW PASSWORD</string>
+    <string name="auth_successful">Authentication successful</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="pass_sent">Link to reset password have been sent to your email</string>
+    <string name="unable_send">Unable to send link to reset password</string>
 
     <!-- For Facebook login !-->
     <string name="facebook_app_id">694422630950774</string>

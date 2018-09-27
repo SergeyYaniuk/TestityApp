@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
@@ -38,7 +39,6 @@ public class LoginPresenter extends BasePresenter{
 
     protected void getAuthWithGoogle(GoogleSignInResult result){
         mActivity.showProgressDialog();
-        mAuthentication.signOut(); //test
         if (result.isSuccess()){
             final GoogleSignInAccount account = result.getSignInAccount();
             mAuthentication.getAuthWithGoogle(mActivity, account)
@@ -46,11 +46,13 @@ public class LoginPresenter extends BasePresenter{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                FirebaseUser currentUser = mAuthentication.getCurrentUser();
-                                mActivity.updateUI(currentUser);
+                                mActivity.hidePregressDialog();
+                                mActivity.showToast(mActivity, R.string.auth_successful);
+                                mActivity.startIntent();
                             }
                             else {
-                                mActivity.updateUI(null);
+                                mActivity.hidePregressDialog();
+                                mActivity.showToast(mActivity, R.string.auth_failed);
                             }
                         }
                     });
@@ -70,12 +72,12 @@ public class LoginPresenter extends BasePresenter{
 
             @Override
             public void onCancel() {
-                mActivity.authFailed();
+                mActivity.showToast(mActivity, R.string.auth_failed);
             }
 
             @Override
             public void onError(FacebookException error) {
-                mActivity.authFailed();
+                mActivity.showToast(mActivity, R.string.auth_failed);
             }
         });
         return callbackManager;
@@ -83,17 +85,18 @@ public class LoginPresenter extends BasePresenter{
 
     protected void getAuthWithFacebook(final AccessToken accessToken) {
         mActivity.showProgressDialog();
-        mAuthentication.signOut(); //test
         mAuthentication.getAuthWithFacebook(accessToken)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            FirebaseUser currentUser = mAuthentication.getCurrentUser();
-                            mActivity.updateUI(currentUser);
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.auth_successful);
+                            mActivity.startIntent();
                         }
                         else {
-                            mActivity.updateUI(null);
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.auth_failed);
                         }
                     }
                 });
@@ -105,17 +108,18 @@ public class LoginPresenter extends BasePresenter{
             return;
         }
         mActivity.showProgressDialog();
-        mAuthentication.signOut(); //test
         mAuthentication.getUserWithEmail(email, password)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            FirebaseUser currentUser = mAuthentication.getCurrentUser();
-                            mActivity.updateUI(currentUser);
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.auth_successful);
+                            mActivity.startIntent();
                         }
                         else {
-                            mActivity.updateUI(null);
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.auth_failed);
                         }
                     }
                 });
@@ -124,17 +128,18 @@ public class LoginPresenter extends BasePresenter{
     //create account
     protected void createAccount(String email, String password){
         mActivity.showProgressDialog();
-        mAuthentication.signOut(); //test
         mAuthentication.createUserWithEmail(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            FirebaseUser currentUser = mAuthentication.getCurrentUser();
-                            mActivity.updateUI(currentUser);
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.auth_successful);
+                            mActivity.startIntent();
                         }
                         else {
-                            mActivity.updateUI(null);
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.auth_failed);
                         }
                     }
                 });
@@ -142,14 +147,18 @@ public class LoginPresenter extends BasePresenter{
 
     //send new password
     protected void sendEmailReset(String email){
+        mActivity.showProgressDialog();
         mAuthentication.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            mActivity.emailSent();
-                        } else {
-                            mActivity.cannotSendEmail();
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.pass_sent);
+                        }
+                        else {
+                            mActivity.hidePregressDialog();
+                            mActivity.showToast(mActivity, R.string.unable_send);
                         }
                     }
                 });
