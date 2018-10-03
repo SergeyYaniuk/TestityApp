@@ -1,10 +1,25 @@
 package com.sergeyyaniuk.testity.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(tableName = "questions",
+        foreignKeys = @ForeignKey(entity = Test.class,
+                parentColumns = "id", childColumns = "test_id"))
 public class Question {
 
+    @PrimaryKey
     private Long id;
+
+    @ColumnInfo(name = "question_text")
     private String questionText;
+
+    @ColumnInfo(name = "number")
     private int number;
+
+    @ColumnInfo(name = "test_id")
     private Long testId;
 
     public Long getId() {

@@ -1,11 +1,25 @@
 package com.sergeyyaniuk.testity.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(tableName = "results",
+        foreignKeys = @ForeignKey(entity = Test.class,
+                parentColumns = "id", childColumns = "test_id"))
 public class Result {
 
+    @PrimaryKey
     private Long id;
+
+    @ColumnInfo(name = "test_id")
     private Long testId;
-    private Long userId;
+
+    @ColumnInfo(name = "applicant_name")
     private String applicantName;
+
+    @ColumnInfo(name = "score")
     private int score;
 
     public Long getId() {
@@ -22,14 +36,6 @@ public class Result {
 
     public void setTestId(Long testId) {
         this.testId = testId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getApplicantName() {

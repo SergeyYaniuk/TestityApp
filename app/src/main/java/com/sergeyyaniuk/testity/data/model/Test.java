@@ -1,14 +1,37 @@
 package com.sergeyyaniuk.testity.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(tableName = "tests",
+        foreignKeys = @ForeignKey(entity = User.class,
+                parentColumns = "id", childColumns = "user_id"))
 public class Test {
 
+    @PrimaryKey
     private Long id;
+
+    @ColumnInfo(name = "title")
     private String title;
+
+    @ColumnInfo(name = "category")
     private String category;
+
+    @ColumnInfo(name = "language")
     private String language;
+
+    @ColumnInfo(name = "description")
     private String description;
+
+    @ColumnInfo(name = "is_online")
     private boolean isOnline;
+
+    @ColumnInfo(name = "number_of_questions")
     private int numberOfQuestions;
+
+    @ColumnInfo(name = "user_id")
     private Long userId;
 
     public Long getId() {
