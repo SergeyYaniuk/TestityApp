@@ -14,8 +14,8 @@ import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.model.User;
 
-@Database(entities = {User.class, Test.class, Question.class, Answer.class, Result.class}, version = 1)
-public abstract class DBcreator extends RoomDatabase {
+@android.arch.persistence.room.Database(entities = {User.class, Test.class, Question.class, Answer.class, Result.class}, version = 1)
+public abstract class TestityDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
 
