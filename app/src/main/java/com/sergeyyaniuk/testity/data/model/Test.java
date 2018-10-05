@@ -34,6 +34,9 @@ public class Test {
     @ColumnInfo(name = "user_id")
     private Long userId;
 
+    @ColumnInfo(name = "number_of_correct_answers")
+    private int numberOfCorrectAnswers;
+
     public Long getId() {
         return id;
     }
@@ -96,5 +99,13 @@ public class Test {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public int getNumberOfCorrectAnswers() {
+        return numberOfCorrectAnswers;
+    }
+
+    public void setNumberOfCorrectAnswers(int numberOfCorrectAnswers) {
+        this.numberOfCorrectAnswers = numberOfCorrectAnswers;
     }
 }
