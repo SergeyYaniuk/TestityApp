@@ -5,12 +5,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 @Entity(tableName = "questions",
         foreignKeys = @ForeignKey(entity = Test.class,
-                parentColumns = "id", childColumns = "test_id"))
+                parentColumns = "id", childColumns = "test_id", onDelete = CASCADE, onUpdate = CASCADE))
 public class Question {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private Long id;
 
     @ColumnInfo(name = "question_text")
