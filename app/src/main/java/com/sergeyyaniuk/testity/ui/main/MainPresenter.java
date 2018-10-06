@@ -15,9 +15,10 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.firebase.Authentication;
+import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
 
-public class MainPresenter {
+public class MainPresenter extends BasePresenter {
 
     private MainActivity mActivity;
     private Authentication mAuthentication;

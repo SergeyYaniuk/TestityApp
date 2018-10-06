@@ -1,4 +1,8 @@
 package com.sergeyyaniuk.testity.ui.create;
 
-public class CreateTestPresenter {
+import com.sergeyyaniuk.testity.ui.base.BasePresenter;
+
+public class CreateTestPresenter extends BasePresenter {
+
+
 }
