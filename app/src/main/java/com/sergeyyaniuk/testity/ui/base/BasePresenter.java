@@ -6,11 +6,8 @@ public class BasePresenter {
 
     CompositeDisposable mCompositeDisposable;
 
-    public void onAttach(){
 
-    }
-
-    public void onDetach(){
+    public void onDestroy(){
         mCompositeDisposable.dispose();
     }
 

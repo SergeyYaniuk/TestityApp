@@ -44,5 +44,15 @@
     <string name="send_invitation_failed">Sending invitations failed</string>
     <string name="google_play_services_error">Google Play Services Error</string>
 
+    <!--  Create test activity !-->
+    <string name="language">Language</string>
+    <string name="iq">IQ</string>
+    <string name="recruiting">Recruiting</string>
+    <string name="school">School</string>
+    <string name="geographical">Geographical</string>
+    <string name="psychological">Psychological</string>
+    <string name="astrological">Astrological</string>
+    <string name="other">Other</string>
+
 
 </resources>

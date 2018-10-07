@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="language_list">
+        <item>Chinese</item>
+        <item>Spanish</item>
+        <item>English</item>
+        <item>Hindi</item>
+        <item>Arabic</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+        <item>Japanese</item>
+        <item>German</item>
+        <item>Turkish</item>
+        <item>French</item>
+        <item>Ukrainian</item>
+        <item>Italian</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="language_list_tran">
+        <item>中文</item>
+        <item>Español</item>
+        <item>English</item>
+        <item>हिंदी</item>
+        <item>عربى</item>
+        <item>Português</item>
+        <item>Русский</item>
+        <item>日本語</item>
+        <item>Deutsche</item>
+        <item>Türk</item>
+        <item>Français</item>
+        <item>Українська</item>
+        <item>Italiano</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="category_list">
+        <item>@string/language</item>
+        <item>@string/iq</item>
+        <item>@string/recruiting</item>
+        <item>@string/school</item>
+        <item>@string/geographical</item>
+        <item>@string/psychological</item>
+        <item>@string/astrological</item>
+        <item>@string/other</item>
+    </string-array>
+
+</resources>
