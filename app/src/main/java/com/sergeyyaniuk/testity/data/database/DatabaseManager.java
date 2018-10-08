@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DatabaseManager {
 
@@ -70,6 +72,12 @@ public class DatabaseManager {
                 return true;
             }
         });
+    }
+
+    public Observable<Long> insertTestWithId(final Test test){
+        return Observable.fromCallable(() -> testityDatabase.testDao().insertWithId(test))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<Boolean> updateTest(final Test test){
