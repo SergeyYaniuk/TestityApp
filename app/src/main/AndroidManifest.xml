@@ -15,10 +15,10 @@
         android:theme="@style/AppMainTheme">
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/AppMainTheme"></activity>
+            android:theme="@style/AppMainTheme" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/AppMainTheme"></activity>
+            android:theme="@style/AppMainTheme" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/AppMainTheme.Launcher">
@@ -69,7 +69,8 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.create.CreateTestActivity"></activity>
+        <activity android:name=".ui.create.CreateTestActivity" />
+        <activity android:name=".ui.pass.PassTestActivity"></activity>
     </application>
 
 </manifest>
