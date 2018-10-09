@@ -69,8 +69,13 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.create.CreateTestActivity" />
-        <activity android:name=".ui.pass.PassTestActivity"></activity>
+        <activity
+            android:name=".ui.create.CreateTestActivity"
+            android:theme="@style/ActionBarTheme"/>
+        <activity
+            android:name=".ui.pass.PassTestActivity">
+
+        </activity>
     </application>
 
 </manifest>

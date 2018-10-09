@@ -70,6 +70,7 @@
                     android:layout_weight="3"
                     android:layout_height="32dp"
                     android:gravity="start">
+
                 </Spinner>
 
             </LinearLayout>

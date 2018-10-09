@@ -58,4 +58,8 @@
     <string name="hint_description_test">Description</string>
     <string name="category">Category</string>
     <string name="available_online">Available online</string>
+    
+    <string name="done">Done</string>
+    <string name="add">Add</string>
+    <string name="numbers_of_questions">%s questions</string>
 </resources>
