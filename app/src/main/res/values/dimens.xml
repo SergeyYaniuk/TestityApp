@@ -13,6 +13,7 @@
     <dimen name="margin_middle">8dp</dimen>
     <dimen name="margin_large">12dp</dimen>
     <dimen name="margin_xlarge">18dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
     <!--padding!-->
     <dimen name="padding_small">4dp</dimen>

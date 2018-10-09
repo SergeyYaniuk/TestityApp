@@ -3,13 +3,15 @@ package com.sergeyyaniuk.testity.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "questions",
         foreignKeys = @ForeignKey(entity = Test.class,
-                parentColumns = "id", childColumns = "test_id", onDelete = CASCADE, onUpdate = CASCADE))
+                parentColumns = "id", childColumns = "test_id", onDelete = CASCADE, onUpdate = CASCADE),
+        indices = {@Index(value = "id", unique = true), @Index("question_text"), @Index("test_id")})
 public class Question {
 
     @PrimaryKey(autoGenerate = true)

@@ -54,5 +54,8 @@
     <string name="astrological">Astrological</string>
     <string name="other">Other</string>
 
-
+    <string name="title_hint">Test name</string>
+    <string name="hint_description_test">Description</string>
+    <string name="category">Category</string>
+    <string name="available_online">Available online</string>
 </resources>

@@ -2,9 +2,10 @@ package com.sergeyyaniuk.testity.data.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "users")
+@Entity(tableName = "users", indices = {@Index(value = "id", unique = true)})
 public class User {
 
     @PrimaryKey

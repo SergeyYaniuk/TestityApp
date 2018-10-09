@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.data.database.dao;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -10,6 +11,7 @@ import com.sergeyyaniuk.testity.data.model.User;
 
 import java.util.List;
 
+@Dao
 public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -25,7 +27,7 @@ public interface UserDao {
     void update(User user);
 
     @Update
-    long updateWithId(User user);
+    int updateWithNumber(User user);
 
     @Update
     void updateMany(List<User> users);
@@ -34,7 +36,7 @@ public interface UserDao {
     void delete(User user);
 
     @Delete
-    long deleteWithId(User user);
+    int deleteWithNumber(User user);
 
     @Delete
     void deleteMany(List<User> users);
