@@ -62,4 +62,15 @@
     <string name="done">Done</string>
     <string name="add">Add</string>
     <string name="numbers_of_questions">%s questions</string>
+
+    <string name="type_your_question">Type your question here</string>
+    <string name="explanation">Write your answers below and mark correct.</string>
+    <string name="answer_1">Answer #1</string>
+    <string name="answer_2">Answer #2</string>
+    <string name="answer_3">Answer #3</string>
+    <string name="answer_4">Answer #4</string>
+    <string name="answer_5">Answer #5</string>
+    <string name="answer_6">Answer #6</string>
+    <string name="answer_7">Answer #7</string>
+    <string name="answer_8">Answer #8</string>
 </resources>
