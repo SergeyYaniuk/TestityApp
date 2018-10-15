@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:rowCount="3"
+    android:padding="4dp">
+
+    <LinearLayout
+        android:id="@+id/create_test_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/buttons_background">
+
+        <ImageView
+            android:id="@+id/create_test_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:padding="4dp"
+            android:src="@drawable/create_test_image" />
+
+        <TextView
+            android:id="@+id/create_test_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="4dp"
+            android:text="@string/create_test"
+            android:textColor="@color/color_white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pass_test_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_column="1"
+        android:layout_row="0"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/buttons_background">
+
+        <ImageView
+            android:id="@+id/pass_test_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:padding="4dp"
+            android:src="@drawable/pass_test_image" />
+
+        <TextView
+            android:id="@+id/pass_test_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="4dp"
+            android:text="@string/pass_test"
+            android:textColor="@color/color_white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/results_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/buttons_background">
+
+        <ImageView
+            android:id="@+id/results_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:padding="4dp"
+            android:src="@drawable/results_image" />
+
+        <TextView
+            android:id="@+id/results_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="4dp"
+            android:text="@string/results"
+            android:textColor="@color/color_white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/find_test_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_column="1"
+        android:layout_row="1"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/buttons_background">
+
+        <ImageView
+            android:id="@+id/find_test_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:padding="4dp"
+            android:src="@drawable/find_test_image" />
+
+        <TextView
+            android:id="@+id/find_test_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="4dp"
+            android:text="@string/find_test"
+            android:textColor="@color/color_white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/invite_friend_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_column="0"
+        android:layout_row="2"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/buttons_background">
+
+        <ImageView
+            android:id="@+id/invite_friend_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:padding="4dp"
+            android:src="@drawable/invite_friend_image" />
+
+        <TextView
+            android:id="@+id/invite_friend_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="4dp"
+            android:text="@string/invite_friends"
+            android:textColor="@color/color_white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rateus_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_column="1"
+        android:layout_row="2"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/buttons_background">
+
+        <ImageView
+            android:id="@+id/rateus_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:padding="4dp"
+            android:src="@drawable/rate_us_image" />
+
+        <TextView
+            android:id="@+id/rateus_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="4dp"
+            android:text="@string/rate_us"
+            android:textColor="@color/color_white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+</GridLayout>

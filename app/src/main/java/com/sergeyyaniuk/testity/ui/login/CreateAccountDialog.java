@@ -20,6 +20,8 @@ import butterknife.OnClick;
 
 public class CreateAccountDialog extends DialogFragment{
 
+    @BindView(R.id.name_edit_text)
+    EditText mNameEditText;
     @BindView(R.id.email_edit_text)
     EditText mEmailEditText;
     @BindView(R.id.password_edit_text)

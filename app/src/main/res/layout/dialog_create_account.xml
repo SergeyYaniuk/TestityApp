@@ -2,62 +2,131 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="32dp"
     android:orientation="vertical"
-    android:padding="@dimen/margin_large"
-    android:layout_marginStart="@dimen/margin_large"
-    android:layout_marginEnd="@dimen/margin_large"
-    android:layout_margin="@dimen/margin_large"
-    android:gravity="center">
+    android:elevation="16dp"
+    android:background="@drawable/button_not_pressed">
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:background="@drawable/background_user"
+        android:layout_marginTop="28dp"
+        android:layout_gravity="center"
+        android:padding="8dp"
+        android:elevation="8dp"
+        android:src="@drawable/user" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:text="@string/create_account"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/create_account_text"
         android:textAllCaps="true"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:background="@color/colorPrimary"/>
+        android:textSize="20sp"
+        android:textColor="@color/color_white"
+        android:gravity="center"/>
 
-    <EditText
-        android:id="@+id/email_edit_text"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_middle"
-        android:layout_marginEnd="@dimen/margin_middle"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_middle"
-        android:padding="@dimen/margin_small"
-        android:inputType="textEmailAddress"
-        android:hint="@string/email_hint" />
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/name_input_layout"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:elevation="4dp"
+        android:background="@drawable/background_edit_text">
 
-    <EditText
-        android:id="@+id/password_edit_text"
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_hint"
+            android:imeOptions="actionNext"
+            android:cursorVisible="true"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_middle"
-        android:layout_marginEnd="@dimen/margin_middle"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_middle"
-        android:padding="@dimen/margin_small"
-        android:inputType="textPassword"
-        android:hint="@string/password_hint" />
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/email_input_layout"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:elevation="4dp"
+        android:background="@drawable/background_edit_text">
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_hint"
+            android:imeOptions="actionNext"
+            android:cursorVisible="true"
+            android:inputType="textEmailAddress"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/password_input_layout"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:elevation="4dp"
+        android:background="@drawable/background_edit_text">
+
+        <EditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:imeOptions="actionDone"
+            android:cursorVisible="true"
+            android:inputType="textPassword"/>
+    </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="end"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/ok_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ok"/>
 
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
+            android:textSize="12sp"
+            android:elevation="8dp"
+            android:padding="4dp"
+            android:background="@drawable/background_cancel_button"
             android:text="@string/cancel"/>
+
+        <Button
+            android:id="@+id/ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:elevation="8dp"
+            android:padding="4dp"
+            android:background="@drawable/background_cancel_button"
+            android:text="@string/ok"/>
     </LinearLayout>
 
 </LinearLayout>

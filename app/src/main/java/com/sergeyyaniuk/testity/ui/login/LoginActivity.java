@@ -48,9 +48,9 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     @BindView(R.id.login_button)
     ImageButton mLoginButton;
     @BindView(R.id.google_button)
-    SignInButton mGoogleButton;
+    Button mGoogleButton;
     @BindView(R.id.facebook_button)
-    LoginButton mFacebookButton;
+    Button mFacebookButton;
     @BindView(R.id.create_account_tv)
     TextView mCreateTextView;
 
@@ -67,9 +67,6 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         setContentView(R.layout.activity_login);
         App.get(this).getAppComponent().createLoginComponent(new LoginActivityModule(this)).inject(this);
         ButterKnife.bind(this);
-
-        //customize buttons
-        //mGoogleButton.setSize(SignInButton.SIZE_ICON_ONLY);
     }
 
     @Override

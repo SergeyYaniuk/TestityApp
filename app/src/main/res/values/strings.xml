@@ -21,7 +21,9 @@
     <string name="login_button">LOGIN</string>
     <string name="sign_in">SIGN IN</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="create_account">Create account</string>
+    <string name="create_account">No account yet? Create one</string>
+    <string name="create_account_text">Create Account</string>
+    <string name="name_hint">Your name</string>
     <string name="loading">Loading…</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>

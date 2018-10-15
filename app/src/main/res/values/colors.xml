@@ -2,10 +2,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#29abe2</color>
     <color name="colorPrimaryDark">#01579b</color>
-    <color name="colorAccent">#76FF03</color>
+    <color name="colorAccent">#64C37D</color>
     <color name="background_material_light" tools:override = "true" >#f5f5f5</color>
     <color name="green">#64C37D</color>
     <color name="gray">#A9A8AE</color>
     <color name="color_white">#FFFFFF</color>
     <color name="black_overlay">#66000000</color>
+    <color name="black_50">#96000000</color>
+    <color name="black30">#2a000000</color>
+    <color name="light_blue">#e1f5fe</color>
 </resources>

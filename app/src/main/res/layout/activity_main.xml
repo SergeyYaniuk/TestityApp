@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    android:id="@+id/mainLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.main.MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -19,252 +21,22 @@
             android:id="@+id/user_icon"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
             android:src="@drawable/user"/>
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="true"
             android:textSize="18sp"
+            android:padding="4dp"
             android:fontFamily="@font/source_sans"
             android:textColor="@color/color_white"/>
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_marginStart="@dimen/margin_middle"
-        android:layout_marginTop="@dimen/margin_middle"
-        android:layout_marginEnd="@dimen/margin_middle"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/create_test_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_marginStart="@dimen/margin_middle"
-            android:layout_marginTop="@dimen/margin_middle"
-            android:layout_marginEnd="@dimen/margin_middle"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:layout_weight="1"
-            android:background="@drawable/buttons_background"
-            android:elevation="@dimen/elevation"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/create_test_image"
-                android:layout_width="@dimen/image_width"
-                android:layout_height="@dimen/image_height"
-                android:padding="@dimen/padding_small"
-                android:src="@drawable/create_test_image" />
-
-            <TextView
-                android:id="@+id/create_test_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:padding="@dimen/padding_small"
-                android:text="@string/create_test"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/pass_test_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_marginStart="@dimen/margin_middle"
-            android:layout_marginTop="@dimen/margin_middle"
-            android:layout_marginEnd="@dimen/margin_middle"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:layout_weight="1"
-            android:background="@drawable/buttons_background"
-            android:elevation="@dimen/elevation"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/pass_test_image"
-                android:layout_width="@dimen/image_width"
-                android:layout_height="@dimen/image_height"
-                android:padding="@dimen/padding_small"
-                android:src="@drawable/pass_test_image" />
-
-            <TextView
-                android:id="@+id/pass_test_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:padding="@dimen/padding_small"
-                android:text="@string/pass_test"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_marginStart="@dimen/margin_middle"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_middle"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/results_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            android:background="@drawable/buttons_background"
-            android:elevation="@dimen/elevation"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/results_image"
-                android:layout_width="@dimen/image_width"
-                android:layout_height="@dimen/image_height"
-                android:padding="@dimen/padding_small"
-                android:src="@drawable/results_image" />
-
-            <TextView
-                android:id="@+id/results_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:padding="@dimen/padding_small"
-                android:text="@string/results"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/find_test_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            android:background="@drawable/buttons_background"
-            android:elevation="@dimen/elevation"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/find_test_image"
-                android:layout_width="@dimen/image_width"
-                android:layout_height="@dimen/image_height"
-                android:padding="@dimen/padding_small"
-                android:src="@drawable/find_test_image" />
-
-            <TextView
-                android:id="@+id/find_test_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:padding="@dimen/padding_small"
-                android:text="@string/find_test"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_marginStart="@dimen/margin_middle"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_middle"
-        android:layout_marginBottom="@dimen/margin_middle"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/invite_friend_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_marginStart="@dimen/margin_middle"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_middle"
-            android:layout_marginBottom="@dimen/margin_middle"
-            android:layout_weight="1"
-            android:background="@drawable/buttons_background"
-            android:elevation="@dimen/elevation"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/invite_friend_image"
-                android:layout_width="@dimen/image_width"
-                android:layout_height="@dimen/image_height"
-                android:padding="@dimen/padding_small"
-                android:src="@drawable/invite_friend_image" />
-
-            <TextView
-                android:id="@+id/invite_friend_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:padding="@dimen/padding_small"
-                android:text="@string/invite_friends"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/rateus_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_marginStart="@dimen/margin_middle"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_middle"
-            android:layout_marginBottom="@dimen/margin_middle"
-            android:layout_weight="1"
-            android:background="@drawable/buttons_background"
-            android:elevation="@dimen/elevation"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/rateus_image"
-                android:layout_width="@dimen/image_width"
-                android:layout_height="@dimen/image_height"
-                android:padding="@dimen/padding_small"
-                android:src="@drawable/rate_us_image" />
-
-            <TextView
-                android:id="@+id/rateus_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:padding="@dimen/padding_small"
-                android:text="@string/rate_us"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-    </LinearLayout>
+    <include layout="@layout/content_main"/>
 
 </LinearLayout>

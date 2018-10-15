@@ -7,7 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground" tools:override = "true" >@color/background_material_light</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
     </style>
 
     <!-- LaunchActivity theme !-->
@@ -16,21 +15,13 @@
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
-    <!--LoginActivity theme !-->
-    <style name="TextStyle">
-        <item name="android:layout_marginTop">2dp</item>
-        <item name="android:layout_marginBottom">2dp</item>
-        <item name="android:layout_marginLeft">2dp</item>
-        <item name="android:layout_marginRight">2dp</item>
-        <item name="android:textColor">@color/black_overlay</item>
-    </style>
-
-    <!--Create test activity !-->
+    <!--Main, CreateTest activity !-->
     <style name="ActionBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground" tools:override = "true" >@color/background_material_light</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="ActionBarTheme.AppBarOverlay"
