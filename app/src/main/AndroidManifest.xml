@@ -71,6 +71,7 @@
         </activity>
         <activity
             android:name=".ui.create.CreateTestActivity"
+            android:label="@string/create_test"
             android:theme="@style/ActionBarTheme"/>
         <activity
             android:name=".ui.pass.PassTestActivity">
