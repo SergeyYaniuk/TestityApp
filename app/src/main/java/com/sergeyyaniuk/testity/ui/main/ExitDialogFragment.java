@@ -1,16 +1,28 @@
 package com.sergeyyaniuk.testity.ui.main;
 
-import android.app.Dialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.sergeyyaniuk.testity.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ExitDialogFragment extends DialogFragment {
+
+    @BindView(R.id.ok_button)
+    Button mOkButton;
+    @BindView(R.id.cancel_button)
+    Button mCancelButton;
 
     ExitDialogListener mListener;
 
@@ -23,26 +35,24 @@ public class ExitDialogFragment extends DialogFragment {
         //required empty constructor
     }
 
-    @NonNull
+    @Nullable
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setTitle(R.string.sign_out);
-        alertDialogBuilder.setMessage(R.string.sign_out_message);
-        alertDialogBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                mListener.exit();
-                dialogInterface.cancel();
-            }
-        });
-        alertDialogBuilder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-        return alertDialogBuilder.create();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_exit_fragment, container);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @OnClick(R.id.ok_button)
+    void positiveButton(){
+        mListener.exit();
+        ExitDialogFragment.this.getDialog().dismiss();
+    }
+
+    @OnClick(R.id.cancel_button)
+    void negativeButton(){
+        ExitDialogFragment.this.getDialog().dismiss();
     }
 
     @Override

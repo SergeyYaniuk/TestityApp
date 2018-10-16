@@ -27,7 +27,7 @@
     <string name="loading">Loading…</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
-    <string name="send_new_password">SEND NEW PASSWORD</string>
+    <string name="reset_password">reset password</string>
     <string name="auth_successful">Authentication successful</string>
     <string name="auth_failed">Authentication failed</string>
     <string name="pass_sent">Link to reset password have been sent to your email</string>

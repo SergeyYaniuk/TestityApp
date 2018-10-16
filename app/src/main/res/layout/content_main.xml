@@ -23,7 +23,7 @@
         android:gravity="center"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/buttons_background">
+        android:background="@drawable/buttons_main_activity">
 
         <ImageView
             android:id="@+id/create_test_image"
@@ -59,7 +59,7 @@
         android:gravity="center"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/buttons_background">
+        android:background="@drawable/buttons_main_activity">
 
         <ImageView
             android:id="@+id/pass_test_image"
@@ -95,7 +95,7 @@
         android:gravity="center"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/buttons_background">
+        android:background="@drawable/buttons_main_activity">
 
         <ImageView
             android:id="@+id/results_image"
@@ -131,7 +131,7 @@
         android:gravity="center"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/buttons_background">
+        android:background="@drawable/buttons_main_activity">
 
         <ImageView
             android:id="@+id/find_test_image"
@@ -168,7 +168,7 @@
         android:gravity="center"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/buttons_background">
+        android:background="@drawable/buttons_main_activity">
 
         <ImageView
             android:id="@+id/invite_friend_image"
@@ -204,7 +204,7 @@
         android:gravity="center"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/buttons_background">
+        android:background="@drawable/buttons_main_activity">
 
         <ImageView
             android:id="@+id/rateus_image"
