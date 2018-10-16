@@ -10,7 +10,7 @@
     <item
         android:id="@+id/action_save_questions"
         android:enabled="true"
-        android:icon="@drawable/ic_add_white_24dp"
+        android:icon="@drawable/add_button"
         android:title="@string/add"
         app:showAsAction="ifRoom" />
 </menu>

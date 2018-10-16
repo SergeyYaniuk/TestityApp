@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,20 +12,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/questionTextInputLayout">
+                android:id="@+id/questionTextInputLayout"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:background="@drawable/background_edit_text">
 
                 <EditText
                     android:id="@+id/question_editText"
+                    android:hint="@string/type_your_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/type_your_question"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -33,12 +41,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/explanation"
+                android:textColor="@color/color_white"
+                android:layout_marginTop="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:elevation="4dp"
+                android:textSize="18sp"
                 android:gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/light_blue" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer1TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text">
 
                 <CheckBox
                     android:id="@+id/answer1_checkbox"
@@ -51,13 +77,21 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_1"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer2TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text">
 
                 <CheckBox
                     android:id="@+id/answer2_checkbox"
@@ -70,20 +104,39 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_2"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/add_answer3"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_add_white_24dp"/>
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button_add">
+
+                <ImageButton
+                    android:id="@+id/add_answer3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/add_button"
+                    android:background="@color/trans"/>
+
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer3TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text"
                 android:visibility="gone">
 
                 <CheckBox
@@ -97,21 +150,39 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_3"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/add_answer4"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:src="@drawable/ic_add_white_24dp"/>
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button_add">
+
+                <ImageButton
+                    android:id="@+id/add_answer4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/add_button"
+                    android:background="@color/trans"/>
+
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer4TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text"
                 android:visibility="gone">
 
                 <CheckBox
@@ -125,21 +196,39 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_4"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/add_answer5"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:src="@drawable/ic_add_white_24dp"/>
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button_add">
+
+                <ImageButton
+                    android:id="@+id/add_answer5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/add_button"
+                    android:background="@color/trans"/>
+
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer5TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text"
                 android:visibility="gone">
 
                 <CheckBox
@@ -153,21 +242,39 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_5"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/add_answer6"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:src="@drawable/ic_add_white_24dp"/>
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button_add">
+
+                <ImageButton
+                    android:id="@+id/add_answer6"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/add_button"
+                    android:background="@color/trans"/>
+
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer6TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text"
                 android:visibility="gone">
 
                 <CheckBox
@@ -181,21 +288,39 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_6"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/add_answer7"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:src="@drawable/ic_add_white_24dp"/>
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button_add">
+
+                <ImageButton
+                    android:id="@+id/add_answer7"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/add_button"
+                    android:background="@color/trans"/>
+
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer7TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text"
                 android:visibility="gone">
 
                 <CheckBox
@@ -209,21 +334,39 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_7"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/add_answer8"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:src="@drawable/ic_add_white_24dp"/>
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button_add">
+
+                <ImageButton
+                    android:id="@+id/add_answer8"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/add_button"
+                    android:background="@color/trans"/>
+
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer8TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_edit_text"
                 android:visibility="gone">
 
                 <CheckBox
@@ -237,20 +380,17 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/answer_8"
                     android:imeOptions="actionDone"
-                    android:inputType="text"/>
+                    android:cursorVisible="true"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/saveFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/done"/>
         </LinearLayout>
     </ScrollView>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/color_white"
-        app:itemTextColor="@color/color_white"
-        app:menu="@menu/add_edit_question_menu" />
-
 </RelativeLayout>
