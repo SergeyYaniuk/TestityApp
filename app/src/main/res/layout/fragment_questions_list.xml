@@ -1,37 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/numbers_textView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/color_white"
-        android:text="@string/numbers_of_questions" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/numbers_textView">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/questionsRecView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </ScrollView>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/questionsRecView"
+            android:padding="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_button_add">
+
+            <ImageButton
+                android:id="@+id/add_answer3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/add_button"
+                android:background="@color/trans"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/saveFloatingActionButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/color_white"
-        app:itemTextColor="@color/color_white"
-        app:menu="@menu/questions_list_bottom_menu" />
-
-</RelativeLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/done"/>
+</FrameLayout>
