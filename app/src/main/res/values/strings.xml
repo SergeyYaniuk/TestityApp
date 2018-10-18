@@ -76,4 +76,7 @@
     <string name="answer_6">Answer #6</string>
     <string name="answer_7">Answer #7</string>
     <string name="answer_8">Answer #8</string>
+
+    <string name="item_removed">Item was removed from the list</string>
+    <string name="undo">UNDO</string>
 </resources>
