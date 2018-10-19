@@ -17,8 +17,11 @@ import com.sergeyyaniuk.testity.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class ForgotPasswordDialog extends DialogFragment {
+
+    private Unbinder unbinder;
 
     @BindView(R.id.email_edit_text)
     EditText mEmail;
@@ -42,7 +45,7 @@ public class ForgotPasswordDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_forgot_password, container);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -64,6 +67,18 @@ public class ForgotPasswordDialog extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mListener = (ForgotDialogListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     private boolean validateForm() {

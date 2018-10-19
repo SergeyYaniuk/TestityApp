@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Question;
@@ -23,15 +24,21 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /** Need to add comunication with Database */
 public class QuestionsListFragment extends Fragment {
+
+    private Unbinder unbinder;
 
     @BindView(R.id.questionsRecView)
     RecyclerView mRecyclerView;
 
     @BindView(R.id.questions_list_layout)
     FrameLayout mFrameLayout;
+
+    @BindView(R.id.add_question_button)
+    ImageButton mAddQuestionButton;
 
     ArrayList<Question> mQuestions;
 
@@ -58,7 +65,7 @@ public class QuestionsListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_questions_list, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mQuestions = new ArrayList<>();
         updateQuestions();
@@ -110,5 +117,11 @@ public class QuestionsListFragment extends Fragment {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(questionsSwipeCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

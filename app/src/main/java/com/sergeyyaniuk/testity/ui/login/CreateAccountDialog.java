@@ -17,8 +17,11 @@ import com.sergeyyaniuk.testity.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class CreateAccountDialog extends DialogFragment{
+
+    private Unbinder unbinder;
 
     @BindView(R.id.name_edit_text)
     EditText mNameEditText;
@@ -46,7 +49,7 @@ public class CreateAccountDialog extends DialogFragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_create_account, container);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -68,6 +71,18 @@ public class CreateAccountDialog extends DialogFragment{
     public void onAttach(Context context) {
         super.onAttach(context);
         mListener = (CreateDialogListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     private boolean validateForm() {

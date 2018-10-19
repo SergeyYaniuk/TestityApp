@@ -16,8 +16,11 @@ import com.sergeyyaniuk.testity.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class ExitDialogFragment extends DialogFragment {
+
+    private Unbinder unbinder;
 
     @BindView(R.id.ok_button)
     Button mOkButton;
@@ -40,7 +43,7 @@ public class ExitDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_exit_fragment, container);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -59,5 +62,17 @@ public class ExitDialogFragment extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mListener = (ExitDialogListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

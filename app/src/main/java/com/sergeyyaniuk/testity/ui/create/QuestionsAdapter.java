@@ -12,6 +12,9 @@ import com.sergeyyaniuk.testity.data.model.Question;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
     private ArrayList<Question> mQuestions;
@@ -63,11 +66,12 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.question_title)
         private TextView mTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.question_title);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
