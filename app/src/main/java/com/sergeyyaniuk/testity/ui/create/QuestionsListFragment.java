@@ -57,7 +57,7 @@ public class QuestionsListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);  //Fragment has menu
     }
 
     @Nullable

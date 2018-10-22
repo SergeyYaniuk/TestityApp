@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.create;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import butterknife.Unbinder;
 public class AddEditQuestionFragment extends Fragment {
 
     private Unbinder unbinder;
+    AddEditQuestionListener mListener;
 
     @BindView(R.id.question_editText)
     EditText mQuestionEditText;
@@ -49,12 +51,32 @@ public class AddEditQuestionFragment extends Fragment {
     @BindView(R.id.add_answer7) ImageButton addAnswer7Button;
     @BindView(R.id.add_answer8) ImageButton addAnswer8Button;
 
+    public interface AddEditQuestionListener{
+        void onAddEditQuestionCompleted();
+    }
+
+    public AddEditQuestionFragment(){
+        // Required empty public constructor
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_edit_question, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mListener = (AddEditQuestionListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Override

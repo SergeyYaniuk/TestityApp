@@ -7,9 +7,11 @@ import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
 public class CreateTestPresenter extends BasePresenter {
 
+    private CreateTestActivity mActivity;
     private DatabaseManager mDatabase;
 
-    public CreateTestPresenter(DatabaseManager database) {
+    public CreateTestPresenter(CreateTestActivity activity, DatabaseManager database) {
+        this.mActivity = activity;
         this.mDatabase = database;
     }
 
