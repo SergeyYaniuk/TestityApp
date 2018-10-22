@@ -36,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog.show();
     }
 
-    public void hidePregressDialog(){
+    public void hideProgressDialog(){
         if (mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
         }
@@ -51,6 +51,6 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void onStop() {
         super.onStop();
-        hidePregressDialog();
+        hideProgressDialog();
     }
 }

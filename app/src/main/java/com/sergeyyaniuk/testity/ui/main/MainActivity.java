@@ -21,7 +21,11 @@ import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.module.MainActivityModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
+import com.sergeyyaniuk.testity.ui.create.CreateTestActivity;
+import com.sergeyyaniuk.testity.ui.find.FindTestActivity;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
+import com.sergeyyaniuk.testity.ui.pass.PassTestActivity;
+import com.sergeyyaniuk.testity.ui.results.ResultsActivity;
 
 import javax.inject.Inject;
 
@@ -41,6 +45,15 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
     TextView mUserName;
     @BindView(R.id.user_icon)
     ImageView mUserPhoto;
+
+    @BindView(R.id.create_test_button)
+    LinearLayout mCreateTest;
+    @BindView(R.id.pass_test_button)
+    LinearLayout mPassTest;
+    @BindView(R.id.results_button)
+    LinearLayout mResults;
+    @BindView(R.id.find_test_button)
+    LinearLayout mFindTest;
     @BindView(R.id.rateus_button)
     LinearLayout mRateUs;
     @BindView(R.id.invite_friend_button)
@@ -48,8 +61,6 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
 
     @Inject
     MainPresenter mPresenter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +76,26 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         //set user name in toolbar
         mPresenter.setUserName(mUserName);
         mPresenter.getInvitation();  //get invitation if exist
+    }
+
+    @OnClick(R.id.create_test_button)
+    public void onCreateTest(){
+        startActivity(new Intent(MainActivity.this, CreateTestActivity.class));
+    }
+
+    @OnClick(R.id.pass_test_button)
+    public void onPassTest(){
+        startActivity(new Intent(MainActivity.this, PassTestActivity.class));
+    }
+
+    @OnClick(R.id.results_button)
+    public void onResults(){
+        startActivity(new Intent(MainActivity.this, ResultsActivity.class));
+    }
+
+    @OnClick(R.id.find_test_button)
+    public void onFindTest(){
+        startActivity(new Intent(MainActivity.this, FindTestActivity.class));
     }
 
     @OnClick(R.id.invite_friend_button)

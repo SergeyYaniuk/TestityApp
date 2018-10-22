@@ -46,12 +46,12 @@ public class LoginPresenter extends BasePresenter{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                mActivity.hidePregressDialog();
+                                mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_successful);
                                 mActivity.startIntent();
                             }
                             else {
-                                mActivity.hidePregressDialog();
+                                mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_failed);
                             }
                         }
@@ -90,12 +90,12 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
                         }
                         else {
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_failed);
                         }
                     }
@@ -113,12 +113,12 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
                         }
                         else {
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_failed);
                         }
                     }
@@ -133,12 +133,12 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
                         }
                         else {
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_failed);
                         }
                     }
@@ -153,11 +153,11 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.pass_sent);
                         }
                         else {
-                            mActivity.hidePregressDialog();
+                            mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.unable_send);
                         }
                     }

@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-/** Need to add comunication with Database */
+/** Need to add communication with Database */
 public class QuestionsListFragment extends Fragment {
 
     private Unbinder unbinder;

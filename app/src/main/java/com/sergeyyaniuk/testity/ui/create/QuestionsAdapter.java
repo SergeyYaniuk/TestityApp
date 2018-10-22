@@ -67,7 +67,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.question_title)
-        private TextView mTitle;
+        TextView mTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
