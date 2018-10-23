@@ -29,5 +29,15 @@ public class CreateTestPresenter extends BasePresenter {
                 ));
     }
 
-
+    //find test by id
+    public void loadTest(final long testId){
+        getCompositeDisposable().add(mDatabase.getTestById(testId).subscribe(
+                test -> {
+                    //need to add implementation what to do if test exist and user want to continue
+                },
+                throwable -> {
+                    //exception
+                }
+        ));
+    }
 }

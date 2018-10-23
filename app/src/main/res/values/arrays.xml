@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="language_list">
+    <string-array name="language_list_tran">
         <item>Chinese</item>
         <item>Spanish</item>
         <item>English</item>
@@ -18,7 +18,7 @@
         <item>Other</item>
     </string-array>
 
-    <string-array name="language_list_tran">
+    <string-array name="language_list">
         <item>中文</item>
         <item>Español</item>
         <item>English</item>

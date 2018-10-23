@@ -19,7 +19,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CreateTestActivity extends BaseActivity implements NotCompletedTestDialog.NotCompletedTestListener {
+public class CreateTestActivity extends BaseActivity implements NotCompletedTestDialog.NotCompletedTestListener,
+        CreateTestFragment.CreateTestListener {
 
     @BindView(R.id.create_toolbar)
     Toolbar mToolbar;
@@ -80,7 +81,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     //onClick "continue" in NotCompletedTestDialog
     @Override
     public void onContinueEditTest() {
-
+        mPresenter.loadTest(test_id); //need to add implementation, load to create test fragment
     }
 
     //onClick "create new" in NotCompletedTestDialog
@@ -91,6 +92,12 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragmentContainer, mCreateTestFragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onCreateTestCompleted(String title, String category, String language, boolean isOnline,
+                                      String description) {
+        //need to add implementation 
     }
 
     @Override
