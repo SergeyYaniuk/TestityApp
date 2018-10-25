@@ -13,13 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class ForgotPasswordDialog extends DialogFragment {
+public class ForgotPasswordDialog extends BaseDialogNoTitle {
 
     private Unbinder unbinder;
 

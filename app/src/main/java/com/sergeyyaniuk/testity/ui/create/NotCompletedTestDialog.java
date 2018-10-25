@@ -11,13 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class NotCompletedTestDialog extends DialogFragment {
+public class NotCompletedTestDialog extends BaseDialogNoTitle {
 
     private Unbinder unbinder;
     NotCompletedTestListener mListener;

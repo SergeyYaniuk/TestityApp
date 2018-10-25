@@ -1,6 +1,7 @@
 package com.sergeyyaniuk.testity.ui.main;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,16 +10,19 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class ExitDialogFragment extends DialogFragment {
+public class ExitDialogFragment extends BaseDialogNoTitle {
 
     private Unbinder unbinder;
 

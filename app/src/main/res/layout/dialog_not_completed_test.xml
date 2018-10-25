@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="32dp"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:padding="16dp"
     android:elevation="16dp"
     android:background="@drawable/buttons_main_activity_not_pressed">
 

@@ -94,7 +94,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageButton
+        <com.google.android.gms.common.SignInButton
             android:id="@+id/google_button"
             android:layout_width="54dp"
             android:layout_height="54dp"
@@ -103,7 +103,7 @@
             android:background="@color/colorPrimary"
             app:srcCompat="@drawable/google_plus"/>
 
-        <ImageButton
+        <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook_button"
             android:layout_width="54dp"
             android:layout_height="54dp"
@@ -122,7 +122,5 @@
         android:focusable="true"
         android:textColor="@color/color_white"
         android:text="@string/create_account"/>
-
-
 
 </LinearLayout>

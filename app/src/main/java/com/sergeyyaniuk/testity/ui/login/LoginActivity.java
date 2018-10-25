@@ -46,11 +46,11 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     @BindView(R.id.forgot_password)
     TextView mForgotTextView;
     @BindView(R.id.login_button)
-    ImageButton mLoginButton;
+    Button mLoginButton;
     @BindView(R.id.google_button)
-    Button mGoogleButton;
+    SignInButton mGoogleButton;
     @BindView(R.id.facebook_button)
-    Button mFacebookButton;
+    LoginButton mFacebookButton;
     @BindView(R.id.create_account_tv)
     TextView mCreateTextView;
 
@@ -147,6 +147,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     public void showCreateDialog(){
         DialogFragment createAccountDialog = new CreateAccountDialog();
+        //createAccountDialog.setCancelable(false);
         createAccountDialog.show(getSupportFragmentManager(), "createAccountDialog");
     }
 
