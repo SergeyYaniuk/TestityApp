@@ -99,17 +99,27 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:layout_marginEnd="16dp"
-            android:scaleType="centerCrop"
-            android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/google_plus"/>
+            android:scaleType="centerCrop"/>
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/facebook_button"
+        <LinearLayout
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:scaleType="centerCrop"
-            android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/facebook"/>
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/facebookView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/facebook"
+                android:text=""/>
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebook_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

@@ -6,6 +6,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,6 +35,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class LoginActivity extends BaseActivity implements CreateAccountDialog.CreateDialogListener,
         ForgotPasswordDialog.ForgotDialogListener{
@@ -59,6 +62,9 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     // just for facebook login
     private CallbackManager mCallbackManager;
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
+    String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         setContentView(R.layout.activity_login);
         App.get(this).getAppComponent().createLoginComponent(new LoginActivityModule(this)).inject(this);
         ButterKnife.bind(this);
+        changeGoogleButtonBackground(mGoogleButton); //change google button image
     }
 
     @Override
@@ -76,6 +83,20 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(EMAIL, email);
+        outState.putString(PASSWORD, password);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mEmail.setText(email);
+        mPassword.setText(password);
     }
 
     @OnClick(R.id.login_button)
@@ -170,5 +191,36 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     public void startIntent(){
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    }
+
+    private void changeGoogleButtonBackground(SignInButton signInButton){
+        for (int i = 0; i < signInButton.getChildCount(); i++) {
+            View v = signInButton.getChildAt(i);
+
+            if (v instanceof TextView){
+                TextView tv = (TextView) v;
+                tv.setText(" ");
+                tv.setBackgroundDrawable(getResources().getDrawable(
+                        R.drawable.google_plus));
+                return;
+            }
+        }
+    }
+
+    @OnClick(R.id.facebookView)
+    public void onFacebookClick(View v){
+        if (v.getId() == R.id.facebookView){
+            mFacebookButton.performClick();
+        }
+    }
+
+    @OnTextChanged(R.id.email_edit_text)
+    public void emailChanged(){
+        email = mEmail.getText().toString();
+    }
+
+    @OnTextChanged(R.id.password_edit_text)
+    public void passwordChanged(){
+        password = mPassword.getText().toString();
     }
 }

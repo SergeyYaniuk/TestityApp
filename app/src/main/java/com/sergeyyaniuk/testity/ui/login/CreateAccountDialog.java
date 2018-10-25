@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 public class CreateAccountDialog extends BaseDialogNoTitle {
@@ -36,6 +36,10 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
     Button mCancelButton;
 
     CreateDialogListener mListener;
+    String mName, mEmail, mPassword;
+    private static final String NAME = "name";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
 
     public interface CreateDialogListener{
         void addNewUser(String email, String password);
@@ -52,6 +56,25 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
         View view = inflater.inflate(R.layout.dialog_create_account, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(NAME, mName);
+        outState.putString(EMAIL, mEmail);
+        outState.putString(PASSWORD, mPassword);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            mNameEditText.setText(mName);
+            mEmailEditText.setText(mEmail);
+            mPasswordEditText.setText(mPassword);
+        }
     }
 
     @OnClick(R.id.ok_button)
@@ -106,5 +129,20 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
         }
 
         return valid;
+    }
+
+    @OnTextChanged(R.id.name_edit_text)
+    public void nameChanged(){
+        mName = mNameEditText.getText().toString();
+    }
+
+    @OnTextChanged(R.id.email_edit_text)
+    public void emailChanged(){
+        mEmail = mEmailEditText.getText().toString();
+    }
+
+    @OnTextChanged(R.id.password_edit_text)
+    public void passwordChanged(){
+        mPassword = mPasswordEditText.getText().toString();
     }
 }
