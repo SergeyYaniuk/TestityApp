@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.create;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -13,6 +14,7 @@ import com.sergeyyaniuk.testity.di.module.CreateTestActivityModule;
 import com.sergeyyaniuk.testity.di.module.LoginActivityModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
+import com.sergeyyaniuk.testity.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -45,8 +47,6 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.create_test);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
         checkTestStatus();
     }
 

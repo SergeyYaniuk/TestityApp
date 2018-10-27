@@ -104,9 +104,6 @@ public class LoginPresenter extends BasePresenter{
 
     //Auth with Email
     protected void loginWithEmail(final String email, final String password){
-        if (!mActivity.validateForm()) {
-            return;
-        }
         mActivity.showProgressDialog();
         mAuthentication.getUserWithEmail(email, password)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {

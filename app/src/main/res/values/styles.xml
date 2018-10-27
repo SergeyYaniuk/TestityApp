@@ -15,16 +15,6 @@
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
-    <!--Main, CreateTest activity !-->
-    <style name="ActionBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/light_blue</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/black_50</item>
-    </style>
-
     <style name="ActionBarTheme.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ActionBarTheme.PopupOverlay"

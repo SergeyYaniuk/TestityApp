@@ -4,7 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +34,8 @@ public class CreateTestFragment extends Fragment {
     private Unbinder unbinder;
     CreateTestListener mListener;
 
-    @BindView(R.id.titleEditText)
-    EditText mTitleEditText;
+    @BindView(R.id.titleTextInputLayout)
+    TextInputLayout mTitleEditText;
 
     @BindView(R.id.category_spinner)
     Spinner mCategorySpinner;
@@ -42,8 +46,8 @@ public class CreateTestFragment extends Fragment {
     @BindView(R.id.is_online_checkbox)
     CheckBox mIsOnlineCheckBox;
 
-    @BindView(R.id.descriptionEditText)
-    EditText mDescriptionEditText;
+    @BindView(R.id.descriptionTextInputLayout)
+    TextInputLayout mDescriptionEditText;
 
     @BindView(R.id.add_questions_button)
     Button addQuestionsButton;
@@ -103,27 +107,33 @@ public class CreateTestFragment extends Fragment {
         isOnline = checked;
     }
 
-    @OnTextChanged(R.id.titleTextInputLayout)
-    public void titleChanged(CharSequence s, int start, int before, int count){
-        if (s.length() > 0){
-            mTitle = mTitleEditText.getText().toString();
-        } else{
-            mTitleEditText.setError(getString(R.string.required));
-        }
-    }
-
-    @OnTextChanged(R.id.descriptionTextInputLayout)
-    public void descriptionChanged(CharSequence s, int start, int before, int count){
-        if (s.length() > 10){
-            mDescription = mDescriptionEditText.getText().toString();
-        } else{
-            mDescriptionEditText.setError(getString(R.string.minimum10));
-        }
-    }
-
     @OnClick(R.id.add_questions_button)
     public void onClick(){
+        if (!validateForm()) {
+            return;
+        }
         mListener.onCreateTestCompleted(mTitle, mCategory, mLanguage, isOnline, mDescription);
+    }
+
+    private boolean validateForm(){
+        boolean valid = true;
+
+        mTitle = mTitleEditText.getEditText().getText().toString();
+        if (TextUtils.isEmpty(mTitle)) {
+            mTitleEditText.setError(getString(R.string.required));
+            valid = false;
+        } else {
+            mTitleEditText.setError(null);
+        }
+
+        mDescription = mDescriptionEditText.getEditText().getText().toString();
+        if (TextUtils.isEmpty(mDescription)) {
+            mDescriptionEditText.setError(getString(R.string.required));
+            valid = false;
+        } else {
+            mDescriptionEditText.setError(null);
+        }
+        return valid;
     }
 
     @Override

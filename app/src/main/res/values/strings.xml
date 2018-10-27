@@ -57,7 +57,7 @@
     <string name="other">Other</string>
 
     <string name="title_hint">Test name</string>
-    <string name="hint_description_test">Description \n\n\nminimum 10 characters</string>
+    <string name="hint_description_test">Description</string>
     <string name="category">Category</string>
     <string name="available_online">Available online</string>
     <string name="add_questions">Add questions</string>
@@ -85,6 +85,5 @@
 
     <!-- Error messages text !-->
     <string name="required">"Required."</string>
-    <string name="minimum10">Minimum 10 characters!</string>
 
 </resources>

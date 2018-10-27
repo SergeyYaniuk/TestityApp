@@ -18,6 +18,7 @@ import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 public class ForgotPasswordDialog extends BaseDialogNoTitle {
@@ -32,6 +33,9 @@ public class ForgotPasswordDialog extends BaseDialogNoTitle {
     Button mCancelButton;
 
     ForgotDialogListener mListener;
+
+    private static final String EMAIL = "email";
+    String email;
 
     public interface ForgotDialogListener{
         void sendPassword(String email);
@@ -48,6 +52,20 @@ public class ForgotPasswordDialog extends BaseDialogNoTitle {
         View view = inflater.inflate(R.layout.dialog_forgot_password, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(EMAIL, email);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            mEmail.setText(email);
+        }
     }
 
     @OnClick(R.id.ok_button)
@@ -94,5 +112,10 @@ public class ForgotPasswordDialog extends BaseDialogNoTitle {
         }
 
         return valid;
+    }
+
+    @OnTextChanged(R.id.email_edit_text)
+    public void emailChanged(){
+        email = mEmail.getText().toString();
     }
 }

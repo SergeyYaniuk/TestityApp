@@ -43,9 +43,9 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     public static final int REQUEST_SIGN_GOOGLE = 9001;
 
     @BindView(R.id.email_edit_text)
-    EditText mEmail;
+    EditText mEmailEditText;
     @BindView(R.id.password_edit_text)
-    EditText mPassword;
+    EditText mPasswordEditText;
     @BindView(R.id.forgot_password)
     TextView mForgotTextView;
     @BindView(R.id.login_button)
@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     private CallbackManager mCallbackManager;
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
-    String email, password;
+    String mEmail, mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,23 +87,24 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(EMAIL, email);
-        outState.putString(PASSWORD, password);
+        outState.putString(EMAIL, mEmail);
+        outState.putString(PASSWORD, mPassword);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mEmail.setText(email);
-        mPassword.setText(password);
+        mEmailEditText.setText(mEmail);
+        mPasswordEditText.setText(mPassword);
     }
 
     @OnClick(R.id.login_button)
     public void onLoginButton() {
-        String email = mEmail.getText().toString();
-        String password = mPassword.getText().toString();
-        mPresenter.loginWithEmail(email, password);
+        if (!validateForm()) {
+            return;
+        }
+        mPresenter.loginWithEmail(mEmail, mPassword);
     }
 
     @OnClick(R.id.create_account_tv)
@@ -147,20 +148,20 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     public boolean validateForm() {
         boolean valid = true;
 
-        String email = mEmail.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            mEmail.setError("Required.");
+        mEmail = mEmailEditText.getText().toString();
+        if (TextUtils.isEmpty(mEmail)) {
+            mEmailEditText.setError("Required.");
             valid = false;
         } else {
-            mEmail.setError(null);
+            mEmailEditText.setError(null);
         }
 
-        String password = mPassword.getText().toString();
-        if (TextUtils.isEmpty(password)) {
-            mPassword.setError("Required.");
+        mPassword = mPasswordEditText.getText().toString();
+        if (TextUtils.isEmpty(mPassword)) {
+            mPasswordEditText.setError("Required.");
             valid = false;
         } else {
-            mPassword.setError(null);
+            mPasswordEditText.setError(null);
         }
 
         return valid;
@@ -212,15 +213,5 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         if (v.getId() == R.id.facebookView){
             mFacebookButton.performClick();
         }
-    }
-
-    @OnTextChanged(R.id.email_edit_text)
-    public void emailChanged(){
-        email = mEmail.getText().toString();
-    }
-
-    @OnTextChanged(R.id.password_edit_text)
-    public void passwordChanged(){
-        password = mPassword.getText().toString();
     }
 }
