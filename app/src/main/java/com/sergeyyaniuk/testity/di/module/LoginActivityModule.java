@@ -1,7 +1,7 @@
 package com.sergeyyaniuk.testity.di.module;
 
-import android.support.v7.app.AlertDialog;
-
+import com.sergeyyaniuk.testity.data.database.DatabaseManager;
+import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.ActivityScope;
 import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
@@ -27,7 +27,8 @@ public class LoginActivityModule {
 
     @ActivityScope
     @Provides
-    LoginPresenter provideLoginPresenter(Authentication authentication){
-        return new LoginPresenter(mActivity, authentication);
+    LoginPresenter provideLoginPresenter(Authentication authentication,
+                                         DatabaseManager databaseManager, PrefHelper prefHelper){
+        return new LoginPresenter(mActivity, authentication, databaseManager, prefHelper);
     }
 }

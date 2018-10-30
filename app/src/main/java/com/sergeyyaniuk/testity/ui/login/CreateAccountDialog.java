@@ -42,7 +42,7 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
     private static final String PASSWORD = "password";
 
     public interface CreateDialogListener{
-        void addNewUser(String email, String password);
+        void addNewUser(String name, String email, String password);
     }
 
     public CreateAccountDialog(){
@@ -82,7 +82,8 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
         if (!validateForm()) {
             return;
         }
-        mListener.addNewUser(mEmailEditText.getText().toString(), mPasswordEditText.getText().toString());
+        mListener.addNewUser(mNameEditText.getText().toString(), mEmailEditText.getText().toString(),
+                mPasswordEditText.getText().toString());
         CreateAccountDialog.this.getDialog().dismiss();
     }
 
@@ -129,20 +130,5 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
         }
 
         return valid;
-    }
-
-    @OnTextChanged(R.id.name_edit_text)
-    public void nameChanged(){
-        mName = mNameEditText.getText().toString();
-    }
-
-    @OnTextChanged(R.id.email_edit_text)
-    public void emailChanged(){
-        mEmail = mEmailEditText.getText().toString();
-    }
-
-    @OnTextChanged(R.id.password_edit_text)
-    public void passwordChanged(){
-        mPassword = mPasswordEditText.getText().toString();
     }
 }

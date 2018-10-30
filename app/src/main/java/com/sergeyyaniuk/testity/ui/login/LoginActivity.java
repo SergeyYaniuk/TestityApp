@@ -3,27 +3,17 @@ package com.sergeyyaniuk.testity.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.facebook.internal.CallbackManagerImpl;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.module.LoginActivityModule;
@@ -35,7 +25,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 public class LoginActivity extends BaseActivity implements CreateAccountDialog.CreateDialogListener,
         ForgotPasswordDialog.ForgotDialogListener{
@@ -52,8 +41,6 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     Button mLoginButton;
     @BindView(R.id.google_button)
     SignInButton mGoogleButton;
-    @BindView(R.id.facebook_button)
-    LoginButton mFacebookButton;
     @BindView(R.id.create_account_tv)
     TextView mCreateTextView;
 
@@ -62,24 +49,25 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     // just for facebook login
     private CallbackManager mCallbackManager;
+
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
     String mEmail, mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         App.get(this).getAppComponent().createLoginComponent(new LoginActivityModule(this)).inject(this);
         ButterKnife.bind(this);
         changeGoogleButtonBackground(mGoogleButton); //change google button image
+        mCallbackManager = mPresenter.loginWithFacebook(); //initialization facebook
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (mPresenter.userExist()){
+        if (mPresenter.isUserLogIn()){
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -104,6 +92,12 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         if (!validateForm()) {
             return;
         }
+        //need to be uncomment after database version will change
+//        boolean userAlreadyExist = mPresenter.checkIfUserExist(mEmail);
+//        if (userAlreadyExist){
+//            //login with database
+//            mPresenter.loginWithDatabase(mEmail, mPassword);
+//        } else {.......}
         mPresenter.loginWithEmail(mEmail, mPassword);
     }
 
@@ -118,9 +112,11 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         startActivityForResult(intent, REQUEST_SIGN_GOOGLE);
     }
 
-    @OnClick(R.id.facebook_button)
+    @OnClick(R.id.facebookView)
     public void onFacebookButton(){
-        mCallbackManager = mPresenter.loginWithFacebook();
+        com.facebook.login.widget.LoginButton button =
+                new com.facebook.login.widget.LoginButton(LoginActivity.this);
+        button.performClick();
     }
 
     @OnClick(R.id.forgot_password)
@@ -180,8 +176,13 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     //get email and password from dialog fragment
     @Override
-    public void addNewUser(String email, String password) {
-        mPresenter.createAccount(email, password);
+    public void addNewUser(String name, String email, String password) {
+//        //need to be uncomment after database version will change
+//        boolean userAlreadyExist = mPresenter.checkIfUserExist(email);
+//        if (userAlreadyExist){
+//            //show message that user already exist
+//        }
+        mPresenter.createAccount(name, email, password);
     }
 
     //get email from forgotPasswordDialog
@@ -205,13 +206,6 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
                         R.drawable.google_plus));
                 return;
             }
-        }
-    }
-
-    @OnClick(R.id.facebookView)
-    public void onFacebookClick(View v){
-        if (v.getId() == R.id.facebookView){
-            mFacebookButton.performClick();
         }
     }
 }

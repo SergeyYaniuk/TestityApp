@@ -14,6 +14,7 @@ import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
@@ -22,22 +23,20 @@ public class MainPresenter extends BasePresenter {
 
     private MainActivity mActivity;
     private Authentication mAuthentication;
+    private PrefHelper mPrefHelper;
 
-    public MainPresenter(MainActivity activity, Authentication authentication){
+    public MainPresenter(MainActivity activity, Authentication authentication, PrefHelper prefHelper){
         this.mActivity = activity;
         this.mAuthentication = authentication;
+        this.mPrefHelper = prefHelper;
     }
 
-    protected void setUserName(TextView textView){
-        String name = mAuthentication.getUserName();
-        if (name != null){
-            textView.setText(name);
-        } else {
-            textView.setText(R.string.anonymous);
-        }
+    protected String getCurrentUserName(){
+        return mPrefHelper.getCurrentUserName();
     }
 
     protected void signOut(){
+        mPrefHelper.removeCurrentUserName();
         mAuthentication.signOut();
     }
 

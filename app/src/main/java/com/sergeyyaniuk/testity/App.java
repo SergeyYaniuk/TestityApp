@@ -6,7 +6,6 @@ import android.content.Context;
 import com.sergeyyaniuk.testity.di.component.AppComponent;
 import com.sergeyyaniuk.testity.di.component.DaggerAppComponent;
 import com.sergeyyaniuk.testity.di.module.ApplicationModule;
-import com.sergeyyaniuk.testity.di.module.FirebaseModule;
 
 
 public class App extends Application {
@@ -19,7 +18,6 @@ public class App extends Application {
 
         mAppComponent = DaggerAppComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .firebaseModule(new FirebaseModule())
                 .build();
     }
 

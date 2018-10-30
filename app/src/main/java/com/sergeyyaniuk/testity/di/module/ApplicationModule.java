@@ -6,7 +6,10 @@ import android.content.Context;
 
 import com.sergeyyaniuk.testity.data.database.TestityDatabase;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
+import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.DatabaseInfo;
+import com.sergeyyaniuk.testity.di.PreferencesInfo;
+import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.util.Constants;
 
 import javax.inject.Singleton;
@@ -51,5 +54,23 @@ public class ApplicationModule {
     @Singleton
     DatabaseManager provideDatabaseManager(TestityDatabase testityDatabase){
         return new DatabaseManager(testityDatabase);
+    }
+
+    @Provides
+    @Singleton
+    Authentication provideAuthentication(Application application){
+        return new Authentication(application);
+    }
+
+    @Provides
+    @Singleton
+    PrefHelper provideSharedPreferences(Context context, @PreferencesInfo String prefFileName){
+        return new PrefHelper(context, prefFileName);
+    }
+
+    @Provides
+    @PreferencesInfo
+    String providePreferenceName(){
+        return Constants.PREF_NAME;
     }
 }

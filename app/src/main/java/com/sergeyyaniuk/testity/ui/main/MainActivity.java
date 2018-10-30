@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);  //remove label from toolbar
         //set user name in toolbar
-        mPresenter.setUserName(mUserName);
+        mUserName.setText(mPresenter.getCurrentUserName());
         mPresenter.getInvitation();  //get invitation if exist
     }
 

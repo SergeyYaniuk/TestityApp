@@ -20,6 +20,8 @@ public class User {
     @ColumnInfo(name = "login_with")
     private String loginWith;
 
+    //private String password;
+
     public Long getId() {
         return id;
     }
@@ -51,4 +53,29 @@ public class User {
     public void setLoginWith(String loginWith) {
         this.loginWith = loginWith;
     }
+
+//    public User(Long id, String name, String email, String password){
+//        this.id = id;
+//        this.name = name;
+//        this.email = email;
+//        this.password = password;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        if (this == object) return true;
+//        if (object == null || getClass() != object.getClass()) return false;
+//
+//        User that = (User) object;
+//
+//        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+//        return password != null ? password.equals(that.password) : that.password == null;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = email != null ? email.hashCode() : 0;
+//        result = 31 * result + (password != null ? password.hashCode() : 0);
+//        return result;
+//    }
 }

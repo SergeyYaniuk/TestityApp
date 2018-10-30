@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -16,12 +17,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.sergeyyaniuk.testity.R;
@@ -61,8 +64,7 @@ public class Authentication {
         return mAuth.signInWithCredential(credential);
     }
 
-    public CallbackManager getUserWithFacebook() {
-        //FacebookSdk.sdkInitialize(mApplication);
+    public CallbackManager getCallbackManager(){
         mCallbackManager = CallbackManager.Factory.create();
         return mCallbackManager;
     }
@@ -80,16 +82,26 @@ public class Authentication {
         return mAuth.createUserWithEmailAndPassword(email, password);
     }
 
-    public FirebaseUser getCurrentUser(){
-        mUser = mAuth.getCurrentUser();
-        return mUser;
-    }
-
     public Task<Void> sendPasswordResetEmail(String email){
         return mAuth.sendPasswordResetEmail(email);
     }
 
-    public String getUserName(){
+    public FirebaseUser getCurrentUser(){
+        return mAuth.getCurrentUser();
+    }
+
+    public Long getFirebaseUserId(){
+        Long id = null;
+        FirebaseUser user = getCurrentUser();
+        if (user != null){
+            for (UserInfo profile : user.getProviderData()){
+                id = Long.parseLong(profile.getUid());
+            }
+        }
+        return id;
+    }
+
+    public  String getFirebaseUserName(){
         String name = null;
         FirebaseUser user = getCurrentUser();
         if (user != null){
@@ -98,6 +110,17 @@ public class Authentication {
             }
         }
         return name;
+    }
+
+    public String getFirebaseUserEmail(){
+        String email = null;
+        FirebaseUser user = getCurrentUser();
+        if (user != null){
+            for (UserInfo profile : user.getProviderData()){
+                email = profile.getEmail();
+            }
+        }
+        return email;
     }
 
     public void signOut(){

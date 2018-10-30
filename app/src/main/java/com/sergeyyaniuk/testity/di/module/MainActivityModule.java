@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.di.module;
 
+import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.ActivityScope;
 import com.sergeyyaniuk.testity.firebase.Authentication;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
@@ -25,7 +26,7 @@ public class MainActivityModule {
 
     @ActivityScope
     @Provides
-    MainPresenter provideMainPresenter(Authentication authentication){
-        return new MainPresenter(mActivity, authentication);
+    MainPresenter provideMainPresenter(Authentication authentication, PrefHelper prefHelper){
+        return new MainPresenter(mActivity, authentication, prefHelper);
     }
 }

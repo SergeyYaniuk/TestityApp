@@ -43,4 +43,8 @@ public interface UserDao {
 
     @Query("SELECT * FROM users WHERE id = :userId LIMIT 1")
     User getUserById(long userId);
+
+    //need to be uncomment after version of database will change and don'd forgot write method in databaseManager
+//    @Query("SELECT * FROM users WHERE email = :userEmail LIMIT 1")
+//    User getUserByEmail(String email);
 }

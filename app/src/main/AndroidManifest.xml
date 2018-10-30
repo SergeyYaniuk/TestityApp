@@ -71,8 +71,6 @@
             android:name=".ui.create.CreateTestActivity"/>
         <activity
             android:name=".ui.pass.PassTestActivity">
-
         </activity>
     </application>
-
 </manifest>
