@@ -33,6 +33,7 @@
     <string name="pass_sent">Link to reset password have been sent to your email</string>
     <string name="unable_send">Unable to send link to reset password</string>
     <string name="no_email">No Email</string>
+    <string name="no_connection">No internet connection!\n Please connect and try again</string>
 
     <!-- For Facebook login !-->
     <string name="facebook_app_id">694422630950774</string>

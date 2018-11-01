@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -22,7 +23,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CreateTestActivity extends BaseActivity implements NotCompletedTestDialog.NotCompletedTestListener,
-        CreateTestFragment.CreateTestListener {
+        CreateTestFragment.CreateTestListener, QuestionsListFragment.QuestionsListListener,
+        AddEditQuestionFragment.AddEditQuestionListener {
+
+    public static final String TAG = "MyLog";
 
     @BindView(R.id.create_toolbar)
     Toolbar mToolbar;
@@ -97,7 +101,43 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     @Override
     public void onCreateTestCompleted(String title, String category, String language, boolean isOnline,
                                       String description) {
-        //need to add implementation
+        Log.d(TAG, "onCreateTestCompleted: before display");
+        displayQuestionsList(1L, R.id.fragmentContainer);
+    }
+
+    private void displayQuestionsList(long testId, int view){
+        QuestionsListFragment questionsList = new QuestionsListFragment();
+
+        Bundle arguments = new Bundle();
+        arguments.putLong(TEST_ID, testId);
+        questionsList.setArguments(arguments);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(view, questionsList);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onAddEditQuestion() {
+        //QuestionList. when press on RecyclerView item
+        AddEditQuestionFragment addEditQuestionFragment = new AddEditQuestionFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, addEditQuestionFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onTestCompleted() {
+        //QuestionList. when press on done button
+        startActivity(new Intent(CreateTestActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public void onAddEditQuestionCompleted() {
+        //AddEditQuestionFragment. when press on done button
+
     }
 
     @Override

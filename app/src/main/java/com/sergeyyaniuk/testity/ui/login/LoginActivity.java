@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +29,8 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         ForgotPasswordDialog.ForgotDialogListener{
 
     public static final int REQUEST_SIGN_GOOGLE = 9001;
+    
+    public static final String TAG = "MyLog";
 
     @BindView(R.id.email_edit_text)
     EditText mEmailEditText;
@@ -67,7 +68,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     @Override
     protected void onStart() {
         super.onStart();
-        if (mPresenter.isUserLogIn()){
+        if (mPresenter.isUserLogIn()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -91,6 +92,8 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     public void onLoginButton() {
         if (!validateForm()) {
             return;
+        } else if (!mPresenter.isActiveNetwork(this)){
+            showToast(this, R.string.no_connection);
         }
         //need to be uncomment after database version will change
 //        boolean userAlreadyExist = mPresenter.checkIfUserExist(mEmail);
@@ -108,15 +111,23 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
     @OnClick(R.id.google_button)
     public void onGoogleButton(){
-        Intent intent = mPresenter.loginWithGoogle();
-        startActivityForResult(intent, REQUEST_SIGN_GOOGLE);
+        if (mPresenter.isActiveNetwork(this)){
+            Intent intent = mPresenter.loginWithGoogle();
+            startActivityForResult(intent, REQUEST_SIGN_GOOGLE);
+        } else {
+            showToast(this, R.string.no_connection);
+        }
     }
 
     @OnClick(R.id.facebookView)
     public void onFacebookButton(){
-        com.facebook.login.widget.LoginButton button =
-                new com.facebook.login.widget.LoginButton(LoginActivity.this);
-        button.performClick();
+        if (mPresenter.isActiveNetwork(this)){
+            com.facebook.login.widget.LoginButton button =
+                    new com.facebook.login.widget.LoginButton(LoginActivity.this);
+            button.performClick();
+        } else {
+            showToast(this, R.string.no_connection);
+        }
     }
 
     @OnClick(R.id.forgot_password)

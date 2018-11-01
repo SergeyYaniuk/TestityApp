@@ -2,15 +2,16 @@ package com.sergeyyaniuk.testity.ui.create;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,13 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /** Need to add communication with Database */
 public class QuestionsListFragment extends Fragment {
+    
+    public static final String TAG = "MyLog";
 
     private Unbinder unbinder;
 
@@ -40,14 +44,20 @@ public class QuestionsListFragment extends Fragment {
     @BindView(R.id.add_question_button)
     ImageButton mAddQuestionButton;
 
+    @BindView(R.id.saveActionButton)
+    FloatingActionButton saveTestButton;
+
     ArrayList<Question> mQuestions;
 
     QuestionsAdapter mQuestionsAdapter;
     QuestionsListListener mListener;
+    
+    private Long mTestId;
+    private QuestionsListListener listener;
 
     public interface QuestionsListListener{
-        void onQuestionSelected(Uri questionUri);
-        void onAddQuestion();
+        void onAddEditQuestion();
+        void onTestCompleted();
     }
 
     public QuestionsListFragment(){
@@ -57,15 +67,19 @@ public class QuestionsListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);  //Fragment has menu
+        //setHasOptionsMenu(true);  //Fragment has menu
+        Log.d(TAG, "onCreate: ");
+        setRetainInstance(true);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_questions_list, container, false);
         unbinder = ButterKnife.bind(this, view);
+        getTestId();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mQuestions = new ArrayList<>();
         updateQuestions();
@@ -84,6 +98,13 @@ public class QuestionsListFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    
+    private void getTestId(){
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            mTestId = arguments.getLong(CreateTestActivity.TEST_ID);
+        }
+    }
 
     public void updateQuestions(){
         if (mQuestionsAdapter == null){
@@ -93,6 +114,16 @@ public class QuestionsListFragment extends Fragment {
             mQuestionsAdapter.setQuestions(mQuestions);
             mQuestionsAdapter.notifyDataSetChanged();
         }
+    }
+
+    @OnClick(R.id.saveActionButton)
+    public void saveTest(){
+        listener.onTestCompleted();
+    }
+
+    @OnClick(R.id.add_questions_button)
+    public void addQuestion(){
+        listener.onAddEditQuestion();
     }
 
     private void enableSwipe(){

@@ -33,6 +33,8 @@ import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import java.net.URL;
 
 public class Authentication {
+    
+    public static final String TAG = "MyLog";
 
     private Application mApplication;
     private FirebaseAuth mAuth;
@@ -90,43 +92,18 @@ public class Authentication {
         return mAuth.getCurrentUser();
     }
 
-    public Long getFirebaseUserId(){
-        Long id = null;
-        FirebaseUser user = getCurrentUser();
-        if (user != null){
-            for (UserInfo profile : user.getProviderData()){
-                id = Long.parseLong(profile.getUid());
-            }
-        }
-        return id;
-    }
-
-    public  String getFirebaseUserName(){
-        String name = null;
-        FirebaseUser user = getCurrentUser();
-        if (user != null){
-            for (UserInfo profile : user.getProviderData()){
-                name = profile.getDisplayName();
-            }
-        }
-        return name;
-    }
-
-    public String getFirebaseUserEmail(){
-        String email = null;
-        FirebaseUser user = getCurrentUser();
-        if (user != null){
-            for (UserInfo profile : user.getProviderData()){
-                email = profile.getEmail();
-            }
-        }
-        return email;
-    }
-
     public void signOut(){
+
         mAuth.signOut();
-        LoginManager.getInstance().logOut();
-        mGoogleSignInClient.signOut();
-        mUser = null;
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        if (isLoggedIn){
+            LoginManager.getInstance().logOut();
+        }
+
+        if (mGoogleSignInClient!= null){
+            mGoogleSignInClient.signOut();
+        }
     }
 }

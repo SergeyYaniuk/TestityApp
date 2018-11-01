@@ -2,6 +2,8 @@ package com.sergeyyaniuk.testity.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -73,7 +75,6 @@ public class LoginPresenter extends BasePresenter{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                //insertUserToPreferences();
                                 insertDataToPreferences();
                                 mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_successful);
@@ -115,16 +116,18 @@ public class LoginPresenter extends BasePresenter{
     }
 
     protected void handleFacebookAccessToken(AccessToken token){
+        mActivity.showProgressDialog();
         mAuthentication.getAuthWithFacebook(token)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-//                    FirebaseUser user = mAuthentication.getCurrentUser();
-//                    mPrefHelper.setCurrentUserName(user.getDisplayName());
                     insertDataToPreferences();
+                    mActivity.hideProgressDialog();
+                    mActivity.showToast(mActivity, R.string.auth_successful);
                     mActivity.startIntent();
                 } else {
+                    mActivity.hideProgressDialog();
                     mActivity.showToast(mActivity, R.string.auth_failed);
                 }
             }
@@ -139,7 +142,7 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            insertUserToPreferences();
+                            insertDataToPreferences();
                             mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
@@ -160,8 +163,7 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            insertUserToPreferences();
-                            //insertNewUser(id, name, email, password);
+                            insertDataToPreferences();
                             mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
@@ -197,18 +199,20 @@ public class LoginPresenter extends BasePresenter{
         FirebaseUser user = mAuthentication.getCurrentUser();
         String name = user.getDisplayName();
         String email = user.getEmail();
+        //String id = user.getUid();  //string, cannot parse to long
         mPrefHelper.setCurrentUserName(name);
         mPrefHelper.setCurrentUserEmail(email);
     }
 
-    private void insertUserToPreferences(){
-        //mPrefHelper.setCurrentUserId(mAuthentication.getFirebaseUserId());
-        mPrefHelper.setCurrentUserEmail(mAuthentication.getFirebaseUserEmail());
-        mPrefHelper.setCurrentUserName(mAuthentication.getFirebaseUserName());
-    }
-
     protected boolean isUserLogIn(){
         return mAuthentication.getCurrentUser() != null;
+    }
+
+    protected boolean isActiveNetwork(Context context){
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     //____Methods for database queries_____//

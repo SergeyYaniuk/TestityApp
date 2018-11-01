@@ -1,18 +1,24 @@
 package com.sergeyyaniuk.testity.ui.login;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,6 +87,8 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
     void positiveButton(){
         if (!validateForm()) {
             return;
+        } else if (!isActiveNetwork()){
+            Toast.makeText(getActivity(), R.string.no_connection, Toast.LENGTH_SHORT).show();
         }
         mListener.addNewUser(mNameEditText.getText().toString(), mEmailEditText.getText().toString(),
                 mPasswordEditText.getText().toString());
@@ -130,5 +138,12 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
         }
 
         return valid;
+    }
+
+    protected boolean isActiveNetwork(){
+        ConnectivityManager cm =
+                (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

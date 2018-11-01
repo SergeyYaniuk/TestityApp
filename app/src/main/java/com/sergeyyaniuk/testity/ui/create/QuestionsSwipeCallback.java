@@ -37,6 +37,7 @@ abstract public class QuestionsSwipeCallback extends ItemTouchHelper.Callback {
         mIntrinsicHeight = mDeleteDrawable.getIntrinsicHeight();
     }
 
+    //swipe to left
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         return makeMovementFlags(0, ItemTouchHelper.LEFT);
