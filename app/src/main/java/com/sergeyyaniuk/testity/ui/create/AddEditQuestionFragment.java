@@ -16,6 +16,7 @@ import com.sergeyyaniuk.testity.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class AddEditQuestionFragment extends Fragment {
@@ -65,6 +66,11 @@ public class AddEditQuestionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_edit_question, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @OnClick(R.id.saveQuestionButton)
+    public void onSaveQuestion(){
+        mListener.onAddEditQuestionCompleted();
     }
 
     @Override

@@ -53,7 +53,6 @@ public class QuestionsListFragment extends Fragment {
     QuestionsListListener mListener;
     
     private Long mTestId;
-    private QuestionsListListener listener;
 
     public interface QuestionsListListener{
         void onAddEditQuestion();
@@ -90,7 +89,7 @@ public class QuestionsListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = (QuestionsListListener)context;
+        mListener = (QuestionsListListener) context;
     }
 
     @Override
@@ -118,12 +117,12 @@ public class QuestionsListFragment extends Fragment {
 
     @OnClick(R.id.saveActionButton)
     public void saveTest(){
-        listener.onTestCompleted();
+        mListener.onTestCompleted();
     }
 
-    @OnClick(R.id.add_questions_button)
+    @OnClick(R.id.add_question_button)
     public void addQuestion(){
-        listener.onAddEditQuestion();
+        mListener.onAddEditQuestion();
     }
 
     private void enableSwipe(){

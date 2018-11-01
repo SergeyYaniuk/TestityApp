@@ -137,7 +137,12 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     @Override
     public void onAddEditQuestionCompleted() {
         //AddEditQuestionFragment. when press on done button
+        QuestionsListFragment questionsList = new QuestionsListFragment();
 
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, questionsList);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
