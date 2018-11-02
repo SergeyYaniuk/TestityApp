@@ -199,9 +199,10 @@ public class LoginPresenter extends BasePresenter{
         FirebaseUser user = mAuthentication.getCurrentUser();
         String name = user.getDisplayName();
         String email = user.getEmail();
-        //String id = user.getUid();  //string, cannot parse to long
+        Long id = 1L;   //need to be changed
         mPrefHelper.setCurrentUserName(name);
         mPrefHelper.setCurrentUserEmail(email);
+        mPrefHelper.setCurrentUserId(id);
     }
 
     protected boolean isUserLogIn(){

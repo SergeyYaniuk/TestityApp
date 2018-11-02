@@ -18,9 +18,15 @@ import butterknife.ButterKnife;
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
     private ArrayList<Question> mQuestions;
+    private QuestionClickListener mQuestionClickListener;
 
-    public QuestionsAdapter(ArrayList<Question> questions){
+    public interface QuestionClickListener{
+        void onQuestionClick(int position);
+    }
+
+    public QuestionsAdapter(ArrayList<Question> questions, QuestionClickListener questionClickListener){
         this.mQuestions = questions;
+        this.mQuestionClickListener = questionClickListener;
     }
 
     @NonNull
@@ -41,30 +47,21 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         return mQuestions.size();
     }
 
-    //need to be changed
     public void removeQuestion(int position){
         mQuestions.remove(position);
         notifyItemRemoved(position);
     }
 
-    //need to be changed
-    public void restoreQuestion(Question question, int position){
-        mQuestions.add(position, question);
-        notifyItemInserted(position);
-    }
-
-    //need to be changed
     public ArrayList<Question> getQuestions(){
         return mQuestions;
     }
 
-    //need to be changed
     public void setQuestions(ArrayList<Question> questions){
         mQuestions = questions;
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @BindView(R.id.question_title)
         TextView mTitle;
@@ -72,6 +69,12 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            mQuestionClickListener.onQuestionClick(position);
         }
     }
 }

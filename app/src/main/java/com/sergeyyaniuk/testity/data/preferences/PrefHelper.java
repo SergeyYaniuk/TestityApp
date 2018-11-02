@@ -11,6 +11,8 @@ public class PrefHelper {
     private static final String CURRENT_USER_NAME = "CURRENT_USER_NAME";
     private static final String CURRENT_USER_EMAIL = "CURRENT_USER_EMAIL";
 
+    private static final String CURRENT_TEST_ID = "CURRENT_TEST_ID";
+
     private final SharedPreferences mPrefs;
 
     public PrefHelper(Context context, String prefFileName){
@@ -57,5 +59,15 @@ public class PrefHelper {
 
     public void clearSharedPreferences(){
         mPrefs.edit().clear().apply();
+    }
+
+    public void setCurrentTestId(Long testId){
+        long id = testId == null ? Constants.NULL_INDEX : testId;
+        mPrefs.edit().putLong(CURRENT_TEST_ID, id).apply();
+    }
+
+    public Long getCurrentTestId(){
+        long testId = mPrefs.getLong(CURRENT_TEST_ID, Constants.NULL_INDEX);
+        return testId == Constants.NULL_INDEX ? null : testId;
     }
 }

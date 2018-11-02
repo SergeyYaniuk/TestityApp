@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.model.Test;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +33,8 @@ import butterknife.Unbinder;
 public class CreateTestFragment extends Fragment {
 
     private Unbinder unbinder;
-    CreateTestListener mListener;
+    CreateTestListener mListener;   //Listener for communication with Activity
+    TestContract.UserActionListener mPresenter;  //Listener for communication with CreateTestPresenter
 
     @BindView(R.id.titleTextInputLayout)
     TextInputLayout mTitleEditText;
@@ -69,8 +71,16 @@ public class CreateTestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_test, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        //user would like to continue edit test
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            Long testId = arguments.getLong(CreateTestActivity.TEST_ID);
+            loadTest(testId);
+        }
         setCategoryAdapter();
         setLanguageAdapter();
+
         return view;
     }
 
@@ -113,6 +123,13 @@ public class CreateTestFragment extends Fragment {
             return;
         }
         mListener.onCreateTestCompleted(mTitle, mCategory, mLanguage, isOnline, mDescription);
+    }
+
+    private void loadTest(Long testId){
+        Test test = mPresenter.loadTest(testId);
+        mTitleEditText.getEditText().setText(test.getTitle());
+
+
     }
 
     private boolean validateForm(){

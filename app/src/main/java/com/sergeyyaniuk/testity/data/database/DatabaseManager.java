@@ -71,7 +71,8 @@ public class DatabaseManager {
                 testityDatabase.testDao().insert(test);
                 return true;
             }
-        });
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<Long> insertTestWithId(final Test test){

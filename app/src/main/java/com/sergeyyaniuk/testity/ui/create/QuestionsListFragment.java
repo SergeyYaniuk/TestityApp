@@ -1,12 +1,10 @@
 package com.sergeyyaniuk.testity.ui.create;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-/** Need to add communication with Database */
 public class QuestionsListFragment extends Fragment {
     
     public static final String TAG = "MyLog";
@@ -57,6 +54,8 @@ public class QuestionsListFragment extends Fragment {
     public interface QuestionsListListener{
         void onAddEditQuestion();
         void onTestCompleted();
+        void onClickQuestion(int position);
+        void onSwipedQuestion(int position);
     }
 
     public QuestionsListFragment(){
@@ -107,7 +106,7 @@ public class QuestionsListFragment extends Fragment {
 
     public void updateQuestions(){
         if (mQuestionsAdapter == null){
-            mQuestionsAdapter = new QuestionsAdapter(mQuestions);
+            mQuestionsAdapter = new QuestionsAdapter(mQuestions, questionClickListener);
             mRecyclerView.setAdapter(mQuestionsAdapter);
         } else {
             mQuestionsAdapter.setQuestions(mQuestions);
@@ -125,24 +124,20 @@ public class QuestionsListFragment extends Fragment {
         mListener.onAddEditQuestion();
     }
 
+    QuestionsAdapter.QuestionClickListener questionClickListener = new QuestionsAdapter.QuestionClickListener() {
+        @Override
+        public void onQuestionClick(int position) {
+            mListener.onClickQuestion(position);
+        }
+    };
+
     private void enableSwipe(){
         QuestionsSwipeCallback questionsSwipeCallback = new QuestionsSwipeCallback(getContext()) {  //or getActivity
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
-                final Question question = mQuestionsAdapter.getQuestions().get(position);
+                mListener.onSwipedQuestion(position);
                 mQuestionsAdapter.removeQuestion(position);
-
-                Snackbar snackbar = Snackbar.make(mFrameLayout, R.string.item_removed, Snackbar.LENGTH_SHORT);
-                snackbar.setAction(R.string.undo, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mQuestionsAdapter.restoreQuestion(question, position);
-                        mRecyclerView.scrollToPosition(position);
-                    }
-                });
-                snackbar.setActionTextColor(Color.YELLOW);
-                snackbar.show();
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(questionsSwipeCallback);
