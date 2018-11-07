@@ -1,6 +1,5 @@
 package com.sergeyyaniuk.testity.data.database;
 
-import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
 import com.sergeyyaniuk.testity.data.database.dao.AnswerDao;
@@ -14,7 +13,7 @@ import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.model.User;
 
-@android.arch.persistence.room.Database(entities = {User.class, Test.class, Question.class, Answer.class, Result.class}, version = 1)
+@android.arch.persistence.room.Database(entities = {User.class, Test.class, Question.class, Answer.class, Result.class}, version = 2)
 public abstract class TestityDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();

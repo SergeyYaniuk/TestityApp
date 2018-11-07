@@ -3,6 +3,7 @@ package com.sergeyyaniuk.testity.di.module;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.util.Log;
 
 import com.sergeyyaniuk.testity.data.database.TestityDatabase;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
@@ -19,6 +20,8 @@ import dagger.Provides;
 
 @Module
 public class ApplicationModule {
+
+    public static final String TAG = "MyLog";
 
     Application mApplication;
 
@@ -41,18 +44,22 @@ public class ApplicationModule {
     @Provides
     @DatabaseInfo
     String provideDatabaseName(){
+        Log.d(TAG, "AppModule________provideDatabaseName: ");
         return Constants.DB_NAME;
     }
 
     @Provides
     @Singleton
     TestityDatabase provideDatabase(@DatabaseInfo String databaseName, Context context){
-        return Room.databaseBuilder(context, TestityDatabase.class, databaseName).build();
+        Log.d(TAG, "AppModule________provideDatabase: ");
+        return Room.databaseBuilder(context, TestityDatabase.class, databaseName)
+                .fallbackToDestructiveMigration().build();
     }
 
     @Provides
     @Singleton
     DatabaseManager provideDatabaseManager(TestityDatabase testityDatabase){
+        Log.d(TAG, "AppModule_________provideDatabaseManager: ");
         return new DatabaseManager(testityDatabase);
     }
 

@@ -3,6 +3,7 @@ package com.sergeyyaniuk.testity.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -15,6 +16,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class Answer {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo()
     private Long id;
 
     @ColumnInfo(name = "answer_text")
@@ -25,6 +27,16 @@ public class Answer {
 
     @ColumnInfo(name = "question_id")
     private Long questionId;
+
+    @Ignore
+    public Answer() {
+    }
+
+    public Answer(String answerText, boolean isCorrect, Long questionId) {
+        this.answerText = answerText;
+        this.isCorrect = isCorrect;
+        this.questionId = questionId;
+    }
 
     public Long getId() {
         return id;

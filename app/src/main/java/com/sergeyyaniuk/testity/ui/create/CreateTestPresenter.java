@@ -34,39 +34,38 @@ public class CreateTestPresenter extends BasePresenter implements TestContract.U
         mPrefHelper.setCurrentTestId(testId);
     }
 
-    public void addTest(final Test test){
-        getCompositeDisposable().add(mDatabase.insertTestWithId(test).subscribe(
-                aLong -> {
-                    Log.d(TAG, "addTest: success");
-                    mPrefHelper.setCurrentTestId(aLong);
-                },
-                throwable -> {
-                    Log.d(TAG, "addTest: throwable");
-                }
-                ));
+//    public void addTest(Test test){
+//        Log.d(TAG, "addTest: start");
+//        getCompositeDisposable().add(mDatabase.insertTest(test)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(aBoolean -> {
+//                            Log.d(TAG, "addTest: success");
+//                        },
+//                throwable -> {
+//                    Log.d(TAG, "addTest: throwable");
+//                }
+//                ));
+//    }
+
+    public void addTestWithId(Test test){
+        getCompositeDisposable().add(mDatabase.insertTestWithId(test)
+                .subscribe(aLong -> {
+
+                }, throwable -> {
+
+                }));
     }
 
     @Override
     public Test loadTest(final long testId) {
-        final Test[] loadedTest = {new Test()};
-        getCompositeDisposable().add(mDatabase.getTestById(testId).subscribe(
-                test -> {
-                    Log.d(TAG, "loadTest: success");
-                    loadedTest[0] = test;
-
-                },
-                throwable -> {
-                    Log.d(TAG, "loadTest: exception");
-                    //exception
-                }
-        ));
-        return loadedTest[0];
+        return new Test();
     }
 
-    public void loadQuestions(final long testId){
-        getCompositeDisposable().add(mDatabase.getQuestionsSorted(testId).subscribe(
-                questions -> {},
-                throwable -> {}
-                ));
-    }
+//    public void loadQuestions(final long testId){
+//        getCompositeDisposable().add(mDatabase.getQuestionsSorted(testId).subscribe(
+//                questions -> {},
+//                throwable -> {}
+//                ));
+//    }
 }

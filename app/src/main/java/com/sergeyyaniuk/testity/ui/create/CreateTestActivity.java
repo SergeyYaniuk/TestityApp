@@ -2,22 +2,16 @@ package com.sergeyyaniuk.testity.ui.create;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
-import com.sergeyyaniuk.testity.data.model.Test;
-import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.module.CreateTestActivityModule;
-import com.sergeyyaniuk.testity.di.module.LoginActivityModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
 
 import javax.inject.Inject;
@@ -51,6 +45,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         App.get(this).getAppComponent().createCreateTestComponent(new CreateTestActivityModule(this))
                 .inject(this);
         ButterKnife.bind(this);
+        mPresenter.onCreate();
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.create_test);
@@ -73,6 +68,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(TEST_STATUS, isTestFinished);
+        outState.putLong(TEST_ID, test_id);
         super.onSaveInstanceState(outState);
     }
 
@@ -80,6 +76,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         isTestFinished = savedInstanceState.getBoolean(TEST_STATUS);
+        test_id = savedInstanceState.getLong(TEST_ID);
     }
 
     private void showCreateTestFragment(){
@@ -92,8 +89,6 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     //onClick "continue" in NotCompletedTestDialog
     @Override
     public void onContinueEditTest() {
-        test_id = mPresenter.getCurrentTestId();
-        //Test test = mPresenter.loadTest(test_id);
         Bundle arguments = new Bundle();
         arguments.putLong(TEST_ID, test_id);
         mCreateTestFragment.setArguments(arguments);
@@ -110,19 +105,18 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     @Override
     public void onCreateTestCompleted(String title, String category, String language, boolean isOnline,
                                       String description) {
-        Long userId = mPresenter.getCurrentUserId();
-        Test test = new Test();
-        test.setTitle(title);
-        test.setCategory(category);
-        test.setLanguage(language);
-        test.setOnline(isOnline);
-        test.setDescription(description);
-        test.setUserId(userId);
-        test.setNumberOfQuestions(0);
-        test.setNumberOfCorrectAnswers(0);
-        mPresenter.addTest(test);
-        isTestFinished = false;
-        displayQuestionsList();
+//        Long userId = mPresenter.getCurrentUserId();
+//        Test test = new Test(title, category, language, description,
+//                isOnline, 4, 3L, 2);
+//        mPresenter.addTest(test);
+//        Log.d(TAG, "onCreateTestCompleted: before booleen");
+//        isTestFinished = false;
+//        Log.d(TAG, "onCreateTestCompleted: before test_id");
+//        //test_id = mPresenter.getCurrentTestId();
+//        Log.d(TAG, "onCreateTestCompleted: before display");
+//        displayQuestionsList();
+
+
     }
 
     private void replaceFragment(Fragment fragment){

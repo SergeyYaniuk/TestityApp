@@ -27,8 +27,9 @@ public class LoginActivityModule {
 
     @ActivityScope
     @Provides
-    LoginPresenter provideLoginPresenter(Authentication authentication,
-                                         DatabaseManager databaseManager, PrefHelper prefHelper){
+    LoginPresenter provideLoginPresenter(Authentication authentication, DatabaseManager databaseManager,
+                                         PrefHelper prefHelper){
         return new LoginPresenter(mActivity, authentication, databaseManager, prefHelper);
     }
+
 }

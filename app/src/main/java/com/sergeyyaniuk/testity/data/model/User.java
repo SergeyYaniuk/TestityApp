@@ -2,13 +2,15 @@ package com.sergeyyaniuk.testity.data.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "users", indices = {@Index(value = "id", unique = true)})
 public class User {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo()
     private Long id;
 
     @ColumnInfo(name = "name")
@@ -21,6 +23,17 @@ public class User {
     private String loginWith;
 
     //private String password;
+
+    @Ignore
+    public User() {
+    }
+
+    public User(Long id, String name, String email, String loginWith) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.loginWith = loginWith;
+    }
 
     public Long getId() {
         return id;

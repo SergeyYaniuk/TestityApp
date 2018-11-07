@@ -51,8 +51,8 @@ public class LoginPresenter extends BasePresenter{
     private DatabaseManager mDatabaseManager;
     private PrefHelper mPrefHelper;
 
-    public LoginPresenter(LoginActivity activity, Authentication authentication,
-                          DatabaseManager databaseManager, PrefHelper prefHelper){
+    public LoginPresenter(LoginActivity activity, Authentication authentication, DatabaseManager databaseManager,
+                          PrefHelper prefHelper){
         this.mActivity = activity;
         this.mAuthentication = authentication;
         this.mDatabaseManager = databaseManager;

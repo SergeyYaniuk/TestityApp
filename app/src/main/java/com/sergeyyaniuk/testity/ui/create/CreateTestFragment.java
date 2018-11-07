@@ -34,7 +34,7 @@ public class CreateTestFragment extends Fragment {
 
     private Unbinder unbinder;
     CreateTestListener mListener;   //Listener for communication with Activity
-    TestContract.UserActionListener mPresenter;  //Listener for communication with CreateTestPresenter
+    TestContract.UserActionListener mPresenterContract;  //Listener for communication with CreateTestPresenter
 
     @BindView(R.id.titleTextInputLayout)
     TextInputLayout mTitleEditText;
@@ -56,6 +56,7 @@ public class CreateTestFragment extends Fragment {
 
     String mTitle, mCategory, mLanguage, mDescription;
     boolean isOnline;
+    boolean isRenewal;  //continue editing test
 
     public interface CreateTestListener{
         void onCreateTestCompleted(String title, String category, String language,
@@ -77,6 +78,7 @@ public class CreateTestFragment extends Fragment {
         if (arguments != null){
             Long testId = arguments.getLong(CreateTestActivity.TEST_ID);
             loadTest(testId);
+            isRenewal = true;
         }
         setCategoryAdapter();
         setLanguageAdapter();
@@ -89,7 +91,9 @@ public class CreateTestFragment extends Fragment {
                 (getContext(), R.array.category_list, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCategorySpinner.setAdapter(categoryAdapter);
-        mCategorySpinner.setSelection(3);
+        if (!isRenewal){
+            mCategorySpinner.setSelection(3);
+        }
     }
 
     @OnItemSelected(value = R.id.category_spinner, callback = OnItemSelected.Callback.ITEM_SELECTED)
@@ -103,7 +107,9 @@ public class CreateTestFragment extends Fragment {
                 (getContext(), R.array.language_list, android.R.layout.simple_spinner_item);
         languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLanguageSpinner.setAdapter(languageAdapter);
-        mLanguageSpinner.setSelection(2);
+        if (!isRenewal){
+            mLanguageSpinner.setSelection(2);
+        }
     }
 
     @OnItemSelected(value = R.id.language_spinner, callback = OnItemSelected.Callback.ITEM_SELECTED)
@@ -126,10 +132,41 @@ public class CreateTestFragment extends Fragment {
     }
 
     private void loadTest(Long testId){
-        Test test = mPresenter.loadTest(testId);
-        mTitleEditText.getEditText().setText(test.getTitle());
+        Test test = mPresenterContract.loadTest(testId);
+        String title = test.getTitle();
+        int categoryPosition = getCategoryPosition(test);
+        int languagePosition = getLanguagePosition(test);
+        boolean online = test.isOnline();
+        String description = test.getDescription();
+        mTitleEditText.getEditText().setText(title);
+        mCategorySpinner.setSelection(categoryPosition);
+        mLanguageSpinner.setSelection(languagePosition);
+        mIsOnlineCheckBox.setChecked(online);
+        mDescriptionEditText.getEditText().setText(description);
+    }
 
+    private int getCategoryPosition(Test test){
+        int position = 0;
+        String[] categoryArray = getResources().getStringArray(R.array.category_list);
+        String category = test.getCategory();
+        for (int i = 0; i < categoryArray.length; i++){
+            if (category.equals(categoryArray[i])){
+                position = i;
+            }
+        }
+        return position;
+    }
 
+    private int getLanguagePosition(Test test){
+        int position = 0;
+        String[] languageArray = getResources().getStringArray(R.array.language_list);
+        String language = test.getLanguage();
+        for (int i = 0; i < languageArray.length; i++){
+            if (language.equals(languageArray[i])){
+                position = i;
+            }
+        }
+        return position;
     }
 
     private boolean validateForm(){
