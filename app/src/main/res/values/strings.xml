@@ -2,10 +2,10 @@
     <string name="app_name">Testity</string>
 
     <!--Main Activity !-->
-    <string name="create_test">CREATE TEST</string>
-    <string name="pass_test">PASS TEST</string>
+    <string name="create_test">CREATE</string>
+    <string name="my_tests">MY TESTS</string>
     <string name="results">RESULTS</string>
-    <string name="find_test">FIND TEST</string>
+    <string name="find_test">FIND</string>
     <string name="invite_friends">INVITE FRIENDS</string>
     <string name="rate_us">RATE US</string>
     <string name="sign_out">Sign Out</string>

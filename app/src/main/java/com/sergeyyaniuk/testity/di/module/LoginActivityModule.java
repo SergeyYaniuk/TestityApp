@@ -4,6 +4,7 @@ import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.ActivityScope;
 import com.sergeyyaniuk.testity.firebase.Authentication;
+import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
 import com.sergeyyaniuk.testity.ui.login.LoginPresenter;
 
@@ -28,8 +29,8 @@ public class LoginActivityModule {
     @ActivityScope
     @Provides
     LoginPresenter provideLoginPresenter(Authentication authentication, DatabaseManager databaseManager,
-                                         PrefHelper prefHelper){
-        return new LoginPresenter(mActivity, authentication, databaseManager, prefHelper);
+                                         Firestore firestore, PrefHelper prefHelper){
+        return new LoginPresenter(mActivity, authentication, databaseManager, firestore, prefHelper);
     }
 
 }

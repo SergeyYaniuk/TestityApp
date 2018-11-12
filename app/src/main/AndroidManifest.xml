@@ -70,7 +70,7 @@
         <activity
             android:name=".ui.create.CreateTestActivity"/>
         <activity
-            android:name=".ui.pass.PassTestActivity">
+            android:name=".ui.myTests.MyTestsActivity">
         </activity>
     </application>
 </manifest>

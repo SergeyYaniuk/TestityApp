@@ -85,7 +85,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/pass_test_button"
+                android:id="@+id/my_tests_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -98,19 +98,19 @@
                 android:background="@drawable/buttons_main_activity">
 
                 <ImageView
-                    android:id="@+id/pass_test_image"
+                    android:id="@+id/my_tests_image"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:padding="4dp"
-                    android:src="@drawable/pass_test_image" />
+                    android:src="@drawable/my_tests_image" />
 
                 <TextView
-                    android:id="@+id/pass_test_textview"
+                    android:id="@+id/my_tests_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/source_sans_pro_bold"
                     android:padding="4dp"
-                    android:text="@string/pass_test"
+                    android:text="@string/my_tests"
                     android:textColor="@color/color_white"
                     android:textSize="24sp" />
 

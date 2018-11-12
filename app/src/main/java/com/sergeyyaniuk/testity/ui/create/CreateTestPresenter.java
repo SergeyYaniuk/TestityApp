@@ -5,6 +5,7 @@ import android.util.Log;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
+import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
 
@@ -14,11 +15,14 @@ public class CreateTestPresenter extends BasePresenter implements TestContract.U
 
     private CreateTestActivity mActivity;
     private DatabaseManager mDatabase;
+    private Firestore mFirestore;
     private PrefHelper mPrefHelper;
 
-    public CreateTestPresenter(CreateTestActivity activity, DatabaseManager database, PrefHelper prefHelper) {
+    public CreateTestPresenter(CreateTestActivity activity, DatabaseManager database, Firestore firestore,
+                               PrefHelper prefHelper) {
         this.mActivity = activity;
         this.mDatabase = database;
+        this.mFirestore = firestore;
         this.mPrefHelper = prefHelper;
     }
 

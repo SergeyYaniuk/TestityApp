@@ -32,6 +32,7 @@ import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.User;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Authentication;
+import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
 import org.json.JSONObject;
@@ -49,13 +50,15 @@ public class LoginPresenter extends BasePresenter{
     private LoginActivity mActivity;
     private Authentication mAuthentication;
     private DatabaseManager mDatabaseManager;
+    private Firestore mFirestore;
     private PrefHelper mPrefHelper;
 
     public LoginPresenter(LoginActivity activity, Authentication authentication, DatabaseManager databaseManager,
-                          PrefHelper prefHelper){
+                          Firestore firestore, PrefHelper prefHelper){
         this.mActivity = activity;
         this.mAuthentication = authentication;
         this.mDatabaseManager = databaseManager;
+        this.mFirestore = firestore;
         this.mPrefHelper = prefHelper;
     }
 

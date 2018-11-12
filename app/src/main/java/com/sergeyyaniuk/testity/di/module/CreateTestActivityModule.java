@@ -3,6 +3,7 @@ package com.sergeyyaniuk.testity.di.module;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.ActivityScope;
+import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.create.CreateTestActivity;
 import com.sergeyyaniuk.testity.ui.create.CreateTestPresenter;
 
@@ -26,7 +27,7 @@ public class CreateTestActivityModule {
 
     @ActivityScope
     @Provides
-    CreateTestPresenter provideCreateTestPresenter(DatabaseManager databaseManager, PrefHelper prefHelper){
-        return new CreateTestPresenter(mActivity, databaseManager, prefHelper);
+    CreateTestPresenter provideCreateTestPresenter(DatabaseManager databaseManager, Firestore firestore, PrefHelper prefHelper){
+        return new CreateTestPresenter(mActivity, databaseManager, firestore, prefHelper);
     }
 }

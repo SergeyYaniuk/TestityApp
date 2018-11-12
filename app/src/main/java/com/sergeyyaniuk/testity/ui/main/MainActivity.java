@@ -24,7 +24,7 @@ import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.create.CreateTestActivity;
 import com.sergeyyaniuk.testity.ui.find.FindTestActivity;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
-import com.sergeyyaniuk.testity.ui.pass.PassTestActivity;
+import com.sergeyyaniuk.testity.ui.myTests.MyTestsActivity;
 import com.sergeyyaniuk.testity.ui.results.ResultsActivity;
 
 import javax.inject.Inject;
@@ -48,8 +48,8 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
 
     @BindView(R.id.create_test_button)
     LinearLayout mCreateTest;
-    @BindView(R.id.pass_test_button)
-    LinearLayout mPassTest;
+    @BindView(R.id.my_tests_button)
+    LinearLayout mMyTests;
     @BindView(R.id.results_button)
     LinearLayout mResults;
     @BindView(R.id.find_test_button)
@@ -83,9 +83,9 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         startActivity(new Intent(MainActivity.this, CreateTestActivity.class));
     }
 
-    @OnClick(R.id.pass_test_button)
-    public void onPassTest(){
-        startActivity(new Intent(MainActivity.this, PassTestActivity.class));
+    @OnClick(R.id.my_tests_button)
+    public void onMyTests(){
+        startActivity(new Intent(MainActivity.this, MyTestsActivity.class));
     }
 
     @OnClick(R.id.results_button)
