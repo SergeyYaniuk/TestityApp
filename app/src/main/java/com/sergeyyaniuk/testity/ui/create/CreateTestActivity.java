@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.CreateTestActivityModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
@@ -105,18 +106,9 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     @Override
     public void onCreateTestCompleted(String title, String category, String language, boolean isOnline,
                                       String description) {
-//        Long userId = mPresenter.getCurrentUserId();
-//        Test test = new Test(title, category, language, description,
-//                isOnline, 4, 3L, 2);
-//        mPresenter.addTest(test);
-//        Log.d(TAG, "onCreateTestCompleted: before booleen");
-//        isTestFinished = false;
-//        Log.d(TAG, "onCreateTestCompleted: before test_id");
-//        //test_id = mPresenter.getCurrentTestId();
-//        Log.d(TAG, "onCreateTestCompleted: before display");
-//        displayQuestionsList();
-
-
+        mPresenter.addTest(title, category, language, isOnline, description); //add test to database and Firebase
+        isTestFinished = false;
+        displayQuestionsList();
     }
 
     private void replaceFragment(Fragment fragment){
@@ -128,16 +120,15 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
 
     private void displayQuestionsList(){
         QuestionsListFragment questionsList = new QuestionsListFragment();
-
         Bundle arguments = new Bundle();
-        arguments.putLong(TEST_ID, 1L);
+        String testId = mPresenter.getCurrentTestId();
+        arguments.putLong(TEST_ID, test_id);
         questionsList.setArguments(arguments);
-
         replaceFragment(questionsList);
     }
 
     @Override
-    public void onAddEditQuestion() {
+    public void onAddQuestion() {
         //QuestionList. when press on RecyclerView item
         AddEditQuestionFragment addEditQuestionFragment = new AddEditQuestionFragment();
         replaceFragment(addEditQuestionFragment);

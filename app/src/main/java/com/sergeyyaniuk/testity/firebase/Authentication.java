@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 
@@ -45,6 +46,8 @@ public class Authentication {
 
     //for facebook auth;
     CallbackManager mCallbackManager;
+
+    protected boolean usernameIsSet;
 
     public Authentication(Application application){
         this.mApplication = application;
@@ -90,6 +93,14 @@ public class Authentication {
 
     public FirebaseUser getCurrentUser(){
         return mAuth.getCurrentUser();
+    }
+
+    public void setUserName(String name){
+        FirebaseUser user = getCurrentUser();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build();
+        user.updateProfile(profileUpdates);
     }
 
     public void signOut(){

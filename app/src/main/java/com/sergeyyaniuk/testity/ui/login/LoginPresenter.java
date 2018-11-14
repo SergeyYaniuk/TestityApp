@@ -62,8 +62,6 @@ public class LoginPresenter extends BasePresenter{
         this.mPrefHelper = prefHelper;
     }
 
-    //____Methods for Firebase queries_____//
-
     //Auth with Google
     protected Intent loginWithGoogle(){
         return mAuthentication.getUserWithGoogle(mActivity);
@@ -78,7 +76,7 @@ public class LoginPresenter extends BasePresenter{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                insertDataToPreferences();
+                                saveUser("google");
                                 mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_successful);
                                 mActivity.startIntent();
@@ -125,7 +123,7 @@ public class LoginPresenter extends BasePresenter{
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    insertDataToPreferences();
+                    saveUser("facebook");
                     mActivity.hideProgressDialog();
                     mActivity.showToast(mActivity, R.string.auth_successful);
                     mActivity.startIntent();
@@ -145,7 +143,7 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            insertDataToPreferences();
+                            saveUser("login");
                             mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
@@ -158,7 +156,7 @@ public class LoginPresenter extends BasePresenter{
                 });
     }
 
-    //create account. Need to uncomment after version of database will change
+    //create account
     protected void createAccount(final String name, final String email, final String password){
         mActivity.showProgressDialog();
         mAuthentication.createUserWithEmail(email, password)
@@ -166,7 +164,8 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            insertDataToPreferences();
+                            mAuthentication.setUserName(name);
+                            saveUser("login");
                             mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
@@ -198,14 +197,15 @@ public class LoginPresenter extends BasePresenter{
                 });
     }
 
-    private void insertDataToPreferences(){
+    private void saveUser(String loginWith){
         FirebaseUser user = mAuthentication.getCurrentUser();
+        String id = user.getUid();
         String name = user.getDisplayName();
         String email = user.getEmail();
-        Long id = 1L;   //need to be changed
-        mPrefHelper.setCurrentUserName(name);
-        mPrefHelper.setCurrentUserEmail(email);
-        mPrefHelper.setCurrentUserId(id);
+        insertUserDataToPreferences(id, name, email);  //add user to SharedPreferences
+        //need to add method which query with email to firestore and check if user exist
+        //insertUserDataToDatabase(id, name, email, loginWith);  //add user to RoomDatabase
+        mFirestore.addUser(id, name, email, loginWith);  //add user to Firestore
     }
 
     protected boolean isUserLogIn(){
@@ -219,32 +219,21 @@ public class LoginPresenter extends BasePresenter{
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    //____Methods for database queries_____//
+    private void insertUserDataToPreferences(String id, String name, String email){
+        mPrefHelper.setCurrentUserName(name);
+        mPrefHelper.setCurrentUserEmail(email);
+        mPrefHelper.setCurrentUserId(id);
+    }
 
-    //need to be uncomment after database version will change
-//    protected void insertNewUser(Long id, String name, String email, String password){
-//        User user = new User(id, name, email, password);
-//        getCompositeDisposable().add(mDatabaseManager.insertUser(user)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                        aBoolean -> {
-//                            //here should be code if user added to database successfully
-//                        },
-//                        throwable -> {
-//                            //here should be exception
-//                        }
-//                        ));
-//
-//    }
-//
-//    protected boolean checkIfUserExist(String email){
-//        boolean exist = false;
-//        // here need to be method for find user by email and if user exist then true
-//        return exist;
-//    }
-//
-//    protected void loginWithDatabase(String email, String password){
-//        //need to add implementation
-//    }
+    private void insertUserDataToDatabase(String id, String name, String email, String loginWith){
+        //need to add implementation if user exist do nothing, if null then code below
+        User user = new User(id, name, email, loginWith);
+        getCompositeDisposable().add(mDatabaseManager.insertUser(user).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(aBoolean -> {
+                            Log.d(TAG, "insertUserDataToDatabase: success");
+                        },
+                        throwable -> {
+                            Log.d(TAG, "insertUserDataToDatabase: Error");
+                        }));
+    }
 }

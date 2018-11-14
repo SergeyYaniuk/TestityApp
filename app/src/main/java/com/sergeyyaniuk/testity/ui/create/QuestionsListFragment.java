@@ -52,7 +52,7 @@ public class QuestionsListFragment extends Fragment {
     private Long mTestId;
 
     public interface QuestionsListListener{
-        void onAddEditQuestion();
+        void onAddQuestion();
         void onTestCompleted();
         void onClickQuestion(int position);
         void onSwipedQuestion(int position);
@@ -121,7 +121,7 @@ public class QuestionsListFragment extends Fragment {
 
     @OnClick(R.id.add_question_button)
     public void addQuestion(){
-        mListener.onAddEditQuestion();
+        mListener.onAddQuestion();
     }
 
     QuestionsAdapter.QuestionClickListener questionClickListener = new QuestionsAdapter.QuestionClickListener() {

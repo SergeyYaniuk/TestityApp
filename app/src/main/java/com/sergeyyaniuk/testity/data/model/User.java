@@ -5,13 +5,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "users", indices = {@Index(value = "id", unique = true)})
 public class User {
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo()
-    private Long id;
+    @PrimaryKey()
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -22,24 +23,23 @@ public class User {
     @ColumnInfo(name = "login_with")
     private String loginWith;
 
-    //private String password;
-
     @Ignore
     public User() {
     }
 
-    public User(Long id, String name, String email, String loginWith) {
+    public User(String id, String name, String email, String loginWith) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.loginWith = loginWith;
     }
 
-    public Long getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,29 +66,4 @@ public class User {
     public void setLoginWith(String loginWith) {
         this.loginWith = loginWith;
     }
-
-//    public User(Long id, String name, String email, String password){
-//        this.id = id;
-//        this.name = name;
-//        this.email = email;
-//        this.password = password;
-//    }
-//
-//    @Override
-//    public boolean equals(Object object) {
-//        if (this == object) return true;
-//        if (object == null || getClass() != object.getClass()) return false;
-//
-//        User that = (User) object;
-//
-//        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-//        return password != null ? password.equals(that.password) : that.password == null;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = email != null ? email.hashCode() : 0;
-//        result = 31 * result + (password != null ? password.hashCode() : 0);
-//        return result;
-//    }
 }

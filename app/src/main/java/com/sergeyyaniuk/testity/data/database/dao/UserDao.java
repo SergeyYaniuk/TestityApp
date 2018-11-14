@@ -17,34 +17,15 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(User user);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertWithId(User user);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMany(List<User> users);
-
     @Update
     void update(User user);
-
-    @Update
-    int updateWithNumber(User user);
-
-    @Update
-    void updateMany(List<User> users);
 
     @Delete
     void delete(User user);
 
-    @Delete
-    int deleteWithNumber(User user);
-
-    @Delete
-    void deleteMany(List<User> users);
-
     @Query("SELECT * FROM users WHERE id = :userId LIMIT 1")
     User getUserById(long userId);
 
-    //need to be uncomment after version of database will change and don'd forgot write method in databaseManager
-//    @Query("SELECT * FROM users WHERE email = :userEmail LIMIT 1")
-//    User getUserByEmail(String email);
+    @Query("SELECT * FROM users WHERE email = :userEmail LIMIT 1")
+    User getUserByEmail(String userEmail);
 }

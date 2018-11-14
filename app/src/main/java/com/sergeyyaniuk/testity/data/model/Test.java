@@ -6,6 +6,7 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -15,9 +16,9 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         indices = {@Index(value = "id", unique = true), @Index("title"), @Index("user_id")})
 public class Test {
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo()
-    private Long id;
+    @PrimaryKey()
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -38,7 +39,7 @@ public class Test {
     private int numberOfQuestions;
 
     @ColumnInfo(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @ColumnInfo(name = "number_of_correct_answers")
     private int numberOfCorrectAnswers;
@@ -47,8 +48,9 @@ public class Test {
     public Test() {
     }
 
-    public Test(String title, String category, String language, String description, boolean isOnline,
-                int numberOfQuestions, Long userId, int numberOfCorrectAnswers) {
+    public Test(String id, String title, String category, String language, String description, boolean isOnline,
+                int numberOfQuestions, String userId, int numberOfCorrectAnswers) {
+        this.id = id;
         this.title = title;
         this.category = category;
         this.language = language;
@@ -59,11 +61,12 @@ public class Test {
         this.numberOfCorrectAnswers = numberOfCorrectAnswers;
     }
 
-    public Long getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -115,11 +118,11 @@ public class Test {
         this.numberOfQuestions = numberOfQuestions;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

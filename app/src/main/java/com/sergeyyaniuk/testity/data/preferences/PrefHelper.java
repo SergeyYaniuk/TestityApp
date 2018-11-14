@@ -19,14 +19,12 @@ public class PrefHelper {
         mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 
-    public void setCurrentUserId(Long userId){
-        long id = userId == null ? Constants.NULL_INDEX : userId;
-        mPrefs.edit().putLong(CURRENT_USER_ID, id).apply();
+    public void setCurrentUserId(String userId){
+        mPrefs.edit().putString(CURRENT_USER_ID, userId).apply();
     }
 
-    public Long getCurrentUserId(){
-        long userId = mPrefs.getLong(CURRENT_USER_ID, Constants.NULL_INDEX);
-        return userId == Constants.NULL_INDEX ? null : userId;
+    public String getCurrentUserId(){
+        return mPrefs.getString(CURRENT_USER_ID, null);
     }
 
     public void removeCurrentUserId(){
@@ -37,12 +35,12 @@ public class PrefHelper {
         mPrefs.edit().putString(CURRENT_USER_NAME, userName).apply();
     }
 
-    public void removeCurrentUserName(){
-        mPrefs.edit().remove(CURRENT_USER_NAME).apply();
-    }
-
     public String getCurrentUserName(){
         return mPrefs.getString(CURRENT_USER_NAME, null);
+    }
+
+    public void removeCurrentUserName(){
+        mPrefs.edit().remove(CURRENT_USER_NAME).apply();
     }
 
     public void setCurrentUserEmail(String email){
@@ -61,13 +59,11 @@ public class PrefHelper {
         mPrefs.edit().clear().apply();
     }
 
-    public void setCurrentTestId(Long testId){
-        long id = testId == null ? Constants.NULL_INDEX : testId;
-        mPrefs.edit().putLong(CURRENT_TEST_ID, id).apply();
+    public void setCurrentTestId(String testId){
+        mPrefs.edit().putString(CURRENT_TEST_ID, testId).apply();
     }
 
-    public Long getCurrentTestId(){
-        long testId = mPrefs.getLong(CURRENT_TEST_ID, Constants.NULL_INDEX);
-        return testId == Constants.NULL_INDEX ? null : testId;
+    public String getCurrentTestId(){
+        return mPrefs.getString(CURRENT_TEST_ID, null);
     }
 }

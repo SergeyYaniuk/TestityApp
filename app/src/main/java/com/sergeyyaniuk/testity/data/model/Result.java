@@ -20,7 +20,7 @@ public class Result {
     private Long id;
 
     @ColumnInfo(name = "test_id")
-    private Long testId;
+    private String testId;
 
     @ColumnInfo(name = "applicant_name")
     private String applicantName;
@@ -32,7 +32,7 @@ public class Result {
     public Result() {
     }
 
-    public Result(Long testId, String applicantName, int score) {
+    public Result(String testId, String applicantName, int score) {
         this.testId = testId;
         this.applicantName = applicantName;
         this.score = score;
@@ -46,11 +46,11 @@ public class Result {
         this.id = id;
     }
 
-    public Long getTestId() {
+    public String getTestId() {
         return testId;
     }
 
-    public void setTestId(Long testId) {
+    public void setTestId(String testId) {
         this.testId = testId;
     }
 
