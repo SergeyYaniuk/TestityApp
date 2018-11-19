@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.create;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,10 +11,16 @@ import android.util.Log;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.model.Answer;
+import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.CreateTestActivityModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -34,8 +41,9 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
 
     public static final String TEST_STATUS = "test_status";
     public static final String TEST_ID = "test_id";
+    public static final String QUESTION_ID = "question_id";
     private boolean isTestFinished = true;
-    private long test_id;
+    private String mTestId;
 
     CreateTestFragment mCreateTestFragment;
 
@@ -55,10 +63,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
 
     private void checkTestStatus(){
         if (isTestFinished){
-            mCreateTestFragment = new CreateTestFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.fragmentContainer, mCreateTestFragment);
-            transaction.commit();
+            showCreateTestFragment();
         } else{
             //Show NotCompletedTestDialog
             NotCompletedTestDialog notCompletedTestDialog = new NotCompletedTestDialog();
@@ -69,7 +74,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(TEST_STATUS, isTestFinished);
-        outState.putLong(TEST_ID, test_id);
+        outState.putString(TEST_ID, mTestId);
         super.onSaveInstanceState(outState);
     }
 
@@ -77,38 +82,65 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         isTestFinished = savedInstanceState.getBoolean(TEST_STATUS);
-        test_id = savedInstanceState.getLong(TEST_ID);
+        mTestId = savedInstanceState.getString(TEST_ID);
     }
 
-    private void showCreateTestFragment(){
-        mCreateTestFragment = new CreateTestFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, mCreateTestFragment);
-        transaction.commit();
+    //onClick "create new" in NotCompletedTestDialog
+    @Override
+    public void onStartNewTest() {
+        isTestFinished = true;
+        showCreateTestFragment();
     }
 
     //onClick "continue" in NotCompletedTestDialog
     @Override
     public void onContinueEditTest() {
         Bundle arguments = new Bundle();
-        arguments.putLong(TEST_ID, test_id);
+        arguments.putString(TEST_ID, mTestId);
         mCreateTestFragment.setArguments(arguments);
         showCreateTestFragment();
     }
 
-    //onClick "create new" in NotCompletedTestDialog
+    //method create test without questions
     @Override
-    public void onCreateNewTest() {
-        isTestFinished = true;
-        showCreateTestFragment();
-    }
-
-    @Override
-    public void onCreateTestCompleted(String title, String category, String language, boolean isOnline,
+    public void onCreateTest(String title, String category, String language, boolean isOnline,
                                       String description) {
         mPresenter.addTest(title, category, language, isOnline, description); //add test to database and Firebase
         isTestFinished = false;
         displayQuestionsList();
+    }
+
+    @Override
+    public void onAddNewQuestion() {
+        @SuppressLint("SimpleDateFormat")
+        String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        String questionId = mTestId + currentDateAndTime;
+        showAddEditFragment(questionId);
+    }
+
+    @Override
+    public void onClickQuestion(String questionId) {
+        showAddEditFragment(questionId);
+    }
+
+    @Override
+    public void onTestCompleted() {
+        //QuestionList. when press on done button
+        startActivity(new Intent(CreateTestActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public void onSwipedQuestion(int position) {
+
+    }
+
+    //AddEditQuestionFragment. when press on done button
+    @Override
+    public void onAddEditQuestionCompleted(Question question, List<Answer> answers) {
+        mPresenter.saveQuestion(question);
+        mPresenter.saveAnswerList(answers);
+        QuestionsListFragment questionsList = new QuestionsListFragment();
+        replaceFragment(questionsList);
     }
 
     private void replaceFragment(Fragment fragment){
@@ -121,40 +153,27 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     private void displayQuestionsList(){
         QuestionsListFragment questionsList = new QuestionsListFragment();
         Bundle arguments = new Bundle();
-        String testId = mPresenter.getCurrentTestId();
-        arguments.putLong(TEST_ID, test_id);
+        arguments.putString(TEST_ID, mTestId);
         questionsList.setArguments(arguments);
         replaceFragment(questionsList);
     }
 
-    @Override
-    public void onAddQuestion() {
-        //QuestionList. when press on RecyclerView item
+    private void showCreateTestFragment(){
+        mCreateTestFragment = new CreateTestFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragmentContainer, mCreateTestFragment);
+        transaction.commit();
+    }
+
+    private void showAddEditFragment(String questionId){
         AddEditQuestionFragment addEditQuestionFragment = new AddEditQuestionFragment();
-        replaceFragment(addEditQuestionFragment);
-    }
-
-    @Override
-    public void onTestCompleted() {
-        //QuestionList. when press on done button
-        startActivity(new Intent(CreateTestActivity.this, MainActivity.class));
-    }
-
-    @Override
-    public void onClickQuestion(int position) {
-
-    }
-
-    @Override
-    public void onSwipedQuestion(int position) {
-
-    }
-
-    @Override
-    public void onAddEditQuestionCompleted() {
-        //AddEditQuestionFragment. when press on done button
-        QuestionsListFragment questionsList = new QuestionsListFragment();
-        replaceFragment(questionsList);
+        Bundle arguments = new Bundle();
+        arguments.putString(QUESTION_ID, questionId);
+        addEditQuestionFragment.setArguments(arguments);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, addEditQuestionFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override

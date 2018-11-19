@@ -18,16 +18,10 @@ public interface TestDao {
     void insert(Test test);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertWithId(Test test);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMany(List<Test> tests);
 
     @Update
     void update(Test test);
-
-    @Update
-    int updateWithNumber(Test test);
 
     @Update
     void updateMany(List<Test> tests);
@@ -36,14 +30,11 @@ public interface TestDao {
     void delete(Test test);
 
     @Delete
-    int deleteWithNumber(Test test);
-
-    @Delete
     void deleteMany(List<Test> tests);
 
     @Query("SELECT * FROM tests WHERE user_id = :userId")
-    List<Test> getTestsByUserId(long userId);
+    List<Test> getTestsByUserId(String userId);
 
     @Query("SELECT * FROM tests WHERE id = :testId LIMIT 1")
-    Test getTestById(long testId);
+    Test getTestById(String testId);
 }

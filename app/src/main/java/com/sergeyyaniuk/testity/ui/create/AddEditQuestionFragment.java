@@ -1,9 +1,11 @@
 package com.sergeyyaniuk.testity.ui.create;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +13,16 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.model.Answer;
+import com.sergeyyaniuk.testity.data.model.Question;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +36,13 @@ public class AddEditQuestionFragment extends Fragment {
 
     @BindView(R.id.question_editText)
     EditText mQuestionEditText;
+
+    @BindView(R.id.answer3TextInputLayout) TextInputLayout mAnswer3Layout;
+    @BindView(R.id.answer4TextInputLayout) TextInputLayout mAnswer4Layout;
+    @BindView(R.id.answer5TextInputLayout) TextInputLayout mAnswer5Layout;
+    @BindView(R.id.answer6TextInputLayout) TextInputLayout mAnswer6Layout;
+    @BindView(R.id.answer7TextInputLayout) TextInputLayout mAnswer7Layout;
+    @BindView(R.id.answer8TextInputLayout) TextInputLayout mAnswer8Layout;
 
     @BindView(R.id.answer1_checkbox) CheckBox mAnswer1Checkbox;
     @BindView(R.id.answer2_checkbox) CheckBox mAnswer2Checkbox;
@@ -52,8 +69,18 @@ public class AddEditQuestionFragment extends Fragment {
     @BindView(R.id.add_answer7) ImageButton addAnswer7Button;
     @BindView(R.id.add_answer8) ImageButton addAnswer8Button;
 
+    @BindView(R.id.button4Layout) LinearLayout button4Layout;
+    @BindView(R.id.button5Layout) LinearLayout button5Layout;
+    @BindView(R.id.button6Layout) LinearLayout button6Layout;
+    @BindView(R.id.button7Layout) LinearLayout button7Layout;
+    @BindView(R.id.button8Layout) LinearLayout button8Layout;
+
+    private String mTestId;
+    private String mQuestionId;
+    private List<Answer> mAnswerList = new ArrayList<>();
+
     public interface AddEditQuestionListener{
-        void onAddEditQuestionCompleted();
+        void onAddEditQuestionCompleted(Question question, List<Answer> answers);
     }
 
     public AddEditQuestionFragment(){
@@ -65,12 +92,76 @@ public class AddEditQuestionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_edit_question, container, false);
         unbinder = ButterKnife.bind(this, view);
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            mTestId = arguments.getString(CreateTestActivity.TEST_ID);
+        }
+
         return view;
     }
 
     @OnClick(R.id.saveQuestionButton)
     public void onSaveQuestion(){
-        mListener.onAddEditQuestionCompleted();
+        generateQuestionId();
+        Question question = new Question(mQuestionId, mQuestionEditText.getText().toString(), mTestId);
+        checkAddAnswer(mAnswer1EditText.getText().toString(), 1, mAnswer1Checkbox.isChecked());
+        checkAddAnswer(mAnswer2EditText.getText().toString(), 2, mAnswer2Checkbox.isChecked());
+        checkAddAnswer(mAnswer3EditText.getText().toString(), 3, mAnswer3Checkbox.isChecked());
+        checkAddAnswer(mAnswer4EditText.getText().toString(), 4, mAnswer4Checkbox.isChecked());
+        checkAddAnswer(mAnswer5EditText.getText().toString(), 5, mAnswer5Checkbox.isChecked());
+        checkAddAnswer(mAnswer6EditText.getText().toString(), 6, mAnswer6Checkbox.isChecked());
+        checkAddAnswer(mAnswer7EditText.getText().toString(), 7, mAnswer7Checkbox.isChecked());
+        checkAddAnswer(mAnswer8EditText.getText().toString(), 8, mAnswer8Checkbox.isChecked());
+        mListener.onAddEditQuestionCompleted(question, mAnswerList);
+    }
+
+    private void generateQuestionId(){
+        @SuppressLint("SimpleDateFormat")
+        String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        mQuestionId = mTestId + currentDateAndTime;
+    }
+
+    private void checkAddAnswer(String answerText, int number, boolean isCorrect){
+        if (answerText.length() > 0){
+            String answerId = mQuestionId + Integer.toString(number);
+            Answer answer = new Answer(answerId, answerText, isCorrect, mQuestionId);
+            mAnswerList.add(answer);
+        }
+    }
+
+    @OnClick(R.id.add_answer3)
+    public void setAnswer3Visible(){
+        mAnswer3Layout.setVisibility(View.VISIBLE);
+        button4Layout.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.add_answer4)
+    public void setAnswer4Visible(){
+        mAnswer4Layout.setVisibility(View.VISIBLE);
+        button5Layout.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.add_answer5)
+    public void setAnswer5Visible(){
+        mAnswer5Layout.setVisibility(View.VISIBLE);
+        button6Layout.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.add_answer6)
+    public void setAnswer6Visible(){
+        mAnswer6Layout.setVisibility(View.VISIBLE);
+        button7Layout.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.add_answer7)
+    public void setAnswer7Visible(){
+        mAnswer7Layout.setVisibility(View.VISIBLE);
+        button8Layout.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.add_answer8)
+    public void setAnswer8Visible(){
+        mAnswer8Layout.setVisibility(View.VISIBLE);
     }
 
     @Override

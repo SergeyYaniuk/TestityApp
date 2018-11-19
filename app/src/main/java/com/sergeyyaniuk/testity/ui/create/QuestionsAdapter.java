@@ -21,7 +21,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     private QuestionClickListener mQuestionClickListener;
 
     public interface QuestionClickListener{
-        void onQuestionClick(int position);
+        void onQuestionClick(String questionId);
     }
 
     public QuestionsAdapter(ArrayList<Question> questions, QuestionClickListener questionClickListener){
@@ -60,6 +60,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         mQuestions = questions;
     }
 
+    public Question getItem(int position) {
+        return mQuestions.get(position);
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -73,8 +77,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            mQuestionClickListener.onQuestionClick(position);
+            String questionId = getItem(getAdapterPosition()).getId();
+            mQuestionClickListener.onQuestionClick(questionId);
         }
     }
 }

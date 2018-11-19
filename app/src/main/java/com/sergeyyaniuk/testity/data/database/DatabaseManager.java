@@ -2,9 +2,13 @@ package com.sergeyyaniuk.testity.data.database;
 
 import android.util.Log;
 
+import com.sergeyyaniuk.testity.data.model.Answer;
+import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.inject.Singleton;
@@ -46,4 +50,34 @@ public class DatabaseManager {
             }
         });
     }
+
+    public Observable<List<Question>> getQuestions(final String testId){
+        return Observable.fromCallable(new Callable<List<Question>>() {
+            @Override
+            public List<Question> call() throws Exception {
+                return testityDatabase.questionDao().getQuestionsByTestId(testId);
+            }
+        });
+    }
+
+    public Observable<Boolean> insertQuestion(final Question question){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.questionDao().insert(question);
+                return true;
+            }
+        });
+    }
+
+    public Observable<Boolean> insertAnswers(final List<Answer> answers){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.answerDao().insertMany(answers);
+                return true;
+            }
+        });
+    }
+
 }

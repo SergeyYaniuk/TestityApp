@@ -27,7 +27,7 @@ public class User {
     public User() {
     }
 
-    public User(String id, String name, String email, String loginWith) {
+    public User(@NonNull String id, String name, String email, String loginWith) {
         this.id = id;
         this.name = name;
         this.email = email;

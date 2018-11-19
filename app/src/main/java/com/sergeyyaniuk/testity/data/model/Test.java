@@ -48,7 +48,7 @@ public class Test {
     public Test() {
     }
 
-    public Test(String id, String title, String category, String language, String description, boolean isOnline,
+    public Test(@NonNull String id, String title, String category, String language, String description, boolean isOnline,
                 int numberOfQuestions, String userId, int numberOfCorrectAnswers) {
         this.id = id;
         this.title = title;

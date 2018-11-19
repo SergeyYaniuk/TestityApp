@@ -155,11 +155,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/button4Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 android:background="@drawable/background_button_add">
 
                 <ImageButton
@@ -201,11 +203,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/button5Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 android:background="@drawable/background_button_add">
 
                 <ImageButton
@@ -247,11 +251,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/button6Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 android:background="@drawable/background_button_add">
 
                 <ImageButton
@@ -293,11 +299,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/button7Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 android:background="@drawable/background_button_add">
 
                 <ImageButton
@@ -339,11 +347,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/button8Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 android:background="@drawable/background_button_add">
 
                 <ImageButton

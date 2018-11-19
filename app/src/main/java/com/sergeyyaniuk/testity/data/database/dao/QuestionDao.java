@@ -9,6 +9,7 @@ import android.arch.persistence.room.Update;
 
 import com.sergeyyaniuk.testity.data.model.Question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -18,16 +19,10 @@ public interface QuestionDao {
     void insert(Question question);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertWithId(Question question);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMany(List<Question> questions);
 
     @Update
     void update(Question question);
-
-    @Update
-    int updateWithNumber(Question question);
 
     @Update
     void updateMany(List<Question> questions);
@@ -36,17 +31,14 @@ public interface QuestionDao {
     void delete(Question question);
 
     @Delete
-    int deleteWithNumber(Question question);
-
-    @Delete
     void deleteMany(List<Question> questions);
 
     @Query("SELECT * FROM questions WHERE id = :questionId LIMIT 1")
-    Question getQuestionById(long questionId);
+    Question getQuestionById(String questionId);
 
     @Query("SELECT * FROM questions WHERE test_id = :testId")
-    List<Question> getQuestionsByTestId(long testId);
+    List<Question> getQuestionsByTestId(String testId);
 
     @Query("SELECT * FROM questions WHERE test_id = :testId ORDER BY number ASC")
-    List<Question> getQuestionsSorted(long testId);
+    List<Question> getQuestionsSorted(String testId);
 }

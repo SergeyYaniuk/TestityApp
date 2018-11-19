@@ -24,7 +24,7 @@ public interface UserDao {
     void delete(User user);
 
     @Query("SELECT * FROM users WHERE id = :userId LIMIT 1")
-    User getUserById(long userId);
+    User getUserById(String userId);
 
     @Query("SELECT * FROM users WHERE email = :userEmail LIMIT 1")
     User getUserByEmail(String userEmail);

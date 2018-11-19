@@ -4,10 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.sergeyyaniuk.testity.R;
@@ -27,14 +24,13 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
-import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 public class CreateTestFragment extends Fragment {
 
     private Unbinder unbinder;
     CreateTestListener mListener;   //Listener for communication with Activity
-    TestContract.UserActionListener mPresenterContract;  //Listener for communication with CreateTestPresenter
+    CreatePresenterContract mPresenterContract;  //Listener for communication with CreateTestPresenter
 
     @BindView(R.id.titleTextInputLayout)
     TextInputLayout mTitleEditText;
@@ -59,7 +55,7 @@ public class CreateTestFragment extends Fragment {
     boolean isRenewal;  //continue editing test
 
     public interface CreateTestListener{
-        void onCreateTestCompleted(String title, String category, String language,
+        void onCreateTest(String title, String category, String language,
                                    boolean isOnline, String description);
     }
 
@@ -76,7 +72,7 @@ public class CreateTestFragment extends Fragment {
         //user would like to continue edit test
         Bundle arguments = getArguments();
         if (arguments != null){
-            Long testId = arguments.getLong(CreateTestActivity.TEST_ID);
+            String testId = arguments.getString(CreateTestActivity.TEST_ID);
             loadTest(testId);
             isRenewal = true;
         }
@@ -128,10 +124,10 @@ public class CreateTestFragment extends Fragment {
         if (!validateForm()) {
             return;
         }
-        mListener.onCreateTestCompleted(mTitle, mCategory, mLanguage, isOnline, mDescription);
+        mListener.onCreateTest(mTitle, mCategory, mLanguage, isOnline, mDescription);
     }
 
-    private void loadTest(Long testId){
+    private void loadTest(String testId){
         Test test = mPresenterContract.loadTest(testId);
         String title = test.getTitle();
         int categoryPosition = getCategoryPosition(test);

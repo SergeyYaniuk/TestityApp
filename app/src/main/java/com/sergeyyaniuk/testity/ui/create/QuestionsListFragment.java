@@ -20,6 +20,9 @@ import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Question;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +34,9 @@ public class QuestionsListFragment extends Fragment {
     public static final String TAG = "MyLog";
 
     private Unbinder unbinder;
+
+    @Inject
+    CreatePresenterContract mPresenterContract;
 
     @BindView(R.id.questionsRecView)
     RecyclerView mRecyclerView;
@@ -49,12 +55,12 @@ public class QuestionsListFragment extends Fragment {
     QuestionsAdapter mQuestionsAdapter;
     QuestionsListListener mListener;
     
-    private Long mTestId;
+    private String mTestId;
 
     public interface QuestionsListListener{
-        void onAddQuestion();
+        void onAddNewQuestion();
         void onTestCompleted();
-        void onClickQuestion(int position);
+        void onClickQuestion(String questionId);
         void onSwipedQuestion(int position);
     }
 
@@ -79,8 +85,8 @@ public class QuestionsListFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         getTestId();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mQuestions = new ArrayList<>();
-        updateQuestions();
+        mQuestions = mPresenterContract.loadQuestions(mTestId);  //load questions from database
+        updateRecyclerView();
         enableSwipe();
         return view;
     }
@@ -100,11 +106,11 @@ public class QuestionsListFragment extends Fragment {
     private void getTestId(){
         Bundle arguments = getArguments();
         if (arguments != null){
-            mTestId = arguments.getLong(CreateTestActivity.TEST_ID);
+            mTestId = arguments.getString(CreateTestActivity.TEST_ID);
         }
     }
 
-    public void updateQuestions(){
+    public void updateRecyclerView(){
         if (mQuestionsAdapter == null){
             mQuestionsAdapter = new QuestionsAdapter(mQuestions, questionClickListener);
             mRecyclerView.setAdapter(mQuestionsAdapter);
@@ -121,13 +127,13 @@ public class QuestionsListFragment extends Fragment {
 
     @OnClick(R.id.add_question_button)
     public void addQuestion(){
-        mListener.onAddQuestion();
+        mListener.onAddNewQuestion();
     }
 
     QuestionsAdapter.QuestionClickListener questionClickListener = new QuestionsAdapter.QuestionClickListener() {
         @Override
-        public void onQuestionClick(int position) {
-            mListener.onClickQuestion(position);
+        public void onQuestionClick(String questionId) {
+            mListener.onClickQuestion(questionId);
         }
     };
 

@@ -6,6 +6,7 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -15,9 +16,9 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         indices = {@Index(value = "id", unique = true), @Index("answer_text"), @Index("question_id")})
 public class Answer {
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo()
-    private Long id;
+    @PrimaryKey()
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "answer_text")
     private String answerText;
@@ -26,23 +27,25 @@ public class Answer {
     private boolean isCorrect;
 
     @ColumnInfo(name = "question_id")
-    private Long questionId;
+    private String questionId;
 
     @Ignore
     public Answer() {
     }
 
-    public Answer(String answerText, boolean isCorrect, Long questionId) {
+    public Answer(@NonNull String id, String answerText, boolean isCorrect, String questionId) {
+        this.id = id;
         this.answerText = answerText;
         this.isCorrect = isCorrect;
         this.questionId = questionId;
     }
 
-    public Long getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -62,11 +65,11 @@ public class Answer {
         isCorrect = correct;
     }
 
-    public Long getQuestionId() {
+    public String getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(Long questionId) {
+    public void setQuestionId(String questionId) {
         this.questionId = questionId;
     }
 }
