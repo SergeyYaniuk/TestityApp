@@ -51,7 +51,16 @@ public class DatabaseManager {
         });
     }
 
-    public Observable<List<Question>> getQuestions(final String testId){
+    public Observable<Question> getQuestion(final String questionId){
+        return Observable.fromCallable(new Callable<Question>() {
+            @Override
+            public Question call() throws Exception {
+                return testityDatabase.questionDao().getQuestionById(questionId);
+            }
+        });
+    }
+
+    public Observable<List<Question>> getQuestionList(final String testId){
         return Observable.fromCallable(new Callable<List<Question>>() {
             @Override
             public List<Question> call() throws Exception {
@@ -65,6 +74,16 @@ public class DatabaseManager {
             @Override
             public Boolean call() throws Exception {
                 testityDatabase.questionDao().insert(question);
+                return true;
+            }
+        });
+    }
+
+    public Observable<Boolean> deleteQuestion(final String questionId){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.questionDao().deleteQuestionById(questionId);
                 return true;
             }
         });

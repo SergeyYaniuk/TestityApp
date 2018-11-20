@@ -7,13 +7,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
-import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.CreateTestActivityModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
@@ -40,9 +38,11 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     CreateTestPresenter mPresenter;
 
     public static final String TEST_STATUS = "test_status";
+    public static final String TEST_ONLINE = "test_online";
     public static final String TEST_ID = "test_id";
     public static final String QUESTION_ID = "question_id";
-    private boolean isTestFinished = true;
+    private boolean isContinueEditing;
+    private boolean isTestOnline;
     private String mTestId;
 
     CreateTestFragment mCreateTestFragment;
@@ -58,37 +58,42 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.create_test);
-        checkTestStatus();
-    }
-
-    private void checkTestStatus(){
-        if (isTestFinished){
-            showCreateTestFragment();
-        } else{
-            //Show NotCompletedTestDialog
-            NotCompletedTestDialog notCompletedTestDialog = new NotCompletedTestDialog();
-            notCompletedTestDialog.show(getSupportFragmentManager(), "dialog_not_completed_test");
-        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(TEST_STATUS, isTestFinished);
+        outState.putBoolean(TEST_STATUS, isContinueEditing);
         outState.putString(TEST_ID, mTestId);
+        outState.putBoolean(TEST_ONLINE, isTestOnline);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        isTestFinished = savedInstanceState.getBoolean(TEST_STATUS);
+        isContinueEditing = savedInstanceState.getBoolean(TEST_STATUS);
         mTestId = savedInstanceState.getString(TEST_ID);
+        isTestOnline = savedInstanceState.getBoolean(TEST_ONLINE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkTestStatus();
+    }
+
+    private void checkTestStatus(){
+        if (isContinueEditing){
+            NotCompletedTestDialog notCompletedTestDialog = new NotCompletedTestDialog();
+            notCompletedTestDialog.show(getSupportFragmentManager(), "dialog_not_completed_test");
+        } else{
+            showCreateTestFragment();
+        }
     }
 
     //onClick "create new" in NotCompletedTestDialog
     @Override
     public void onStartNewTest() {
-        isTestFinished = true;
         showCreateTestFragment();
     }
 
@@ -106,8 +111,9 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     public void onCreateTest(String title, String category, String language, boolean isOnline,
                                       String description) {
         mPresenter.addTest(title, category, language, isOnline, description); //add test to database and Firebase
-        isTestFinished = false;
-        displayQuestionsList();
+        isContinueEditing = true;
+        isTestOnline = isOnline;
+        showQuestionsListFragment();
     }
 
     @Override
@@ -124,23 +130,26 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     }
 
     @Override
-    public void onTestCompleted() {
-        //QuestionList. when press on done button
-        startActivity(new Intent(CreateTestActivity.this, MainActivity.class));
-    }
-
-    @Override
-    public void onSwipedQuestion(int position) {
-
+    public void onSwipedQuestion(String questionId) {
+        mPresenter.deleteQuestion(questionId, isTestOnline);
+        //need to delete answers as well
     }
 
     //AddEditQuestionFragment. when press on done button
     @Override
     public void onAddEditQuestionCompleted(Question question, List<Answer> answers) {
-        mPresenter.saveQuestion(question);
-        mPresenter.saveAnswerList(answers);
+        mPresenter.saveQuestion(question, isTestOnline);
+        mPresenter.saveAnswerList(answers, isTestOnline);
         QuestionsListFragment questionsList = new QuestionsListFragment();
+        //getSupportFragmentManager().popBackStack();
         replaceFragment(questionsList);
+    }
+
+    @Override
+    public void onTestCompleted() {
+        //QuestionList. when press on done button
+        isContinueEditing = false;
+        startActivity(new Intent(CreateTestActivity.this, MainActivity.class));
     }
 
     private void replaceFragment(Fragment fragment){
@@ -150,19 +159,19 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         transaction.commit();
     }
 
-    private void displayQuestionsList(){
-        QuestionsListFragment questionsList = new QuestionsListFragment();
-        Bundle arguments = new Bundle();
-        arguments.putString(TEST_ID, mTestId);
-        questionsList.setArguments(arguments);
-        replaceFragment(questionsList);
-    }
-
     private void showCreateTestFragment(){
         mCreateTestFragment = new CreateTestFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragmentContainer, mCreateTestFragment);
         transaction.commit();
+    }
+
+    private void showQuestionsListFragment(){
+        QuestionsListFragment questionsList = new QuestionsListFragment();
+        Bundle arguments = new Bundle();
+        arguments.putString(TEST_ID, mTestId);
+        questionsList.setArguments(arguments);
+        replaceFragment(questionsList);
     }
 
     private void showAddEditFragment(String questionId){

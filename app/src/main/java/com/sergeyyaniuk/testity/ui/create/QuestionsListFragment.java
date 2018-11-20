@@ -35,7 +35,6 @@ public class QuestionsListFragment extends Fragment {
 
     private Unbinder unbinder;
 
-    @Inject
     CreatePresenterContract mPresenterContract;
 
     @BindView(R.id.questionsRecView)
@@ -61,7 +60,7 @@ public class QuestionsListFragment extends Fragment {
         void onAddNewQuestion();
         void onTestCompleted();
         void onClickQuestion(String questionId);
-        void onSwipedQuestion(int position);
+        void onSwipedQuestion(String questionId);
     }
 
     public QuestionsListFragment(){
@@ -142,7 +141,8 @@ public class QuestionsListFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
-                mListener.onSwipedQuestion(position);
+                String questionId = mQuestionsAdapter.getItem(position).getId();
+                mListener.onSwipedQuestion(questionId);
                 mQuestionsAdapter.removeQuestion(position);
             }
         };

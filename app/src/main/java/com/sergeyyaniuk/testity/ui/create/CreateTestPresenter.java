@@ -1,8 +1,13 @@
 package com.sergeyyaniuk.testity.ui.create;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
@@ -31,8 +36,6 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
 
     ArrayList<Question> mQuestionList = new ArrayList<>();
 
-    private boolean mOnlineTest;
-
     public CreateTestPresenter(CreateTestActivity activity, DatabaseManager database, Firestore firestore,
                                PrefHelper prefHelper) {
         this.mActivity = activity;
@@ -58,10 +61,19 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
         Test test = new Test(testId, title, category, language, description,
                 isOnline, 0, userId, 0);
         mPrefHelper.setCurrentTestId(testId);
-        //addTestToDatabase(test);   //need to be uncomment
-        mOnlineTest = isOnline;
-        if (mOnlineTest){
-            mFirestore.addTest(test);
+        addTestToDatabase(test);
+        if (isOnline){
+            mFirestore.addTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "onSuccess: add test");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: add test");
+                }
+            });
         }
     }
 
@@ -85,7 +97,7 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
 
     @Override
     public ArrayList<Question> loadQuestions(String testId){
-        getCompositeDisposable().add(mDatabase.getQuestions(testId)
+        getCompositeDisposable().add(mDatabase.getQuestionList(testId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -99,18 +111,64 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
         return mQuestionList;
     }
 
-    public void saveQuestion(Question question){
+    public void saveQuestion(Question question, boolean isOnline){
         getCompositeDisposable().add(mDatabase.insertQuestion(question)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(aBoolean -> {}, throwable -> {}));
-        if (mOnlineTest){
-            mDatabase.insertQuestion(question);
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {}, throwable -> {}));
+        if (isOnline){
+            mFirestore.addQuestion(question).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "onSuccess: save question");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: save question");
+                }
+            });
         }
     }
 
-    public void saveAnswerList(List<Answer> answers){
+    public void deleteQuestion(String questionId, boolean isOnline){
+        getCompositeDisposable().add(mDatabase.deleteQuestion(questionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {}, throwable -> {}));
+        if (isOnline){
+            mFirestore.deleteQuestion(questionId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "onSuccess: delete question");
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: delete question");
+
+                }
+            });
+        }
+    }
+
+    public void saveAnswerList(List<Answer> answers, boolean isOnline){
         getCompositeDisposable().add(mDatabase.insertAnswers(answers)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(aBoolean -> {}, throwable -> {}));
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {}, throwable -> {}));
+        if (isOnline){
+            mFirestore.addAnswerList(answers).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d(TAG, "onComplete: success");
+                }
+            });
+        }
+    }
+
+    public void deleteAnswerList(String questionId, boolean isOnline){
+
     }
 }

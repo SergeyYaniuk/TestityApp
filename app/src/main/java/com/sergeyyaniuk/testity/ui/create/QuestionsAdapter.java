@@ -64,7 +64,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         return mQuestions.get(position);
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @BindView(R.id.question_title)
