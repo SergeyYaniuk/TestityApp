@@ -169,6 +169,17 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
     }
 
     public void deleteAnswerList(String questionId, boolean isOnline){
-
+        getCompositeDisposable().add(mDatabase.deleteAnswerList(questionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {}, throwable -> {}));
+        if (isOnline){
+            mFirestore.deleteAnswerList(questionId).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d(TAG, "onComplete: success");
+                }
+            });
+        }
     }
 }

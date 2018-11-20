@@ -132,7 +132,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     @Override
     public void onSwipedQuestion(String questionId) {
         mPresenter.deleteQuestion(questionId, isTestOnline);
-        //need to delete answers as well
+        mPresenter.deleteAnswerList(questionId, isTestOnline);
     }
 
     //AddEditQuestionFragment. when press on done button

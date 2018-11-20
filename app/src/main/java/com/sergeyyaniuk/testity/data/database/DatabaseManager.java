@@ -99,4 +99,13 @@ public class DatabaseManager {
         });
     }
 
+    public Observable<Boolean> deleteAnswerList(final  String questionId){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.answerDao().deleteAnswersByQuestionId(questionId);
+                return true;
+            }
+        });
+    }
 }

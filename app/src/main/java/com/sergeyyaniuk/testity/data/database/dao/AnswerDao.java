@@ -38,4 +38,6 @@ public interface AnswerDao {
     @Query("SELECT * FROM answers WHERE question_id = :questionId")
     List<Answer> getAnswersByQuestionId(String questionId);
 
+    @Query("DELETE FROM answers WHERE question_id = :questionId")
+    void deleteAnswersByQuestionId(String questionId);
 }
