@@ -198,14 +198,14 @@ public class LoginPresenter extends BasePresenter{
     }
 
     private void saveUser(String loginWith){
-        FirebaseUser user = mAuthentication.getCurrentUser();
-        String id = user.getUid();
-        String name = user.getDisplayName();
-        String email = user.getEmail();
+        FirebaseUser firebaseUser = mAuthentication.getCurrentUser();
+        String id = firebaseUser.getUid();
+        String name = firebaseUser.getDisplayName();
+        String email = firebaseUser.getEmail();
         insertUserDataToPreferences(id, name, email);  //add user to SharedPreferences
-        //need to add method which query with email to firestore and check if user exist
-        //insertUserDataToDatabase(id, name, email, loginWith);  //add user to RoomDatabase
-        mFirestore.addUser(id, name, email, loginWith);  //add user to Firestore
+        User user = new User(id, name, email, loginWith);
+        insertUserDataToDatabase(user);  //add user to RoomDatabase
+        mFirestore.addUser(user);  //add user to Firestore
     }
 
     protected boolean isUserLogIn(){
@@ -225,11 +225,11 @@ public class LoginPresenter extends BasePresenter{
         mPrefHelper.setCurrentUserId(id);
     }
 
-    private void insertUserDataToDatabase(String id, String name, String email, String loginWith){
-        //need to add implementation if user exist do nothing, if null then code below
-        User user = new User(id, name, email, loginWith);
-        getCompositeDisposable().add(mDatabaseManager.insertUser(user).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(aBoolean -> {
+    private void insertUserDataToDatabase(User user){
+        getCompositeDisposable().add(mDatabaseManager.insertUser(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
                             Log.d(TAG, "insertUserDataToDatabase: success");
                         },
                         throwable -> {

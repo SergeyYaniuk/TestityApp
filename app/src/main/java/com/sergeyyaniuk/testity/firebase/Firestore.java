@@ -34,17 +34,28 @@ public class Firestore {
         db = FirebaseFirestore.getInstance();
     }
 
-    public void addUser(String id, String name, String email, String loginWith){
-        User user = new User(id, name, email, loginWith);
-        db.collection(USERS).document(id).set(user);
+    public void addUser(User user){
+        db.collection(USERS).document(user.getId()).set(user);
     }
 
     public Task<Void> addTest(Test test){
         return db.collection(TESTS).document(test.getId()).set(test);
     }
 
+    public Task<Void> updateTest(Test test){
+        WriteBatch batch = db.batch();
+        batch.update(db.collection(TESTS).document(test.getId()), "numberOfQuestions", test.getNumberOfQuestions());
+        batch.update(db.collection(TESTS).document(test.getId()), "numberOfCorrectAnswers", test.getNumberOfCorrectAnswers());
+        return batch.commit();
+    }
+
     public Task<Void> addQuestion(Question question){
         return db.collection(QUESTIONS).document(question.getId()).set(question);
+    }
+
+    public Task<Void> updateQuestion(Question question){
+        return db.collection(QUESTIONS).document(question.getId())
+                .update("questionText", question.getQuestionText());
     }
 
     public Task<Void> deleteQuestion(String questionId){
@@ -55,6 +66,15 @@ public class Firestore {
         WriteBatch batch = db.batch();
         for (Answer answer : answers){
             batch.set(db.collection(ANSWERS).document(answer.getId()), answer);
+        }
+        return batch.commit();
+    }
+
+    public Task<Void> updateAnswerList(List<Answer> answers){
+        WriteBatch batch = db.batch();
+        for (Answer answer : answers){
+            batch.update(db.collection(ANSWERS).document(answer.getId()), "answerText", answer.getAnswerText());
+            batch.update(db.collection(ANSWERS).document(answer.getId()), "isCorrect", answer.isCorrect());
         }
         return batch.commit();
     }

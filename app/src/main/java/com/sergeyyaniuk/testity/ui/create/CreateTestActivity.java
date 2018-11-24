@@ -41,6 +41,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     public static final String TEST_ONLINE = "test_online";
     public static final String TEST_ID = "test_id";
     public static final String QUESTION_ID = "question_id";
+    public static final String IS_UPDATING = "is_updating";
     private boolean isContinueEditing;
     private boolean isTestOnline;
     private String mTestId;
@@ -111,6 +112,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     public void onCreateTest(String title, String category, String language, boolean isOnline,
                                       String description) {
         mPresenter.addTest(title, category, language, isOnline, description); //add test to database and Firebase
+        mTestId = mPresenter.getCurrentTestId();
         isContinueEditing = true;
         isTestOnline = isOnline;
         showQuestionsListFragment();
@@ -121,28 +123,33 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         @SuppressLint("SimpleDateFormat")
         String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         String questionId = mTestId + currentDateAndTime;
-        showAddEditFragment(questionId);
+        showAddEditFragment(questionId, false);
     }
 
     @Override
     public void onClickQuestion(String questionId) {
-        showAddEditFragment(questionId);
+        showAddEditFragment(questionId, true);
     }
 
     @Override
     public void onSwipedQuestion(String questionId) {
+        mPresenter.updateTestAfterSwipe(questionId, mTestId, isTestOnline);
         mPresenter.deleteQuestion(questionId, isTestOnline);
         mPresenter.deleteAnswerList(questionId, isTestOnline);
     }
 
     //AddEditQuestionFragment. when press on done button
     @Override
-    public void onAddEditQuestionCompleted(Question question, List<Answer> answers) {
-        mPresenter.saveQuestion(question, isTestOnline);
-        mPresenter.saveAnswerList(answers, isTestOnline);
-        QuestionsListFragment questionsList = new QuestionsListFragment();
-        //getSupportFragmentManager().popBackStack();
-        replaceFragment(questionsList);
+    public void onAddEditQuestionCompleted(Question question, List<Answer> answers, boolean isUpdating) {
+        mPresenter.updateTestAfterEditing(mTestId, question, isUpdating, answers, isTestOnline);
+        if (isUpdating){
+            mPresenter.updateQuestion(question, isTestOnline);
+            mPresenter.updateAnswerList(answers, isTestOnline);
+        } else {
+            mPresenter.saveQuestion(question, isTestOnline);
+            mPresenter.saveAnswerList(answers, isTestOnline);
+        }
+        showQuestionsListFragment();
     }
 
     @Override
@@ -174,15 +181,14 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         replaceFragment(questionsList);
     }
 
-    private void showAddEditFragment(String questionId){
+    private void showAddEditFragment(String questionId, boolean isUpdating){
         AddEditQuestionFragment addEditQuestionFragment = new AddEditQuestionFragment();
         Bundle arguments = new Bundle();
         arguments.putString(QUESTION_ID, questionId);
+        arguments.putString(TEST_ID, mTestId);
+        arguments.putBoolean(IS_UPDATING, isUpdating);
         addEditQuestionFragment.setArguments(arguments);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, addEditQuestionFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        replaceFragment(addEditQuestionFragment);
     }
 
     @Override

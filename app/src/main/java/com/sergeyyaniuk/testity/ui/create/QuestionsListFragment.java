@@ -49,7 +49,7 @@ public class QuestionsListFragment extends Fragment {
     @BindView(R.id.saveActionButton)
     FloatingActionButton saveTestButton;
 
-    ArrayList<Question> mQuestions;
+    List<Question> mQuestions;
 
     QuestionsAdapter mQuestionsAdapter;
     QuestionsListListener mListener;
@@ -67,14 +67,6 @@ public class QuestionsListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);  //Fragment has menu
-        Log.d(TAG, "onCreate: ");
-        setRetainInstance(true);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -82,10 +74,14 @@ public class QuestionsListFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_questions_list, container, false);
         unbinder = ButterKnife.bind(this, view);
-        getTestId();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            mTestId = arguments.getString(CreateTestActivity.TEST_ID);
+        }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         mQuestions = mPresenterContract.loadQuestions(mTestId);  //load questions from database
-        updateRecyclerView();
+        mQuestionsAdapter = new QuestionsAdapter(mQuestions, questionClickListener);
+        mRecyclerView.setAdapter(mQuestionsAdapter);
         enableSwipe();
         return view;
     }
@@ -100,23 +96,6 @@ public class QuestionsListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-    
-    private void getTestId(){
-        Bundle arguments = getArguments();
-        if (arguments != null){
-            mTestId = arguments.getString(CreateTestActivity.TEST_ID);
-        }
-    }
-
-    public void updateRecyclerView(){
-        if (mQuestionsAdapter == null){
-            mQuestionsAdapter = new QuestionsAdapter(mQuestions, questionClickListener);
-            mRecyclerView.setAdapter(mQuestionsAdapter);
-        } else {
-            mQuestionsAdapter.setQuestions(mQuestions);
-            mQuestionsAdapter.notifyDataSetChanged();
-        }
     }
 
     @OnClick(R.id.saveActionButton)

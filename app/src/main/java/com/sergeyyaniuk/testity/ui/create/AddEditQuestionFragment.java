@@ -37,6 +37,8 @@ public class AddEditQuestionFragment extends Fragment {
     @BindView(R.id.question_editText)
     EditText mQuestionEditText;
 
+    @BindView(R.id.answer1TextInputLayout) TextInputLayout mAnswer1Layout;
+    @BindView(R.id.answer2TextInputLayout) TextInputLayout mAnswer2Layout;
     @BindView(R.id.answer3TextInputLayout) TextInputLayout mAnswer3Layout;
     @BindView(R.id.answer4TextInputLayout) TextInputLayout mAnswer4Layout;
     @BindView(R.id.answer5TextInputLayout) TextInputLayout mAnswer5Layout;
@@ -77,10 +79,13 @@ public class AddEditQuestionFragment extends Fragment {
 
     private String mTestId;
     private String mQuestionId;
+    private boolean isUpdating;
     private List<Answer> mAnswerList = new ArrayList<>();
 
+    CreatePresenterContract mPresenterContract;
+
     public interface AddEditQuestionListener{
-        void onAddEditQuestionCompleted(Question question, List<Answer> answers);
+        void onAddEditQuestionCompleted(Question question, List<Answer> answers, boolean isUpdating);
     }
 
     public AddEditQuestionFragment(){
@@ -94,15 +99,32 @@ public class AddEditQuestionFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         Bundle arguments = getArguments();
         if (arguments != null){
+            mQuestionId = arguments.getString(CreateTestActivity.QUESTION_ID);
             mTestId = arguments.getString(CreateTestActivity.TEST_ID);
+            isUpdating = arguments.getBoolean(CreateTestActivity.IS_UPDATING);
+            if (isUpdating){
+                loadQuestionWithAnswers();
+            }
         }
-
         return view;
+    }
+
+    private void loadQuestionWithAnswers(){
+        Question question = mPresenterContract.loadQuestion(mQuestionId);
+        mAnswerList = mPresenterContract.loadAnswers(mQuestionId);
+        mQuestionEditText.setText(question.getQuestionText());
+        loadAnswer(0, mAnswer1EditText, mAnswer1Checkbox, mAnswer1Layout, null);
+        loadAnswer(1, mAnswer2EditText, mAnswer2Checkbox, mAnswer2Layout, null);
+        loadAnswer(2, mAnswer3EditText, mAnswer3Checkbox, mAnswer3Layout, button4Layout);
+        loadAnswer(3, mAnswer4EditText, mAnswer4Checkbox, mAnswer4Layout, button5Layout);
+        loadAnswer(4, mAnswer5EditText, mAnswer5Checkbox, mAnswer5Layout, button6Layout);
+        loadAnswer(5, mAnswer6EditText, mAnswer6Checkbox, mAnswer6Layout, button7Layout);
+        loadAnswer(6, mAnswer7EditText, mAnswer7Checkbox, mAnswer7Layout, button8Layout);
+        loadAnswer(7, mAnswer8EditText, mAnswer8Checkbox, mAnswer8Layout, null);
     }
 
     @OnClick(R.id.saveQuestionButton)
     public void onSaveQuestion(){
-        generateQuestionId();
         Question question = new Question(mQuestionId, mQuestionEditText.getText().toString(), mTestId);
         checkAddAnswer(mAnswer1EditText.getText().toString(), 1, mAnswer1Checkbox.isChecked());
         checkAddAnswer(mAnswer2EditText.getText().toString(), 2, mAnswer2Checkbox.isChecked());
@@ -112,13 +134,7 @@ public class AddEditQuestionFragment extends Fragment {
         checkAddAnswer(mAnswer6EditText.getText().toString(), 6, mAnswer6Checkbox.isChecked());
         checkAddAnswer(mAnswer7EditText.getText().toString(), 7, mAnswer7Checkbox.isChecked());
         checkAddAnswer(mAnswer8EditText.getText().toString(), 8, mAnswer8Checkbox.isChecked());
-        mListener.onAddEditQuestionCompleted(question, mAnswerList);
-    }
-
-    private void generateQuestionId(){
-        @SuppressLint("SimpleDateFormat")
-        String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        mQuestionId = mTestId + currentDateAndTime;
+        mListener.onAddEditQuestionCompleted(question, mAnswerList, isUpdating);
     }
 
     private void checkAddAnswer(String answerText, int number, boolean isCorrect){
@@ -126,6 +142,18 @@ public class AddEditQuestionFragment extends Fragment {
             String answerId = mQuestionId + Integer.toString(number);
             Answer answer = new Answer(answerId, answerText, isCorrect, mQuestionId);
             mAnswerList.add(answer);
+        }
+    }
+
+    private void loadAnswer(int index, EditText editText, CheckBox checkBox, TextInputLayout editTextLayout, LinearLayout buttonLayout){
+        if (mAnswerList.get(index) != null){
+            Answer answer = mAnswerList.get(index);
+            editText.setText(answer.getAnswerText());
+            checkBox.setChecked(answer.isCorrect());
+            editTextLayout.setVisibility(View.VISIBLE);
+            if (buttonLayout != null){
+                buttonLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

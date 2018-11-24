@@ -34,7 +34,10 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
     private Firestore mFirestore;
     private PrefHelper mPrefHelper;
 
-    ArrayList<Question> mQuestionList = new ArrayList<>();
+    List<Question> mQuestionList = new ArrayList<>();
+    List<Answer> mAnswerList = new ArrayList<>();
+    Test mTest;
+    Question mQuestion;
 
     public CreateTestPresenter(CreateTestActivity activity, DatabaseManager database, Firestore firestore,
                                PrefHelper prefHelper) {
@@ -77,11 +80,6 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
         }
     }
 
-    @Override
-    public Test loadTest(String testId){
-        return  new Test();
-    }
-
     public void addTestToDatabase(Test test){
         Log.d(TAG, "addTest: start");
         getCompositeDisposable().add(mDatabase.insertTest(test)
@@ -90,25 +88,121 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
                 .subscribe(aBoolean -> {
                             Log.d(TAG, "addTest: success");
                         },
-                throwable -> {
-                    Log.d(TAG, "addTest: throwable");
-                }));
+                        throwable -> {
+                            Log.d(TAG, "addTest: throwable");
+                        }));
     }
 
     @Override
-    public ArrayList<Question> loadQuestions(String testId){
+    public Test loadTest(String testId){
+        getCompositeDisposable().add(mDatabase.getTest(testId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(test -> {
+                            Log.d(TAG, "loadTest: Success");
+                            mTest = test;
+
+                        }
+                , throwable -> {
+                            Log.d(TAG, "loadTest: Error");
+                        }));
+        return mTest;
+    }
+
+    public void updateTest(Test test, boolean isTestOnline){
+        getCompositeDisposable().add(mDatabase.updateTest(test)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    Log.d(TAG, "updateTest: Success! add info to test");
+                }, throwable -> {
+                    Log.d(TAG, "updateTest: Error! add info to test ");
+                }));
+        if (isTestOnline){
+            mFirestore.updateTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "onSuccess: update test successfuly");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: Error! Update test");
+                }
+            });
+        }
+    }
+
+    //method is invoked after user save addEditFragment
+    public void updateTestAfterEditing(String testId, Question question, boolean isUpdating,
+                           List<Answer> answers, boolean isTestOnline){
+        Test test = loadTest(testId);
+        //if user updated exist question and answers
+        if (isUpdating){
+            List<Answer> answersOld = loadAnswers(question.getId());
+            int numberOfCorrectWas = 0;
+            for (Answer answer : answersOld){
+                if (answer.isCorrect()){ numberOfCorrectWas++; }
+            }
+            int numberOfCorrectBecome = 0;
+            for (Answer answer : answers){
+                if (answer.isCorrect()){ numberOfCorrectBecome++; }
+            }
+            test.setNumberOfCorrectAnswers(
+                    (test.getNumberOfCorrectAnswers() - numberOfCorrectWas) + numberOfCorrectBecome);
+        } else{
+            //if user created new question and answers
+            test.setNumberOfQuestions(test.getNumberOfQuestions() + 1);
+            for (Answer answer : answers){
+                if (answer.isCorrect()){
+                    test.setNumberOfCorrectAnswers(test.getNumberOfCorrectAnswers() + 1);
+                }
+            }
+        }
+        updateTest(test, isTestOnline);
+    }
+
+    //method is invoked after user swipe to delete in QuestionListFragment
+    public void updateTestAfterSwipe(String questionId, String testId, boolean isTestOnline){
+        Test test = loadTest(testId);
+        List<Answer> answerList = loadAnswers(questionId);
+        int numberOfCorrectAnswers = 0;
+        for (Answer answer : answerList){
+            if (answer.isCorrect()){
+                numberOfCorrectAnswers++;
+            }
+        }
+        test.setNumberOfQuestions(test.getNumberOfQuestions() - 1);
+        test.setNumberOfCorrectAnswers(test.getNumberOfCorrectAnswers() - numberOfCorrectAnswers);
+        updateTest(test, isTestOnline);
+    }
+
+    @Override
+    public List<Question> loadQuestions(String testId){
         getCompositeDisposable().add(mDatabase.getQuestionList(testId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         questions -> {
-                            mQuestionList.clear();
-                            mQuestionList.addAll(questions);
+                            mQuestionList = questions;
                             Log.d(TAG, "loadQuestions: success");},
                         throwable -> {
                             Log.d(TAG, "loadQuestions: error");
                         }));
         return mQuestionList;
+    }
+
+    @Override
+    public Question loadQuestion(String questionId) {
+        getCompositeDisposable().add(mDatabase.getQuestion(questionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(question -> {
+                    mQuestion = question;
+                }, throwable -> {
+
+                }));
+        return mQuestion;
     }
 
     public void saveQuestion(Question question, boolean isOnline){
@@ -126,6 +220,30 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.d(TAG, "onFailure: save question");
+                }
+            });
+        }
+    }
+
+    public void updateQuestion(Question question, boolean isOnline){
+        getCompositeDisposable().add(mDatabase.updateQuestion(question)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    Log.d(TAG, "updateQuestion: Success");
+                }, throwable -> {
+                    Log.d(TAG, "updateQuestion: Error");
+                }));
+        if (isOnline){
+            mFirestore.updateQuestion(question).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "onSuccess: update Question in Firestore");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: update Question in Firestore");
                 }
             });
         }
@@ -154,7 +272,7 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
     }
 
     public void saveAnswerList(List<Answer> answers, boolean isOnline){
-        getCompositeDisposable().add(mDatabase.insertAnswers(answers)
+        getCompositeDisposable().add(mDatabase.insertAnswerList(answers)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {}, throwable -> {}));
@@ -166,6 +284,38 @@ public class CreateTestPresenter extends BasePresenter implements CreatePresente
                 }
             });
         }
+    }
+
+    public void updateAnswerList(List<Answer> answers, boolean isOnline){
+        getCompositeDisposable().add(mDatabase.updateAnswerList(answers)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    Log.d(TAG, "updateAnswerList: Success");
+                }, throwable -> {
+                    Log.d(TAG, "updateAnswerList: Error");
+                }));
+        if (isOnline){
+            mFirestore.updateAnswerList(answers).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d(TAG, "onComplete: Success");
+                }
+            });
+        }
+    }
+
+    @Override
+    public List<Answer> loadAnswers(String questionId) {
+        getCompositeDisposable().add(mDatabase.getAnswerList(questionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(answers -> {
+                    mAnswerList = answers;
+                }, throwable -> {
+                    Log.d(TAG, "loadAnswers: error");
+                }));
+        return mAnswerList;
     }
 
     public void deleteAnswerList(String questionId, boolean isOnline){

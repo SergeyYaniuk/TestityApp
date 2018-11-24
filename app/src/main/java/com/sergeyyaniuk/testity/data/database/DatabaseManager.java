@@ -51,6 +51,25 @@ public class DatabaseManager {
         });
     }
 
+    public Observable<Test> getTest(final String testId){
+        return Observable.fromCallable(new Callable<Test>() {
+            @Override
+            public Test call() throws Exception {
+                return testityDatabase.testDao().getTestById(testId);
+            }
+        });
+    }
+
+    public Observable<Boolean> updateTest(final Test test){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.testDao().update(test);
+                return true;
+            }
+        });
+    }
+
     public Observable<Question> getQuestion(final String questionId){
         return Observable.fromCallable(new Callable<Question>() {
             @Override
@@ -79,6 +98,16 @@ public class DatabaseManager {
         });
     }
 
+    public Observable<Boolean> updateQuestion(final  Question question){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.questionDao().update(question);
+                return true;
+            }
+        });
+    }
+
     public Observable<Boolean> deleteQuestion(final String questionId){
         return Observable.fromCallable(new Callable<Boolean>() {
             @Override
@@ -89,12 +118,31 @@ public class DatabaseManager {
         });
     }
 
-    public Observable<Boolean> insertAnswers(final List<Answer> answers){
+    public Observable<Boolean> insertAnswerList(final List<Answer> answers){
         return Observable.fromCallable(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
                 testityDatabase.answerDao().insertMany(answers);
                 return true;
+            }
+        });
+    }
+
+    public Observable<Boolean> updateAnswerList(final List<Answer> answers){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.answerDao().updateMany(answers);
+                return true;
+            }
+        });
+    }
+
+    public Observable<List<Answer>> getAnswerList(final String questionId){
+        return Observable.fromCallable(new Callable<List<Answer>>() {
+            @Override
+            public List<Answer> call() throws Exception {
+                return testityDatabase.answerDao().getAnswersByQuestionId(questionId);
             }
         });
     }

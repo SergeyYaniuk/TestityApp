@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.create;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,20 +12,21 @@ import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Question;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
-    private ArrayList<Question> mQuestions;
+    private List<Question> mQuestions;
     private QuestionClickListener mQuestionClickListener;
 
     public interface QuestionClickListener{
         void onQuestionClick(String questionId);
     }
 
-    public QuestionsAdapter(ArrayList<Question> questions, QuestionClickListener questionClickListener){
+    public QuestionsAdapter(List<Question> questions, QuestionClickListener questionClickListener){
         this.mQuestions = questions;
         this.mQuestionClickListener = questionClickListener;
     }
@@ -34,7 +36,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_question, parent, false);
-        return new ViewHolder(itemView);
+        return new ViewHolder(itemView, mQuestionClickListener);
     }
 
     @Override
@@ -52,26 +54,21 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         notifyItemRemoved(position);
     }
 
-    public ArrayList<Question> getQuestions(){
-        return mQuestions;
-    }
-
-    public void setQuestions(ArrayList<Question> questions){
-        mQuestions = questions;
-    }
-
     public Question getItem(int position) {
         return mQuestions.get(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        @BindView(R.id.question_title)
         TextView mTitle;
 
-        public ViewHolder(@NonNull View itemView) {
+        private QuestionClickListener mQuestionClickListener;
+
+        public ViewHolder(@NonNull View itemView, QuestionClickListener listener) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mQuestionClickListener = listener;
+            mTitle = itemView.findViewById(R.id.question_title);
+            itemView.setOnClickListener(this);
         }
 
         @Override
