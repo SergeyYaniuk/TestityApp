@@ -39,7 +39,7 @@ public interface QuestionDao {
     @Query("SELECT * FROM questions WHERE test_id = :testId")
     List<Question> getQuestionsByTestId(String testId);
 
-    @Query("DELETE FROM questions WHERE id = :questionId LIMIT 1")
+    @Query("DELETE FROM questions WHERE id = :questionId")
     void deleteQuestionById(String questionId);
 
 

@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -82,7 +84,8 @@ public class AddEditQuestionFragment extends Fragment {
     private boolean isUpdating;
     private List<Answer> mAnswerList = new ArrayList<>();
 
-    CreatePresenterContract mPresenterContract;
+    @Inject
+    CreateTestPresenter mPresenter;
 
     public interface AddEditQuestionListener{
         void onAddEditQuestionCompleted(Question question, List<Answer> answers, boolean isUpdating);
@@ -110,8 +113,8 @@ public class AddEditQuestionFragment extends Fragment {
     }
 
     private void loadQuestionWithAnswers(){
-        Question question = mPresenterContract.loadQuestion(mQuestionId);
-        mAnswerList = mPresenterContract.loadAnswers(mQuestionId);
+        Question question = mPresenter.loadQuestion(mQuestionId);
+        mAnswerList = mPresenter.loadAnswers(mQuestionId);
         mQuestionEditText.setText(question.getQuestionText());
         loadAnswer(0, mAnswer1EditText, mAnswer1Checkbox, mAnswer1Layout, null);
         loadAnswer(1, mAnswer2EditText, mAnswer2Checkbox, mAnswer2Layout, null);

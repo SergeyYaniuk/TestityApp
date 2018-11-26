@@ -35,7 +35,8 @@ public class QuestionsListFragment extends Fragment {
 
     private Unbinder unbinder;
 
-    CreatePresenterContract mPresenterContract;
+    @Inject
+    CreateTestPresenter mPresenter;
 
     @BindView(R.id.questionsRecView)
     RecyclerView mRecyclerView;
@@ -76,10 +77,16 @@ public class QuestionsListFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         Bundle arguments = getArguments();
         if (arguments != null){
+            Log.d(TAG, "QuestionListFragment onCreateView: before get arguments");
             mTestId = arguments.getString(CreateTestActivity.TEST_ID);
+            Log.d(TAG, "QuestionListFragment onCreateView: after get arguments: " + mTestId);
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        mQuestions = mPresenterContract.loadQuestions(mTestId);  //load questions from database
+        try{
+            mQuestions = mPresenter.loadQuestions(mTestId);
+        } catch (NullPointerException e){
+            mQuestions = new ArrayList<>();
+        }
         mQuestionsAdapter = new QuestionsAdapter(mQuestions, questionClickListener);
         mRecyclerView.setAdapter(mQuestionsAdapter);
         enableSwipe();

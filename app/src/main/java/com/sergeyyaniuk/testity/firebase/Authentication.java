@@ -95,12 +95,12 @@ public class Authentication {
         return mAuth.getCurrentUser();
     }
 
-    public void setUserName(String name){
+    public Task<Void> setUserName(String name){
         FirebaseUser user = getCurrentUser();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
                 .build();
-        user.updateProfile(profileUpdates);
+        return user.updateProfile(profileUpdates);
     }
 
     public void signOut(){

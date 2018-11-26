@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,6 +62,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         setContentView(R.layout.activity_login);
         App.get(this).getAppComponent().createLoginComponent(new LoginActivityModule(this)).inject(this);
         ButterKnife.bind(this);
+        mPresenter.onCreate();
         changeGoogleButtonBackground(mGoogleButton); //change google button image
         mCallbackManager = mPresenter.loginWithFacebook(); //initialization facebook
     }
@@ -95,12 +97,6 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
         } else if (!mPresenter.isActiveNetwork(this)){
             showToast(this, R.string.no_connection);
         }
-        //need to be uncomment after database version will change
-//        boolean userAlreadyExist = mPresenter.checkIfUserExist(mEmail);
-//        if (userAlreadyExist){
-//            //login with database
-//            mPresenter.loginWithDatabase(mEmail, mPassword);
-//        } else {.......}
         mPresenter.loginWithEmail(mEmail, mPassword);
     }
 
@@ -188,11 +184,6 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     //get email and password from dialog fragment
     @Override
     public void addNewUser(String name, String email, String password) {
-//        //need to be uncomment after database version will change
-//        boolean userAlreadyExist = mPresenter.checkIfUserExist(email);
-//        if (userAlreadyExist){
-//            //show message that user already exist
-//        }
         mPresenter.createAccount(name, email, password);
     }
 
@@ -218,5 +209,11 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
                 return;
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
     }
 }

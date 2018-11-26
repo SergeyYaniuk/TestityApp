@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -30,6 +31,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         AddEditQuestionFragment.AddEditQuestionListener {
 
     public static final String TAG = "MyLog";
+    private static final String FIRST_START = "is_first_start";
 
     @BindView(R.id.create_toolbar)
     Toolbar mToolbar;
@@ -59,6 +61,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.create_test);
+        checkTestStatus();
     }
 
     @Override
@@ -75,12 +78,6 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         isContinueEditing = savedInstanceState.getBoolean(TEST_STATUS);
         mTestId = savedInstanceState.getString(TEST_ID);
         isTestOnline = savedInstanceState.getBoolean(TEST_ONLINE);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkTestStatus();
     }
 
     private void checkTestStatus(){
@@ -101,10 +98,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     //onClick "continue" in NotCompletedTestDialog
     @Override
     public void onContinueEditTest() {
-        Bundle arguments = new Bundle();
-        arguments.putString(TEST_ID, mTestId);
-        mCreateTestFragment.setArguments(arguments);
-        showCreateTestFragment();
+        showQuestionsListFragment();
     }
 
     //method create test without questions
@@ -112,10 +106,12 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
     public void onCreateTest(String title, String category, String language, boolean isOnline,
                                       String description) {
         mPresenter.addTest(title, category, language, isOnline, description); //add test to database and Firebase
+        Log.d(TAG, "onCreateTest: before getCurrentTestId");
         mTestId = mPresenter.getCurrentTestId();
         isContinueEditing = true;
         isTestOnline = isOnline;
-        showQuestionsListFragment();
+        Log.d(TAG, "onCreateTest: before showQuestionListFragment");
+        //showQuestionsListFragment();
     }
 
     @Override
@@ -173,7 +169,7 @@ public class CreateTestActivity extends BaseActivity implements NotCompletedTest
         transaction.commit();
     }
 
-    private void showQuestionsListFragment(){
+    public void showQuestionsListFragment(){
         QuestionsListFragment questionsList = new QuestionsListFragment();
         Bundle arguments = new Bundle();
         arguments.putString(TEST_ID, mTestId);

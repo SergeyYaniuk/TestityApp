@@ -64,31 +64,36 @@ public class LoginPresenter extends BasePresenter{
 
     //Auth with Google
     protected Intent loginWithGoogle(){
+        Log.d(TAG, "loginWithGoogle: start");
         return mAuthentication.getUserWithGoogle(mActivity);
     }
 
     protected void getAuthWithGoogle(GoogleSignInResult result){
         mActivity.showProgressDialog();
         if (result.isSuccess()){
+            Log.d(TAG, "getAuthWithGoogle: before final GoogleSignInAccount");
             final GoogleSignInAccount account = result.getSignInAccount();
+            Log.d(TAG, "getAuthWithGoogle: before mAuthentication");
             mAuthentication.getAuthWithGoogle(mActivity, account)
                     .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                saveUser("google");
+                                Log.d(TAG, "Successful: getAuthWithGoogle start");
+                                saveUser("google", null);
+                                Log.d(TAG, "Successful: getAuthWithGoogle finish");
                                 mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_successful);
                                 mActivity.startIntent();
                             }
                             else {
+                                Log.d(TAG, "Error: getAuthWithGoogle");
                                 mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_failed);
                             }
                         }
                     });
         }
-
     }
 
     //Auth with Facebook
@@ -123,7 +128,7 @@ public class LoginPresenter extends BasePresenter{
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    saveUser("facebook");
+                    saveUser("facebook", null);
                     mActivity.hideProgressDialog();
                     mActivity.showToast(mActivity, R.string.auth_successful);
                     mActivity.startIntent();
@@ -143,7 +148,7 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            saveUser("login");
+                            saveUser("login", null);
                             mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
@@ -164,8 +169,8 @@ public class LoginPresenter extends BasePresenter{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            mAuthentication.setUserName(name);
-                            saveUser("login");
+                            setUserName(name);
+                            saveUser("create account", name);
                             mActivity.hideProgressDialog();
                             mActivity.showToast(mActivity, R.string.auth_successful);
                             mActivity.startIntent();
@@ -176,6 +181,19 @@ public class LoginPresenter extends BasePresenter{
                         }
                     }
                 });
+    }
+
+    protected void setUserName(String name) {
+        mAuthentication.setUserName(name).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "setUserName: Success");
+                } else {
+                    Log.d(TAG, "setUserName: Failed");
+                }
+            }
+        });
     }
 
     //send new password
@@ -197,10 +215,10 @@ public class LoginPresenter extends BasePresenter{
                 });
     }
 
-    private void saveUser(String loginWith){
+    private void saveUser(String loginWith, String userName){
         FirebaseUser firebaseUser = mAuthentication.getCurrentUser();
         String id = firebaseUser.getUid();
-        String name = firebaseUser.getDisplayName();
+        String name = userName != null ? userName : firebaseUser.getDisplayName();
         String email = firebaseUser.getEmail();
         insertUserDataToPreferences(id, name, email);  //add user to SharedPreferences
         User user = new User(id, name, email, loginWith);
