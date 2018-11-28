@@ -19,9 +19,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
-import com.sergeyyaniuk.testity.di.module.MainActivityModule;
+import com.sergeyyaniuk.testity.di.module.MainModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.create.CreateTestActivity;
+import com.sergeyyaniuk.testity.ui.createTest.create.CreateTestActivity;
 import com.sergeyyaniuk.testity.ui.find.FindTestActivity;
 import com.sergeyyaniuk.testity.ui.login.LoginActivity;
 import com.sergeyyaniuk.testity.ui.myTests.MyTestsActivity;
@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Dagger injection
-        App.get(this).getAppComponent().createMainComponent(new MainActivityModule(this)).inject(this);
+        App.get(this).getAppComponent().create(new MainModule(this)).inject(this);
         //ButterKnife
         ButterKnife.bind(this);
         //set toolbar

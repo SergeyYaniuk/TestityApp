@@ -48,7 +48,7 @@
     <string name="send_invitation_failed">Sending invitations failed</string>
     <string name="google_play_services_error">Google Play Services Error</string>
 
-    <!--  CreateTestActivity2 test activity !-->
+    <!--  CreateTestActivity test activity !-->
     <string name="language">Language</string>
     <string name="iq">IQ</string>
     <string name="recruiting">Recruiting</string>

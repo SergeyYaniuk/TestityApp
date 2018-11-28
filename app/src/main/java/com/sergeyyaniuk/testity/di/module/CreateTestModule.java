@@ -4,18 +4,18 @@ import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.ActivityScope;
 import com.sergeyyaniuk.testity.firebase.Firestore;
-import com.sergeyyaniuk.testity.ui.create.CreateTestActivity;
-import com.sergeyyaniuk.testity.ui.create.CreateTestPresenter;
+import com.sergeyyaniuk.testity.ui.createTest.create.CreateTestActivity;
+import com.sergeyyaniuk.testity.ui.createTest.create.CreateTestPresenter;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class CreateTestActivityModule {
+public class CreateTestModule {
 
     private CreateTestActivity mActivity;
 
-    public CreateTestActivityModule(CreateTestActivity activity){
+    public CreateTestModule(CreateTestActivity activity){
         this.mActivity = activity;
     }
 

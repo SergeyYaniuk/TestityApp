@@ -22,8 +22,6 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
-    public static final String TAG = "MyLog";
-
     Application mApplication;
 
     public ApplicationModule(Application application){
@@ -45,14 +43,12 @@ public class ApplicationModule {
     @Provides
     @DatabaseInfo
     String provideDatabaseName(){
-        Log.d(TAG, "AppModule________provideDatabaseName: ");
         return Constants.DB_NAME;
     }
 
     @Provides
     @Singleton
     TestityDatabase provideDatabase(@DatabaseInfo String databaseName, Context context){
-        Log.d(TAG, "AppModule________provideDatabase: ");
         return Room.databaseBuilder(context, TestityDatabase.class, databaseName)
                 .fallbackToDestructiveMigration().build();
     }
@@ -60,7 +56,6 @@ public class ApplicationModule {
     @Provides
     @Singleton
     DatabaseManager provideDatabaseManager(TestityDatabase testityDatabase){
-        Log.d(TAG, "AppModule_________provideDatabaseManager: ");
         return new DatabaseManager(testityDatabase);
     }
 

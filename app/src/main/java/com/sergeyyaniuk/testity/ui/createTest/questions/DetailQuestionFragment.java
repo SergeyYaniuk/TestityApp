@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.create;
+package com.sergeyyaniuk.testity.ui.createTest.questions;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
+import com.sergeyyaniuk.testity.di.module.QuestionDetailFragModule;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,13 +34,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class AddEditQuestionFragment extends Fragment {
+public class DetailQuestionFragment extends Fragment {
+
+    private static final String TAG = "MyLog";
+
+    @Inject
+    DetailQuestionPresenter mPresenter;
 
     private Unbinder unbinder;
-    AddEditQuestionListener mListener;
+    DetailQuestionListener mListener;
 
-    @BindView(R.id.question_editText)
-    EditText mQuestionEditText;
+    @BindView(R.id.question_editText) EditText mQuestionEditText;
 
     @BindView(R.id.answer1TextInputLayout) TextInputLayout mAnswer1Layout;
     @BindView(R.id.answer2TextInputLayout) TextInputLayout mAnswer2Layout;
@@ -79,43 +86,47 @@ public class AddEditQuestionFragment extends Fragment {
     @BindView(R.id.button7Layout) LinearLayout button7Layout;
     @BindView(R.id.button8Layout) LinearLayout button8Layout;
 
-    private String mTestId;
     private String mQuestionId;
+    private String mTestId;
     private boolean isUpdating;
     private List<Answer> mAnswerList = new ArrayList<>();
 
-    @Inject
-    CreateTestPresenter mPresenter;
-
-    public interface AddEditQuestionListener{
+    public interface DetailQuestionListener{
         void onAddEditQuestionCompleted(Question question, List<Answer> answers, boolean isUpdating);
     }
 
-    public AddEditQuestionFragment(){
+    public DetailQuestionFragment(){
         // Required empty public constructor
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_edit_question, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_edit_question2, container, false);
+        Log.d(TAG, "onCreateView: Detail fragment");
         unbinder = ButterKnife.bind(this, view);
+        ((App)getActivity().getApplication()).getAppComponent().create(new QuestionDetailFragModule(this)).inject(this);
+        mPresenter.onCreate();
+        mTestId = mPresenter.getTestId();
         Bundle arguments = getArguments();
         if (arguments != null){
-            mQuestionId = arguments.getString(CreateTestActivity.QUESTION_ID);
-            mTestId = arguments.getString(CreateTestActivity.TEST_ID);
-            isUpdating = arguments.getBoolean(CreateTestActivity.IS_UPDATING);
-            if (isUpdating){
-                loadQuestionWithAnswers();
-            }
+            Log.d(TAG, "onCreateView: arguments exist - Detail fragment");
+            mQuestionId = arguments.getString(QuestionsActivity.QUESTION_ID);
+            isUpdating = true;
+            loadQuestionWithAnswers();
+        } else {
+            Log.d(TAG, "onCreateView: create new question id = Detail fragment");
+            mQuestionId = generateQuestionId();
         }
         return view;
     }
 
     private void loadQuestionWithAnswers(){
+        Log.d(TAG, "loadQuestionWithAnswers: start");
         Question question = mPresenter.loadQuestion(mQuestionId);
         mAnswerList = mPresenter.loadAnswers(mQuestionId);
         mQuestionEditText.setText(question.getQuestionText());
+        Log.d(TAG, "loadQuestionWithAnswers: before load test");
         loadAnswer(0, mAnswer1EditText, mAnswer1Checkbox, mAnswer1Layout, null);
         loadAnswer(1, mAnswer2EditText, mAnswer2Checkbox, mAnswer2Layout, null);
         loadAnswer(2, mAnswer3EditText, mAnswer3Checkbox, mAnswer3Layout, button4Layout);
@@ -128,6 +139,7 @@ public class AddEditQuestionFragment extends Fragment {
 
     @OnClick(R.id.saveQuestionButton)
     public void onSaveQuestion(){
+        Log.d(TAG, "onSaveQuestion: Detail fragment");
         Question question = new Question(mQuestionId, mQuestionEditText.getText().toString(), mTestId);
         checkAddAnswer(mAnswer1EditText.getText().toString(), 1, mAnswer1Checkbox.isChecked());
         checkAddAnswer(mAnswer2EditText.getText().toString(), 2, mAnswer2Checkbox.isChecked());
@@ -158,6 +170,12 @@ public class AddEditQuestionFragment extends Fragment {
                 buttonLayout.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    private String generateQuestionId(){
+        @SuppressLint("SimpleDateFormat")
+        String currentDateAndTime = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
+        return mPresenter.getTestId() + currentDateAndTime;
     }
 
     @OnClick(R.id.add_answer3)
@@ -198,7 +216,7 @@ public class AddEditQuestionFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = (AddEditQuestionListener) context;
+        mListener = (DetailQuestionListener) context;
     }
 
     @Override
@@ -211,5 +229,6 @@ public class AddEditQuestionFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mPresenter.onDestroy();
     }
 }

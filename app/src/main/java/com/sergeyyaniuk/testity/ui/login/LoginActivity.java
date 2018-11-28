@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
-import com.sergeyyaniuk.testity.di.module.LoginActivityModule;
+import com.sergeyyaniuk.testity.di.module.LoginModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
 
@@ -60,7 +59,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        App.get(this).getAppComponent().createLoginComponent(new LoginActivityModule(this)).inject(this);
+        App.get(this).getAppComponent().create(new LoginModule(this)).inject(this);
         ButterKnife.bind(this);
         mPresenter.onCreate();
         changeGoogleButtonBackground(mGoogleButton); //change google button image

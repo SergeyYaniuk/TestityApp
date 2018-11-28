@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.create;
+package com.sergeyyaniuk.testity.ui.createTest.create;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,9 +17,6 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import com.sergeyyaniuk.testity.R;
-import com.sergeyyaniuk.testity.data.model.Test;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +28,7 @@ import butterknife.Unbinder;
 public class CreateTestFragment extends Fragment {
 
     private Unbinder unbinder;
-    CreateTestListener mListener;   //Listener for communication with Activity
+    CreateTestListener mListener;
 
     @BindView(R.id.titleTextInputLayout)
     TextInputLayout mTitleEditText;
@@ -52,11 +49,11 @@ public class CreateTestFragment extends Fragment {
     Button addQuestionsButton;
 
     String mTitle, mCategory, mLanguage, mDescription;
-    boolean isOnline;
+    boolean isOnline = true;
 
     public interface CreateTestListener{
         void onCreateTest(String title, String category, String language,
-                                   boolean isOnline, String description);
+                          boolean isOnline, String description);
     }
 
     public CreateTestFragment(){
@@ -66,7 +63,7 @@ public class CreateTestFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_test, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_test2, container, false);
         unbinder = ButterKnife.bind(this, view);
         setCategoryAdapter();
         setLanguageAdapter();

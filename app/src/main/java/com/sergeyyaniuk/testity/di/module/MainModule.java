@@ -10,11 +10,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MainActivityModule {
+public class MainModule {
 
     private MainActivity mActivity;
 
-    public MainActivityModule(MainActivity activity){
+    public MainModule(MainActivity activity){
         this.mActivity = activity;
     }
 

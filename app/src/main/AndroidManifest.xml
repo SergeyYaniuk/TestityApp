@@ -67,8 +67,8 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.create.CreateTestActivity"/>
+        <activity android:name=".ui.createTest.create.CreateTestActivity"/>
+        <activity android:name=".ui.createTest.questions.QuestionsActivity"/>
         <activity
             android:name=".ui.myTests.MyTestsActivity">
         </activity>

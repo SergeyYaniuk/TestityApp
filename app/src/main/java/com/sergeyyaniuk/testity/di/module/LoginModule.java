@@ -12,11 +12,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class LoginActivityModule {
+public class LoginModule {
 
     private LoginActivity mActivity;
 
-    public LoginActivityModule(LoginActivity activity){
+    public LoginModule(LoginActivity activity){
         this.mActivity = activity;
     }
 

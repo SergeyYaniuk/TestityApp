@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.create;
+package com.sergeyyaniuk.testity.ui.createTest.questions;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,11 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
+import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Question;
+import com.sergeyyaniuk.testity.di.module.QuestionsListFragModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +31,16 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class QuestionsListFragment extends Fragment {
-    
+
     public static final String TAG = "MyLog";
 
     private Unbinder unbinder;
 
     @Inject
-    CreateTestPresenter mPresenter;
+    QuestionsListPresenter mPresenter;
 
     @BindView(R.id.questionsRecView)
     RecyclerView mRecyclerView;
-
-    @BindView(R.id.questions_list_layout)
-    FrameLayout mFrameLayout;
 
     @BindView(R.id.add_question_button)
     ImageButton mAddQuestionButton;
@@ -52,10 +50,8 @@ public class QuestionsListFragment extends Fragment {
 
     List<Question> mQuestions;
 
-    QuestionsAdapter mQuestionsAdapter;
+    QuestionsListAdapter mQuestionsAdapter;
     QuestionsListListener mListener;
-    
-    private String mTestId;
 
     public interface QuestionsListListener{
         void onAddNewQuestion();
@@ -73,30 +69,37 @@ public class QuestionsListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_questions_list, container, false);
+        Log.d(TAG, "onCreateView: QuestionsListFragment");
+        View view = inflater.inflate(R.layout.fragment_questions_list2, container, false);
         unbinder = ButterKnife.bind(this, view);
-        Bundle arguments = getArguments();
-        if (arguments != null){
-            Log.d(TAG, "QuestionListFragment onCreateView: before get arguments");
-            mTestId = arguments.getString(CreateTestActivity.TEST_ID);
-            Log.d(TAG, "QuestionListFragment onCreateView: after get arguments: " + mTestId);
-        }
+        ((App)getActivity().getApplication()).getAppComponent().create(new QuestionsListFragModule(this)).inject(this);
+        mPresenter.onCreate();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        try{
-            mQuestions = mPresenter.loadQuestions(mTestId);
-        } catch (NullPointerException e){
-            mQuestions = new ArrayList<>();
-        }
-        mQuestionsAdapter = new QuestionsAdapter(mQuestions, questionClickListener);
+        mQuestions = new ArrayList<>();
+        mQuestionsAdapter = new QuestionsListAdapter(mQuestions, questionClickListener);
         mRecyclerView.setAdapter(mQuestionsAdapter);
         enableSwipe();
+        Log.d(TAG, "onCreateView: QuestionsListFragmentFinish");
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: QuestionsListFragment");
+        mPresenter.loadQuestions();
+    }
+
+    public void updateList(List<Question> questions){
+        Log.d(TAG, "updateList: QuestionsListFragment");
+        mQuestionsAdapter.updateData(questions);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = (QuestionsListListener) context;
+        Log.d(TAG, "onAttach: QUestionsListFragment");
+        mListener = (QuestionsListFragment.QuestionsListListener) context;
     }
 
     @Override
@@ -115,7 +118,7 @@ public class QuestionsListFragment extends Fragment {
         mListener.onAddNewQuestion();
     }
 
-    QuestionsAdapter.QuestionClickListener questionClickListener = new QuestionsAdapter.QuestionClickListener() {
+    QuestionsListAdapter.QuestionClickListener questionClickListener = new QuestionsListAdapter.QuestionClickListener() {
         @Override
         public void onQuestionClick(String questionId) {
             mListener.onClickQuestion(questionId);
@@ -140,5 +143,6 @@ public class QuestionsListFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mPresenter.onDestroy();
     }
 }

@@ -2,9 +2,12 @@ package com.sergeyyaniuk.testity.di.component;
 
 
 import com.sergeyyaniuk.testity.di.module.ApplicationModule;
-import com.sergeyyaniuk.testity.di.module.CreateTestActivityModule;
-import com.sergeyyaniuk.testity.di.module.LoginActivityModule;
-import com.sergeyyaniuk.testity.di.module.MainActivityModule;
+import com.sergeyyaniuk.testity.di.module.CreateTestModule;
+import com.sergeyyaniuk.testity.di.module.LoginModule;
+import com.sergeyyaniuk.testity.di.module.MainModule;
+import com.sergeyyaniuk.testity.di.module.QuestionDetailFragModule;
+import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
+import com.sergeyyaniuk.testity.di.module.QuestionsListFragModule;
 
 import javax.inject.Singleton;
 
@@ -14,7 +17,14 @@ import dagger.Component;
 @Component(modules = {ApplicationModule.class})
 public interface AppComponent {
 
-    LoginActivityComponent createLoginComponent(LoginActivityModule loginActivityModule);
-    MainActivityComponent createMainComponent(MainActivityModule mainActivityModule);
-    CreateTestActivityComponent createCreateTestComponent(CreateTestActivityModule createTestActivityModule);
+    /* ----------Activity components --------------*/
+    LoginComponent create(LoginModule loginModule);
+    MainComponent create(MainModule mainModule);
+    CreateTestComponent create(CreateTestModule createTestModule);
+    QuestionsListComponent create(QuestionsListModule questionsListModule);
+
+
+    /* ----------Fragment components --------------*/
+    QuestionsListFragComponent create(QuestionsListFragModule questionsListFragModule);
+    QuestionDetailFragComponent create(QuestionDetailFragModule questionDetailFragModule);
 }

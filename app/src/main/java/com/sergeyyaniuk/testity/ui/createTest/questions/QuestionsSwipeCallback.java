@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.create;
+package com.sergeyyaniuk.testity.ui.createTest.questions;
 
 import android.content.Context;
 import android.graphics.Canvas;

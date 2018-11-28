@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.sergeyyaniuk.testity.R;
 
 public class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "MyLog";
 
     private ProgressDialog mProgressDialog;
 
