@@ -7,22 +7,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.create.CreateTestActivity">
+    tools:context=".ui.createTest.create.CreateTestActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:theme="@style/ActionBarTheme.AppBarOverlay">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/create_toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ActionBarTheme.PopupOverlay"/>
-    </android.support.design.widget.AppBarLayout>
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:theme="@style/ActionBarTheme.AppBarOverlay">
 
-    <include layout="@layout/content_create_test"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/create_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/ActionBarTheme.PopupOverlay"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <fragment
+            android:id="@+id/create_test_fragment"
+            android:name="com.sergeyyaniuk.testity.ui.createTest.create.CreateTestFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appBarLayout"/>
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

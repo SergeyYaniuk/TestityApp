@@ -70,7 +70,7 @@ public class QuestionsListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         Log.d(TAG, "onCreateView: QuestionsListFragment");
-        View view = inflater.inflate(R.layout.fragment_questions_list2, container, false);
+        View view = inflater.inflate(R.layout.fragment_questions_list, container, false);
         unbinder = ButterKnife.bind(this, view);
         ((App)getActivity().getApplication()).getAppComponent().create(new QuestionsListFragModule(this)).inject(this);
         mPresenter.onCreate();

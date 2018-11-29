@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Answer;
-import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
@@ -24,9 +23,6 @@ public class DetailQuestionPresenter extends BasePresenter {
     private PrefHelper mPrefHelper;
     private DetailQuestionFragment mFragment;
 
-    List<Answer> mAnswerList;
-    Question mQuestion;
-
     public DetailQuestionPresenter(DetailQuestionFragment fragment, DatabaseManager database,
                                   Firestore firestore, PrefHelper prefHelper) {
         this.mFragment = fragment;
@@ -39,28 +35,30 @@ public class DetailQuestionPresenter extends BasePresenter {
         return mPrefHelper.getCurrentTestId();
     }
 
-    public Question loadQuestion(String questionId) {
+    public void loadQuestion(String questionId) {
+        Log.d(TAG, "loadQuestion: Presenter");
         getCompositeDisposable().add(mDatabase.getQuestion(questionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(question -> {
-                    mQuestion = question;
+                    String questionText = question.getQuestionText();
+                    mFragment.setQuestionTest(questionText);
                 }, throwable -> {
-
+                    String emptyText = " ";
+                    mFragment.setQuestionTest(emptyText);
                 }));
-        return mQuestion;
     }
 
-    public List<Answer> loadAnswers(String questionId) {
-        mAnswerList = new ArrayList<>();
+    public void loadAnswers(String questionId) {
+        Log.d(TAG, "loadAnswers: Presenter");
         getCompositeDisposable().add(mDatabase.getAnswerList(questionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(answers -> {
-                    mAnswerList.addAll(answers);
+                    mFragment.loadAnswerData(answers);
                 }, throwable -> {
-                    Log.d(TAG, "loadAnswers: error");
+                    List<Answer> answers = new ArrayList<>();
+                    mFragment.loadAnswerData(answers);
                 }));
-        return mAnswerList;
     }
 }

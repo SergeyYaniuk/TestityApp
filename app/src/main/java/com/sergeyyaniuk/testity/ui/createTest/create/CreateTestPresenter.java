@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
@@ -57,6 +58,7 @@ public class CreateTestPresenter extends BasePresenter {
                 .subscribe(aBoolean -> {
                         },
                         throwable -> {
+                    mActivity.showToast(mActivity, R.string.cannot_add_test);
                         }));
     }
 

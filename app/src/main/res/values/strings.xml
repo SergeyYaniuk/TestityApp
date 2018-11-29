@@ -84,6 +84,10 @@
     <string name="not_completed_test">You have an not completed test. Would you like to continue or create new one?</string>
     <string name="continue_test">Continue</string>
     <string name="create_new">Create new</string>
+    <string name="cannot_add_test">Cannot add test to database</string>
+    <string name="cannot_add_question">Cannot add question to database</string>
+    <string name="cannot_add_answers">Cannot add answers to database</string>
+    <string name="question_deleted">Question deleted!</string>
 
     <!-- Error messages text !-->
     <string name="required">"Required."</string>

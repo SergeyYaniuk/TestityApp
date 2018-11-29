@@ -31,6 +31,7 @@
                     android:hint="@string/type_your_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
                     android:imeOptions="actionNext"
                     android:cursorVisible="true"
                     android:inputType="textMultiLine"/>

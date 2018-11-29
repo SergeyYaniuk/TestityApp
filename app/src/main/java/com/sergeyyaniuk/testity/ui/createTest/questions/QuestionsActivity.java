@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.createTest.questions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
+import com.sergeyyaniuk.testity.ui.main.MainActivity;
 
 import java.util.List;
 
@@ -24,7 +26,6 @@ import butterknife.ButterKnife;
 public class QuestionsActivity extends BaseActivity implements QuestionsListFragment.QuestionsListListener,
         DetailQuestionFragment.DetailQuestionListener {
 
-    private static final String TAG = "MyLog";
     public static final String QUESTION_ID = "question_id";
 
     @BindView(R.id.create_toolbar)
@@ -39,7 +40,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: Questions Activity");
         setContentView(R.layout.activity_questions);
         App.get(this).getAppComponent().create(new QuestionsListModule(this)).inject(this);
         ButterKnife.bind(this);
@@ -56,7 +56,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     }
 
     public void showQuestionsListFragment(){
-        Log.d(TAG, "showQuestionsListFragment: Questions Activity");
         QuestionsListFragment questionsListFragment = new QuestionsListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragmentContainer, questionsListFragment);
@@ -64,14 +63,14 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
         transaction.commit();
     }
 
-    private void showDetailQuestionFragment(){
-        Log.d(TAG, "showDetailQuestionFragment: Questions activity");
+    public void showDetailQuestionFragment(){
         DetailQuestionFragment detailQuestionFragment = new DetailQuestionFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, detailQuestionFragment);
         transaction.disallowAddToBackStack();
         transaction.commit();
     }
+
 
     @Override
     public void onAddNewQuestion() {
@@ -80,7 +79,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
 
     @Override
     public void onTestCompleted() {
-
+        startActivity(new Intent(QuestionsActivity.this, MainActivity.class));
     }
 
     @Override
@@ -97,23 +96,24 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
 
     @Override
     public void onSwipedQuestion(String questionId) {
-
+        mPresenter.deleteQuestion(questionId, isTestOnline);
+        mPresenter.deleteAnswerList(questionId, isTestOnline);
     }
 
     @Override
     public void onAddEditQuestionCompleted(Question question, List<Answer> answers, boolean isUpdating) {
-        Log.d(TAG, "onAddEditQuestionCompleted: start");
         if (isUpdating){
-            Log.d(TAG, "onAddEditQuestionCompleted: updating - start = Questions activity");
             mPresenter.updateQuestion(question, isTestOnline);
-            mPresenter.updateAnswerList(answers, isTestOnline);
         } else {
-            Log.d(TAG, "onAddEditQuestionCompleted: create - start = Questions activity");
             mPresenter.saveQuestion(question, isTestOnline);
-            mPresenter.saveAnswerList(answers, isTestOnline);
         }
-        showQuestionsListFragment();
+        mPresenter.saveAnswerList(answers, isTestOnline);
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.getNumberOfQuestions(isTestOnline);
     }
 
     @Override

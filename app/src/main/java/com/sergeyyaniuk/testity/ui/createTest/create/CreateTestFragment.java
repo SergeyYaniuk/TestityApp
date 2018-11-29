@@ -63,7 +63,7 @@ public class CreateTestFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_test2, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_test, container, false);
         unbinder = ButterKnife.bind(this, view);
         setCategoryAdapter();
         setLanguageAdapter();

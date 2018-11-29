@@ -31,7 +31,7 @@ public class CreateTestActivity extends BaseActivity implements CreateTestFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_test2);
+        setContentView(R.layout.activity_create_test);
         App.get(this).getAppComponent().create(new CreateTestModule(this)).inject(this);
         ButterKnife.bind(this);
         mPresenter.onCreate();

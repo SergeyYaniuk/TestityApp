@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class DetailQuestionFragment extends Fragment {
-
-    private static final String TAG = "MyLog";
 
     @Inject
     DetailQuestionPresenter mPresenter;
@@ -89,7 +88,7 @@ public class DetailQuestionFragment extends Fragment {
     private String mQuestionId;
     private String mTestId;
     private boolean isUpdating;
-    private List<Answer> mAnswerList = new ArrayList<>();
+    private List<Answer> mAnswerList;
 
     public interface DetailQuestionListener{
         void onAddEditQuestionCompleted(Question question, List<Answer> answers, boolean isUpdating);
@@ -102,45 +101,60 @@ public class DetailQuestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_edit_question2, container, false);
-        Log.d(TAG, "onCreateView: Detail fragment");
+        View view = inflater.inflate(R.layout.fragment_detail_question, container, false);
         unbinder = ButterKnife.bind(this, view);
         ((App)getActivity().getApplication()).getAppComponent().create(new QuestionDetailFragModule(this)).inject(this);
         mPresenter.onCreate();
         mTestId = mPresenter.getTestId();
         Bundle arguments = getArguments();
         if (arguments != null){
-            Log.d(TAG, "onCreateView: arguments exist - Detail fragment");
             mQuestionId = arguments.getString(QuestionsActivity.QUESTION_ID);
             isUpdating = true;
-            loadQuestionWithAnswers();
+            mPresenter.loadQuestion(mQuestionId);
+            mPresenter.loadAnswers(mQuestionId);
         } else {
-            Log.d(TAG, "onCreateView: create new question id = Detail fragment");
             mQuestionId = generateQuestionId();
         }
         return view;
     }
 
-    private void loadQuestionWithAnswers(){
-        Log.d(TAG, "loadQuestionWithAnswers: start");
-        Question question = mPresenter.loadQuestion(mQuestionId);
-        mAnswerList = mPresenter.loadAnswers(mQuestionId);
-        mQuestionEditText.setText(question.getQuestionText());
-        Log.d(TAG, "loadQuestionWithAnswers: before load test");
-        loadAnswer(0, mAnswer1EditText, mAnswer1Checkbox, mAnswer1Layout, null);
-        loadAnswer(1, mAnswer2EditText, mAnswer2Checkbox, mAnswer2Layout, null);
-        loadAnswer(2, mAnswer3EditText, mAnswer3Checkbox, mAnswer3Layout, button4Layout);
-        loadAnswer(3, mAnswer4EditText, mAnswer4Checkbox, mAnswer4Layout, button5Layout);
-        loadAnswer(4, mAnswer5EditText, mAnswer5Checkbox, mAnswer5Layout, button6Layout);
-        loadAnswer(5, mAnswer6EditText, mAnswer6Checkbox, mAnswer6Layout, button7Layout);
-        loadAnswer(6, mAnswer7EditText, mAnswer7Checkbox, mAnswer7Layout, button8Layout);
-        loadAnswer(7, mAnswer8EditText, mAnswer8Checkbox, mAnswer8Layout, null);
+    //if question exist, set text in EditText.Method is invoked from presenter, after question loaded from database.
+    public void setQuestionTest(String questionTest){
+        mQuestionEditText.setText(questionTest);
+    }
+    
+    //set answers test if exist
+    public void loadAnswerData(List<Answer> answers){
+        setAnswerData(answers,0, mAnswer1EditText, mAnswer1Checkbox, mAnswer1Layout, null);
+        setAnswerData(answers,1, mAnswer2EditText, mAnswer2Checkbox, mAnswer2Layout, null);
+        setAnswerData(answers,2, mAnswer3EditText, mAnswer3Checkbox, mAnswer3Layout, button4Layout);
+        setAnswerData(answers,3, mAnswer4EditText, mAnswer4Checkbox, mAnswer4Layout, button5Layout);
+        setAnswerData(answers,4, mAnswer5EditText, mAnswer5Checkbox, mAnswer5Layout, button6Layout);
+        setAnswerData(answers,5, mAnswer6EditText, mAnswer6Checkbox, mAnswer6Layout, button7Layout);
+        setAnswerData(answers,6, mAnswer7EditText, mAnswer7Checkbox, mAnswer7Layout, button8Layout);
+        setAnswerData(answers,7, mAnswer8EditText, mAnswer8Checkbox, mAnswer8Layout, null);
+    }
+
+    private void setAnswerData(List<Answer> answers, int index, EditText editText, CheckBox checkBox,
+                               TextInputLayout editTextLayout, LinearLayout buttonLayout){
+        if (index < answers.size()){
+            Answer answer = answers.get(index);
+            editText.setText(answer.getAnswerText());
+            checkBox.setChecked(answer.isCorrect());
+            editTextLayout.setVisibility(View.VISIBLE);
+            if (buttonLayout != null){
+                buttonLayout.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @OnClick(R.id.saveQuestionButton)
     public void onSaveQuestion(){
-        Log.d(TAG, "onSaveQuestion: Detail fragment");
+        if (isQuestionNotEmpty(mQuestionEditText)){
+            return;
+        }
         Question question = new Question(mQuestionId, mQuestionEditText.getText().toString(), mTestId);
+        mAnswerList = new ArrayList<>();
         checkAddAnswer(mAnswer1EditText.getText().toString(), 1, mAnswer1Checkbox.isChecked());
         checkAddAnswer(mAnswer2EditText.getText().toString(), 2, mAnswer2Checkbox.isChecked());
         checkAddAnswer(mAnswer3EditText.getText().toString(), 3, mAnswer3Checkbox.isChecked());
@@ -158,24 +172,6 @@ public class DetailQuestionFragment extends Fragment {
             Answer answer = new Answer(answerId, answerText, isCorrect, mQuestionId);
             mAnswerList.add(answer);
         }
-    }
-
-    private void loadAnswer(int index, EditText editText, CheckBox checkBox, TextInputLayout editTextLayout, LinearLayout buttonLayout){
-        if (mAnswerList.get(index) != null){
-            Answer answer = mAnswerList.get(index);
-            editText.setText(answer.getAnswerText());
-            checkBox.setChecked(answer.isCorrect());
-            editTextLayout.setVisibility(View.VISIBLE);
-            if (buttonLayout != null){
-                buttonLayout.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    private String generateQuestionId(){
-        @SuppressLint("SimpleDateFormat")
-        String currentDateAndTime = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
-        return mPresenter.getTestId() + currentDateAndTime;
     }
 
     @OnClick(R.id.add_answer3)
@@ -211,6 +207,26 @@ public class DetailQuestionFragment extends Fragment {
     @OnClick(R.id.add_answer8)
     public void setAnswer8Visible(){
         mAnswer8Layout.setVisibility(View.VISIBLE);
+    }
+
+
+    private boolean isQuestionNotEmpty(EditText questionET){
+        boolean isEmpty;
+        String questionText = questionET.getText().toString();
+        if (TextUtils.isEmpty(questionText)){
+            questionET.setError("Required.");
+            isEmpty = true;
+        } else {
+            questionET.setError(null);
+            isEmpty = false;
+        }
+        return isEmpty;
+    }
+
+    private String generateQuestionId(){
+        @SuppressLint("SimpleDateFormat")
+        String currentDateAndTime = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
+        return mPresenter.getTestId() + currentDateAndTime;
     }
 
     @Override

@@ -40,6 +40,8 @@ public class QuestionsListAdapter extends RecyclerView.Adapter<QuestionsListAdap
     @Override
     public void onBindViewHolder(@NonNull QuestionsListAdapter.ViewHolder holder, int position) {
         holder.mTitle.setText(mQuestions.get(position).getQuestionText());
+        String questionNumber = Integer.toString(++position) + ".";
+        holder.mQuestionNumber.setText(questionNumber);
     }
 
     @Override
@@ -66,6 +68,7 @@ public class QuestionsListAdapter extends RecyclerView.Adapter<QuestionsListAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView mTitle;
+        TextView mQuestionNumber;
 
         private QuestionsListAdapter.QuestionClickListener mQuestionClickListener;
 
@@ -73,6 +76,7 @@ public class QuestionsListAdapter extends RecyclerView.Adapter<QuestionsListAdap
             super(itemView);
             mQuestionClickListener = listener;
             mTitle = itemView.findViewById(R.id.question_title);
+            mQuestionNumber = itemView.findViewById(R.id.number_of_question);
             itemView.setOnClickListener(this);
         }
 
