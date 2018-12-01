@@ -37,4 +37,13 @@ public interface TestDao {
 
     @Query("SELECT * FROM tests WHERE id = :testId LIMIT 1")
     Test getTestById(String testId);
+
+    @Query("SELECT * FROM tests WHERE category = :category")
+    List<Test> getTestsByCategory(String category);
+
+    @Query("SELECT * FROM tests WHERE language = :language")
+    List<Test> getTestsByLanguage(String language);
+
+    @Query("DELETE FROM tests WHERE id = :testId")
+    void deleteTestById(String testId);
 }

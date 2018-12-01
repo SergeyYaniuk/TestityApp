@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.createTest.create.CreateTestActivity">
+    tools:context=".ui.create.createTest.CreateTestActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
 
         <fragment
             android:id="@+id/create_test_fragment"
-            android:name="com.sergeyyaniuk.testity.ui.createTest.create.CreateTestFragment"
+            android:name="com.sergeyyaniuk.testity.ui.create.createTest.CreateTestFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/appBarLayout"/>

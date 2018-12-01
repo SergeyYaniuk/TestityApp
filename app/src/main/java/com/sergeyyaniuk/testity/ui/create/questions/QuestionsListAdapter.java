@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.createTest.questions;
+package com.sergeyyaniuk.testity.ui.create.questions;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +15,6 @@ import java.util.List;
 
 public class QuestionsListAdapter extends RecyclerView.Adapter<QuestionsListAdapter.ViewHolder> {
 
-    private static final String TAG = "MyLog";
-
     private List<Question> mQuestions;
     private QuestionsListAdapter.QuestionClickListener mQuestionClickListener;
 
@@ -24,7 +22,7 @@ public class QuestionsListAdapter extends RecyclerView.Adapter<QuestionsListAdap
         void onQuestionClick(String questionId);
     }
 
-    public QuestionsListAdapter(List<Question> questions, QuestionsListAdapter.QuestionClickListener questionClickListener){
+    public QuestionsListAdapter(List<Question> questions, QuestionClickListener questionClickListener){
         this.mQuestions = questions;
         this.mQuestionClickListener = questionClickListener;
     }
@@ -55,7 +53,6 @@ public class QuestionsListAdapter extends RecyclerView.Adapter<QuestionsListAdap
     }
 
     public void updateData(List<Question> questions){
-        Log.d(TAG, "updateData: questionsList adapter");
         mQuestions.clear();
         mQuestions.addAll(questions);
         notifyDataSetChanged();

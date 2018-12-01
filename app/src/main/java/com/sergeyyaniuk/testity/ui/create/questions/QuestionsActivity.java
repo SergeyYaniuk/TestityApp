@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.createTest.questions;
+package com.sergeyyaniuk.testity.ui.create.questions;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -28,7 +27,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
 
     public static final String QUESTION_ID = "question_id";
 
-    @BindView(R.id.create_toolbar)
+    @BindView(R.id.questions_toolbar)
     Toolbar mToolbar;
 
     @Inject
@@ -48,7 +47,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
         mTestId = getIntent().getStringExtra("test_id");
         mTestTitle = getIntent().getStringExtra("test_title");
         isTestOnline = getIntent().getBooleanExtra("is_online", false);
-        //setup actionbar
+        //setup toolbar
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(mTestTitle);
@@ -113,6 +112,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     @Override
     protected void onStop() {
         super.onStop();
+        //get number of questions, number of correct answers and update test
         mPresenter.getNumberOfQuestions(isTestOnline);
     }
 

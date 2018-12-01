@@ -4,8 +4,8 @@ import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.ActivityScope;
 import com.sergeyyaniuk.testity.firebase.Firestore;
-import com.sergeyyaniuk.testity.ui.createTest.questions.QuestionsActivity;
-import com.sergeyyaniuk.testity.ui.createTest.questions.QuestionsPresenter;
+import com.sergeyyaniuk.testity.ui.create.questions.QuestionsActivity;
+import com.sergeyyaniuk.testity.ui.create.questions.QuestionsPresenter;
 
 import dagger.Module;
 import dagger.Provides;

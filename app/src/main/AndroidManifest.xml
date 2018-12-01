@@ -13,15 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppMainTheme">
-        <activity
-            android:name=".ui.main.MainActivity"/>
-        <activity
-            android:name=".ui.login.LoginActivity"/>
+        <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/AppMainTheme.Launcher">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -67,10 +65,11 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.createTest.create.CreateTestActivity"/>
-        <activity android:name=".ui.createTest.questions.QuestionsActivity"/>
-        <activity
-            android:name=".ui.myTests.MyTestsActivity">
-        </activity>
+        <activity android:name=".ui.create.createTest.CreateTestActivity" />
+        <activity android:name=".ui.create.questions.QuestionsActivity" />
+        <activity android:name=".ui.tests.myTests.MyTestsActivity" />
+        <activity android:name=".ui.tests.editTest.EditTestActivity" />
+        <activity android:name=".ui.tests.passTest.PassTestActivity"></activity>
     </application>
+
 </manifest>

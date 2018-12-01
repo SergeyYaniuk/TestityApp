@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.createTest.create;
+package com.sergeyyaniuk.testity.ui.create.createTest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.module.CreateTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.createTest.questions.QuestionsActivity;
+import com.sergeyyaniuk.testity.ui.create.questions.QuestionsActivity;
 
 import javax.inject.Inject;
 

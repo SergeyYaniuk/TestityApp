@@ -4,8 +4,8 @@ import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.di.FragmentScope;
 import com.sergeyyaniuk.testity.firebase.Firestore;
-import com.sergeyyaniuk.testity.ui.createTest.questions.QuestionsListPresenter;
-import com.sergeyyaniuk.testity.ui.createTest.questions.QuestionsListFragment;
+import com.sergeyyaniuk.testity.ui.create.questions.QuestionsListPresenter;
+import com.sergeyyaniuk.testity.ui.create.questions.QuestionsListFragment;
 
 import dagger.Module;
 import dagger.Provides;

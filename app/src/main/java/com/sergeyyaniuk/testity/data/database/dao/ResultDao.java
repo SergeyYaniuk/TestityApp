@@ -46,4 +46,10 @@ public interface ResultDao {
 
     @Query("SELECT * FROM results WHERE test_id = :testId ORDER BY score ASC")
     List<Result> getResultByTestSorted(String testId);
+
+    @Query("DELETE FROM results WHERE id = :resultId")
+    void deleteById(String resultId);
+
+    @Query("DELETE FROM results WHERE test_id = :testId")
+    void deleteByTestId(String testId);
 }

@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.createTest.create;
+package com.sergeyyaniuk.testity.ui.create.createTest;
 
 import android.content.Context;
 import android.os.Bundle;

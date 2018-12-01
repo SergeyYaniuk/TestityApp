@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.createTest.questions;
+package com.sergeyyaniuk.testity.ui.create.questions;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -126,7 +126,7 @@ public class QuestionsListFragment extends Fragment {
     };
 
     private void enableSwipe(){
-        QuestionsSwipeCallback questionsSwipeCallback = new QuestionsSwipeCallback(getContext()) {  //or getActivity
+        QuestionsSwipeCallback questionsSwipeCallback = new QuestionsSwipeCallback(getContext()) {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();

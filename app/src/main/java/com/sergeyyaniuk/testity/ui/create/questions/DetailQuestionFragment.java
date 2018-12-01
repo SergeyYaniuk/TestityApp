@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.createTest.questions;
+package com.sergeyyaniuk.testity.ui.create.questions;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -60,11 +60,30 @@ public class DatabaseManager {
         });
     }
 
+    public Observable<List<Test>> getTestList(String userId){
+        return Observable.fromCallable(new Callable<List<Test>>() {
+            @Override
+            public List<Test> call() throws Exception {
+                return testityDatabase.testDao().getTestsByUserId(userId);
+            }
+        });
+    }
+
     public Observable<Boolean> updateTest(final Test test){
         return Observable.fromCallable(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
                 testityDatabase.testDao().update(test);
+                return true;
+            }
+        });
+    }
+
+    public Observable<Boolean> deleteTest(final String testId){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.testDao().deleteTestById(testId);
                 return true;
             }
         });

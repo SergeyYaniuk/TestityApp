@@ -41,6 +41,4 @@ public interface QuestionDao {
 
     @Query("DELETE FROM questions WHERE id = :questionId")
     void deleteQuestionById(String questionId);
-
-
 }

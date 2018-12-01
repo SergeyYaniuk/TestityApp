@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.createTest.questions;
+package com.sergeyyaniuk.testity.ui.create.questions;
 
 import android.util.Log;
 
