@@ -26,7 +26,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.MyTestDetailListener {
+public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.MyTestDetailListener,
+        ConfirmDelTestDialog.DeleteTestListener {
 
     public static final String TEST_ID = "test_id";
     public static final String TEST_TITLE = "test_title";
@@ -34,6 +35,9 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     public static final String TEST_LANGUAGE = "test_language";
     public static final String TEST_NUM_OF_QUES = "number_of_questions";
     public static final String TEST_DESCR = "test_description";
+
+    public static final String POSITION = "position";
+    public static final String IS_TEST_ONLINE = "is_test_online";
 
     @Inject
     MyTestsPresenter mPresenter;
@@ -105,12 +109,29 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
                 final int position = viewHolder.getAdapterPosition();
                 String testId = mAdapter.getItem(position).getId();
                 boolean isTestOnline = mAdapter.getItem(position).isOnline();
-                mPresenter.deleteTest(testId, isTestOnline);
-                mAdapter.removeTest(position);
+
+                ConfirmDelTestDialog confirmDelTestDialog = new ConfirmDelTestDialog();
+                Bundle arguments = new Bundle();
+                arguments.putString(TEST_ID, testId);
+                arguments.putInt(POSITION, position);
+                arguments.putBoolean(IS_TEST_ONLINE, isTestOnline);
+                confirmDelTestDialog.setArguments(arguments);
+                confirmDelTestDialog.show(getSupportFragmentManager(), "confirm_delete_test_dialog");
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(testSwipeCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    @Override
+    public void onDeleteTest(String testId, int position, boolean isTestOnline) {
+        mPresenter.deleteTest(testId, isTestOnline);
+        mAdapter.removeTest(position);
+    }
+
+    @Override
+    public void onCancelDelete() {
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
