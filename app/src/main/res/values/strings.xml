@@ -100,4 +100,7 @@
     <string name="delete_test">Delete test?</string>
     <string name="confirm">Confirm</string>
 
+    <!-- Edit test activity !-->
+    <string name="edit_questions">Edit questions</string>
+
 </resources>

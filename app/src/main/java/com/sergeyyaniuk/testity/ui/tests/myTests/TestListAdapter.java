@@ -17,10 +17,6 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
     private List<Test> mTests;
     private TestClickListener mListener;
 
-//    public interface TestClickListener{
-//        void onTestClick(String testId);
-//    }
-
     public interface TestClickListener{
         void onTestClick(int position);
     }
@@ -89,8 +85,6 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-//            String testId = getItem(getAdapterPosition()).getId();
-//            mListener.onTestClick(testId);
             int position = getAdapterPosition();
             mListener.onTestClick(position);
         }

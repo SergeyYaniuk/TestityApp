@@ -15,6 +15,7 @@ import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.MyTestsModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
+import com.sergeyyaniuk.testity.ui.main.MainActivity;
 import com.sergeyyaniuk.testity.ui.tests.editTest.EditTestActivity;
 import com.sergeyyaniuk.testity.ui.tests.passTest.PassTestActivity;
 
@@ -38,6 +39,8 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
 
     public static final String POSITION = "position";
     public static final String IS_TEST_ONLINE = "is_test_online";
+
+    private static final String TAG = "MyLog";
 
     @Inject
     MyTestsPresenter mPresenter;
@@ -127,6 +130,11 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     public void onDeleteTest(String testId, int position, boolean isTestOnline) {
         mPresenter.deleteTest(testId, isTestOnline);
         mAdapter.removeTest(position);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(MyTestsActivity.this, MainActivity.class));
     }
 
     @Override

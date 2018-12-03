@@ -1,6 +1,7 @@
 package com.sergeyyaniuk.testity.ui.create.questions;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -204,6 +205,7 @@ public class QuestionsPresenter extends BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
+                    mActivity.startTestsActivity();
                         }, throwable -> {}
                 ));
         if (isTestOnline){

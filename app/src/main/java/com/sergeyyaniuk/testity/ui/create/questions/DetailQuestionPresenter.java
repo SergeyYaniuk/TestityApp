@@ -16,8 +16,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailQuestionPresenter extends BasePresenter {
 
-    private static final String TAG = "MyLog";
-
     private DatabaseManager mDatabase;
     private Firestore mFirestore;
     private PrefHelper mPrefHelper;
@@ -36,7 +34,6 @@ public class DetailQuestionPresenter extends BasePresenter {
     }
 
     public void loadQuestion(String questionId) {
-        Log.d(TAG, "loadQuestion: Presenter");
         getCompositeDisposable().add(mDatabase.getQuestion(questionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -50,7 +47,6 @@ public class DetailQuestionPresenter extends BasePresenter {
     }
 
     public void loadAnswers(String questionId) {
-        Log.d(TAG, "loadAnswers: Presenter");
         getCompositeDisposable().add(mDatabase.getAnswerList(questionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

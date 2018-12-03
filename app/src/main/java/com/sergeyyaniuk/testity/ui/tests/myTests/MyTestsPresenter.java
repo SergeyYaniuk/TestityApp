@@ -1,15 +1,26 @@
 package com.sergeyyaniuk.testity.ui.tests.myTests;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MyTestsPresenter extends BasePresenter {
+
+    private static final String TAG = "MyLog";
 
     private MyTestsActivity mActivity;
     private DatabaseManager mDatabase;
@@ -41,9 +52,27 @@ public class MyTestsPresenter extends BasePresenter {
                 .subscribe(aBoolean -> {
                     mActivity.showToast(mActivity, R.string.test_deleted);
                 }, throwable -> {}));
-//        if (isOnline){
-//            //need to add code to delete test from Firestore
-//
-//        }
+        if (isOnline){
+            //delete test
+            mFirestore.deleteTest(testId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "onSuccess: delete test");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: delete test");
+                }
+            });
+
+            //delete questions
+            mFirestore.deleteQuestionList(testId).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d(TAG, "onComplete: delete answers");
+                }
+            });
+        }
     }
 }

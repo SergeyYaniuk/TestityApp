@@ -42,6 +42,10 @@ public class Firestore {
         return db.collection(TESTS).document(test.getId()).set(test);
     }
 
+    public Task<Void> deleteTest(String testId){
+        return db.collection(TESTS).document(testId).delete();
+    }
+
     public Task<Void> updateTest(Test test){
         WriteBatch batch = db.batch();
         batch.update(db.collection(TESTS).document(test.getId()), "numberOfQuestions", test.getNumberOfQuestions());
@@ -60,6 +64,28 @@ public class Firestore {
 
     public Task<Void> deleteQuestion(String questionId){
         return db.collection(QUESTIONS).document(questionId).delete();
+    }
+
+    public Task<Void> deleteQuestionList(String testId){
+        List<Question> questionList = new ArrayList<>();
+        db.collection(QUESTIONS).whereEqualTo("testId", testId).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()){
+                                questionList.add(document.toObject(Question.class));
+                            }
+                        } else{
+                            Log.d(TAG, "deleteQuestionList: Error");
+                        }
+                    }
+                });
+        WriteBatch batch = db.batch();
+        for (Question question : questionList){
+            batch.delete(db.collection(QUESTIONS).document(question.getId()));
+        }
+        return batch.commit();
     }
 
     public Task<Void> addAnswerList(List<Answer> answers){

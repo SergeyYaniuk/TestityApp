@@ -14,6 +14,7 @@ import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
+import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     QuestionsPresenter mPresenter;
 
     String mTestId, mTestTitle;
-    boolean isTestOnline;
+    boolean isTestOnline, isTestCompleted;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +79,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
 
     @Override
     public void onTestCompleted() {
-        startActivity(new Intent(QuestionsActivity.this, MainActivity.class));
+        isTestCompleted = true;
+        mPresenter.getNumberOfQuestions(isTestOnline);
     }
 
     @Override
@@ -109,16 +111,16 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
         mPresenter.saveAnswerList(answers, isTestOnline);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //get number of questions, number of correct answers and update test
-        mPresenter.getNumberOfQuestions(isTestOnline);
+    public void startTestsActivity(){
+        startActivity(new Intent(QuestionsActivity.this, MyTestsActivity.class));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (!isTestCompleted){
+            mPresenter.getNumberOfQuestions(isTestOnline);  //get number of questions, number of correct answers and update test
+        }
         mPresenter.onDestroy();
     }
 }

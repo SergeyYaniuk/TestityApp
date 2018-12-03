@@ -32,8 +32,6 @@ import butterknife.Unbinder;
 
 public class QuestionsListFragment extends Fragment {
 
-    public static final String TAG = "MyLog";
-
     private Unbinder unbinder;
 
     @Inject
@@ -69,7 +67,6 @@ public class QuestionsListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG, "onCreateView: QuestionsListFragment");
         View view = inflater.inflate(R.layout.fragment_questions_list, container, false);
         unbinder = ButterKnife.bind(this, view);
         ((App)getActivity().getApplication()).getAppComponent().create(new QuestionsListFragModule(this)).inject(this);
@@ -79,26 +76,22 @@ public class QuestionsListFragment extends Fragment {
         mQuestionsAdapter = new QuestionsListAdapter(mQuestions, questionClickListener);
         mRecyclerView.setAdapter(mQuestionsAdapter);
         enableSwipe();
-        Log.d(TAG, "onCreateView: QuestionsListFragmentFinish");
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: QuestionsListFragment");
         mPresenter.loadQuestions();
     }
 
     public void updateList(List<Question> questions){
-        Log.d(TAG, "updateList: QuestionsListFragment");
         mQuestionsAdapter.updateData(questions);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d(TAG, "onAttach: QUestionsListFragment");
         mListener = (QuestionsListFragment.QuestionsListListener) context;
     }
 
