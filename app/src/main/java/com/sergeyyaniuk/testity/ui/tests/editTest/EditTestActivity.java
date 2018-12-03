@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.tests.editTest;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,15 +8,17 @@ import android.support.v7.widget.Toolbar;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.EditTestModule;
-import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditTestActivity extends AppCompatActivity {
+public class EditTestActivity extends AppCompatActivity implements EditTestFragment.EditTestFragListener{
+
+    public static final String TEST_ID = "test_id";
 
     @Inject
     EditPresenter mPresenter;
@@ -24,6 +27,7 @@ public class EditTestActivity extends AppCompatActivity {
     Toolbar mToolbar;
 
     private String mTestId;
+    private boolean isTestOnline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,27 @@ public class EditTestActivity extends AppCompatActivity {
         App.get(this).getAppComponent().create(new EditTestModule(this)).inject(this);
         ButterKnife.bind(this);
         mPresenter.onCreate();
-
         mTestId = getIntent().getStringExtra("test_id");
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
+        showEditTestFragment();
+    }
+
+    public void showEditTestFragment(){
+        EditTestFragment editTestFragment = new EditTestFragment();
+        Bundle arguments = new Bundle();
+        arguments.putString(TEST_ID, mTestId);
+        editTestFragment.setArguments(arguments);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragmentContainer, editTestFragment);
+        transaction.disallowAddToBackStack();
+        transaction.commit();
+    }
+
+    @Override
+    public void onEditTestFragCompleted(Test test) {
+        isTestOnline = test.isOnline();
+        mPresenter.updateTest(test);
     }
 
     @Override
