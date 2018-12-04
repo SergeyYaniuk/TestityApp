@@ -42,11 +42,21 @@ public class Firestore {
         return db.collection(TESTS).document(test.getId()).set(test);
     }
 
+    public Task<Void> updateTestEditFive(Test test){
+        WriteBatch batch = db.batch();
+        batch.update(db.collection(TESTS).document(test.getId()), "title", test.getTitle());
+        batch.update(db.collection(TESTS).document(test.getId()), "category", test.getCategory());
+        batch.update(db.collection(TESTS).document(test.getId()), "language", test.getLanguage());
+        batch.update(db.collection(TESTS).document(test.getId()), "description", test.getDescription());
+        batch.update(db.collection(TESTS).document(test.getId()), "isOnline", test.isOnline());
+        return batch.commit();
+    }
+
     public Task<Void> deleteTest(String testId){
         return db.collection(TESTS).document(testId).delete();
     }
 
-    public Task<Void> updateTest(Test test){
+    public Task<Void> updateTestAddTwo(Test test){
         WriteBatch batch = db.batch();
         batch.update(db.collection(TESTS).document(test.getId()), "numberOfQuestions", test.getNumberOfQuestions());
         batch.update(db.collection(TESTS).document(test.getId()), "numberOfCorrectAnswers", test.getNumberOfCorrectAnswers());

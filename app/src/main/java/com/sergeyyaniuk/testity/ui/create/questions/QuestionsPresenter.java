@@ -1,7 +1,6 @@
 package com.sergeyyaniuk.testity.ui.create.questions;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -209,7 +208,7 @@ public class QuestionsPresenter extends BasePresenter {
                         }, throwable -> {}
                 ));
         if (isTestOnline){
-            mFirestore.updateTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
+            mFirestore.updateTestAddTwo(test).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }

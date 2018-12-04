@@ -1,12 +1,18 @@
 package com.sergeyyaniuk.testity.ui.tests.editTest;
 
-import android.util.Log;
+import android.support.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class EditPresenter extends BasePresenter {
 
@@ -26,11 +32,24 @@ public class EditPresenter extends BasePresenter {
     }
 
     public void updateTest(Test test){
-        Log.d(TAG, "updateTest: " + test.getId());
-        Log.d(TAG, "updateTest: " + test.getTitle());
-        Log.d(TAG, "updateTest: " + test.getCategory());
-        Log.d(TAG, "updateTest: " + test.getLanguage());
-        Log.d(TAG, "updateTest: " + test.getDescription());
-        Log.d(TAG, "updateTest: " + test.getNumberOfQuestions());
+        getCompositeDisposable().add(mDatabase.updateTest(test)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    mActivity.showEditListFragment();
+                }, throwable -> {
+                    mActivity.showToast(mActivity, R.string.cannot_update_test);
+                }));
+        if (test.isOnline()){
+            mFirestore.updateTestEditFive(test).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }
     }
 }

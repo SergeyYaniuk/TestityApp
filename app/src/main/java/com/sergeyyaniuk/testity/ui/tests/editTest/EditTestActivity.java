@@ -2,7 +2,6 @@ package com.sergeyyaniuk.testity.ui.tests.editTest;
 
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -10,13 +9,14 @@ import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.EditTestModule;
+import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditTestActivity extends AppCompatActivity implements EditTestFragment.EditTestFragListener{
+public class EditTestActivity extends BaseActivity implements EditTestFragment.EditTestFragListener{
 
     public static final String TEST_ID = "test_id";
 
@@ -49,6 +49,17 @@ public class EditTestActivity extends AppCompatActivity implements EditTestFragm
         editTestFragment.setArguments(arguments);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragmentContainer, editTestFragment);
+        transaction.disallowAddToBackStack();
+        transaction.commit();
+    }
+
+    public void showEditListFragment(){
+        EditListFragment editListFragment = new EditListFragment();
+        Bundle arguments = new Bundle();
+        arguments.putString(TEST_ID, mTestId);
+        editListFragment.setArguments(arguments);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragmentContainer, editListFragment);
         transaction.disallowAddToBackStack();
         transaction.commit();
     }

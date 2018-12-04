@@ -5,6 +5,9 @@ import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class EditListPresenter extends BasePresenter {
 
     private DatabaseManager mDatabase;
@@ -18,5 +21,18 @@ public class EditListPresenter extends BasePresenter {
         this.mDatabase = database;
         this.mFirestore = firestore;
         this.mPrefHelper = prefHelper;
+    }
+
+    public void loadQuestions(String testId){
+        getCompositeDisposable().add(mDatabase.getQuestionList(testId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        questions -> {
+                            mFragment.updateList(questions);
+                        }, throwable -> {
+
+                        }));
+
     }
 }

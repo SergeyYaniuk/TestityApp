@@ -102,5 +102,6 @@
 
     <!-- Edit test activity !-->
     <string name="edit_questions">Edit questions</string>
+    <string name="cannot_update_test">Cannot update test</string>
 
 </resources>
