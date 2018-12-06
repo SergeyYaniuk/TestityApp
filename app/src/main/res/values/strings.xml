@@ -104,4 +104,8 @@
     <string name="edit_questions">Edit questions</string>
     <string name="cannot_update_test">Cannot update test</string>
 
+    <!-- Start test activity !-->
+    <string name="your_name">Your name</string>
+    <string name="start_test">Start test</string>
+
 </resources>

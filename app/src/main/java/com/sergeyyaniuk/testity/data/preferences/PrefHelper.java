@@ -3,8 +3,6 @@ package com.sergeyyaniuk.testity.data.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.sergeyyaniuk.testity.util.Constants;
-
 public class PrefHelper {
 
     private static final String CURRENT_USER_ID = "CURRENT_USER_ID";
@@ -13,6 +11,7 @@ public class PrefHelper {
 
     private static final String CURRENT_TEST_ID = "CURRENT_TEST_ID";
 
+    private static final String NUM_OF_COR_ANS = "NUM_OF_COR_ANS";
     private final SharedPreferences mPrefs;
 
     public PrefHelper(Context context, String prefFileName){
@@ -65,5 +64,17 @@ public class PrefHelper {
 
     public String getCurrentTestId(){
         return mPrefs.getString(CURRENT_TEST_ID, null);
+    }
+
+    public void setNumOfCorAnsw(int number){
+        mPrefs.edit().putInt(NUM_OF_COR_ANS, number).apply();
+    }
+
+    public int getNumOfCorAnsw(){
+        return mPrefs.getInt(NUM_OF_COR_ANS, -1);
+    }
+
+    public void cleanNumOfCorAnsw(){
+        mPrefs.edit().remove(NUM_OF_COR_ANS).apply();
     }
 }

@@ -64,6 +64,50 @@ public class EditPresenter extends BasePresenter {
         }
     }
 
+    public void saveQuestion(Question question, boolean isOnline){
+        getCompositeDisposable().add(mDatabase.insertQuestion(question)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    mActivity.showEditListFragment();
+                }, throwable -> {
+                    mActivity.showToast(mActivity, R.string.cannot_add_question);
+                }));
+        if (isOnline){
+            mFirestore.addQuestion(question).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }
+    }
+
+    public void updateQuestion(Question question, boolean isOnline){
+        getCompositeDisposable().add(mDatabase.updateQuestion(question)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    mActivity.showEditListFragment();
+                }, throwable -> {
+                    mActivity.showToast(mActivity, R.string.cannot_add_question);
+                }));
+        if (isOnline){
+            mFirestore.updateQuestion(question).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }
+    }
+
     public void deleteQuestion(String questionId, boolean isOnline){
         getCompositeDisposable().add(mDatabase.deleteQuestion(questionId)
                 .subscribeOn(Schedulers.io())
@@ -79,6 +123,23 @@ public class EditPresenter extends BasePresenter {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }
+    }
+
+    public void saveAnswerList(List<Answer> answers, boolean isOnline){
+        getCompositeDisposable().add(mDatabase.insertAnswerList(answers)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                }, throwable -> {
+                    mActivity.showToast(mActivity, R.string.cannot_add_answers);
+                }));
+        if (isOnline){
+            mFirestore.addAnswerList(answers).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
                 }
             });
         }

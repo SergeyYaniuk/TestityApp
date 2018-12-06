@@ -17,7 +17,8 @@ import com.sergeyyaniuk.testity.di.module.MyTestsModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
 import com.sergeyyaniuk.testity.ui.tests.editTest.EditTestActivity;
-import com.sergeyyaniuk.testity.ui.tests.passTest.PassTestActivity;
+import com.sergeyyaniuk.testity.ui.tests.passTest.passTest.PassTestActivity;
+import com.sergeyyaniuk.testity.ui.tests.passTest.startTest.StartTestActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
         //setup toolbar
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.my_tests);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -151,7 +152,7 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
 
     @Override
     public void passTest(String testId) {
-        Intent intent = new Intent(MyTestsActivity.this, PassTestActivity.class);
+        Intent intent = new Intent(MyTestsActivity.this, StartTestActivity.class);
         intent.putExtra(TEST_ID, testId);
         startActivity(intent);
     }

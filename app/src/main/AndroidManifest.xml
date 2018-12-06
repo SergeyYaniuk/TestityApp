@@ -69,7 +69,8 @@
         <activity android:name=".ui.create.questions.QuestionsActivity" />
         <activity android:name=".ui.tests.myTests.MyTestsActivity" />
         <activity android:name=".ui.tests.editTest.EditTestActivity" />
-        <activity android:name=".ui.tests.passTest.PassTestActivity"/>
+        <activity android:name=".ui.tests.passTest.passTest.PassTestActivity" />
+        <activity android:name=".ui.tests.passTest.startTest.StartTestActivity"/>
     </application>
 
 </manifest>

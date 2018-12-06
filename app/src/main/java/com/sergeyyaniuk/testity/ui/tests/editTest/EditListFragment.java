@@ -67,6 +67,7 @@ public class EditListFragment extends Fragment {
         mQuestionsAdapter = new EditListAdapter(mQuestions, questionClickListener);
         mRecyclerView.setAdapter(mQuestionsAdapter);
         enableSwipe();
+        mPresenter.loadQuestions(mTestId);
         return view;
     }
 
@@ -75,12 +76,6 @@ public class EditListFragment extends Fragment {
         if (arguments != null){
             mTestId = arguments.getString(EditTestActivity.TEST_ID);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.loadQuestions(mTestId);
     }
 
     public void updateList(List<Question> questions){

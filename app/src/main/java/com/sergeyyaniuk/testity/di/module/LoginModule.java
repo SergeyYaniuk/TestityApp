@@ -32,5 +32,4 @@ public class LoginModule {
                                          Firestore firestore, PrefHelper prefHelper){
         return new LoginPresenter(mActivity, authentication, databaseManager, firestore, prefHelper);
     }
-
 }

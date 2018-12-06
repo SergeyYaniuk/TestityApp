@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.tests.passTest;
+package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

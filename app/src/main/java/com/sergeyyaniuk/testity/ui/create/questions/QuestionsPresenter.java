@@ -104,7 +104,6 @@ public class QuestionsPresenter extends BasePresenter {
         }
     }
 
-
     public void saveAnswerList(List<Answer> answers, boolean isOnline){
         getCompositeDisposable().add(mDatabase.insertAnswerList(answers)
                 .subscribeOn(Schedulers.io())
@@ -115,23 +114,6 @@ public class QuestionsPresenter extends BasePresenter {
                 }));
         if (isOnline){
             mFirestore.addAnswerList(answers).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                }
-            });
-        }
-    }
-
-    public void updateAnswerList(List<Answer> answers, boolean isOnline){
-        getCompositeDisposable().add(mDatabase.updateAnswerList(answers)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                }, throwable -> {
-                    mActivity.showToast(mActivity, R.string.cannot_add_answers);
-                }));
-        if (isOnline){
-            mFirestore.updateAnswerList(answers).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                 }

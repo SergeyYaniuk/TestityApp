@@ -76,13 +76,8 @@ public class QuestionsListFragment extends Fragment {
         mQuestionsAdapter = new QuestionsListAdapter(mQuestions, questionClickListener);
         mRecyclerView.setAdapter(mQuestionsAdapter);
         enableSwipe();
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         mPresenter.loadQuestions();
+        return view;
     }
 
     public void updateList(List<Question> questions){

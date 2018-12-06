@@ -1,17 +1,23 @@
 package com.sergeyyaniuk.testity.ui.tests.editTest;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.model.Answer;
+import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.EditTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EditTestActivity extends BaseActivity implements EditTestFragment.EditTestFragListener,
-        EditListFragment.EditListListener{
+        EditListFragment.EditListListener, EditQuestionFragment.EditQuestionListener{
 
     public static final String TEST_ID = "test_id";
     public static final String QUESTION_ID = "question_id";
@@ -44,7 +50,15 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         mPresenter.setTestId(mTestId);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         showEditTestFragment();
+    }
+
+    private void startTransaction(Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragmentContainer, fragment);
+        transaction.disallowAddToBackStack();
+        transaction.commit();
     }
 
     public void showEditTestFragment(){
@@ -52,10 +66,7 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         Bundle arguments = new Bundle();
         arguments.putString(TEST_ID, mTestId);
         editTestFragment.setArguments(arguments);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, editTestFragment);
-        transaction.disallowAddToBackStack();
-        transaction.commit();
+        startTransaction(editTestFragment);
     }
 
     public void showEditListFragment(){
@@ -63,10 +74,7 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         Bundle arguments = new Bundle();
         arguments.putString(TEST_ID, mTestId);
         editListFragment.setArguments(arguments);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, editListFragment);
-        transaction.disallowAddToBackStack();
-        transaction.commit();
+        startTransaction(editListFragment);
     }
 
     @Override
@@ -79,10 +87,7 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
     @Override
     public void onAddNewQuestion() {
         EditQuestionFragment editQuestionFragment = new EditQuestionFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, editQuestionFragment);
-        transaction.disallowAddToBackStack();
-        transaction.commit();
+        startTransaction(editQuestionFragment);
     }
 
     //onCompleted button in EditListFragment
@@ -99,10 +104,7 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         Bundle arguments = new Bundle();
         arguments.putString(QUESTION_ID, questionId);
         editQuestionFragment.setArguments(arguments);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, editQuestionFragment);
-        transaction.disallowAddToBackStack();
-        transaction.commit();
+        startTransaction(editQuestionFragment);
     }
 
     //Swipe item of RecView in EditListFragment
@@ -117,8 +119,21 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
     }
 
     @Override
+    public void onEditQuesFragCompleted(Question question, List<Answer> answers, boolean isUpdating) {
+        if (isUpdating){
+            mPresenter.updateQuestion(question, isTestOnline);
+        } else {
+            mPresenter.saveQuestion(question, isTestOnline);
+        }
+        mPresenter.saveAnswerList(answers, isTestOnline);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (!isTestCompleted){
+            mPresenter.getNumberOfQuestions(isTestOnline, mTestId);  //get number of questions, number of correct answers and update test
+        }
         mPresenter.onDestroy();
     }
 }

@@ -84,8 +84,7 @@ public class DetailQuestionFragment extends Fragment {
     @BindView(R.id.button7Layout) LinearLayout button7Layout;
     @BindView(R.id.button8Layout) LinearLayout button8Layout;
 
-    private String mQuestionId;
-    private String mTestId;
+    private String mQuestionId, mTestId;
     private boolean isUpdating;
     private List<Answer> mAnswerList;
 

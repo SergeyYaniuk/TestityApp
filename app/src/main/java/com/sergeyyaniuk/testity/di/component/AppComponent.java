@@ -10,6 +10,7 @@ import com.sergeyyaniuk.testity.di.module.EditTestModule;
 import com.sergeyyaniuk.testity.di.module.LoginModule;
 import com.sergeyyaniuk.testity.di.module.MainModule;
 import com.sergeyyaniuk.testity.di.module.MyTestsModule;
+import com.sergeyyaniuk.testity.di.module.PassTestModule;
 import com.sergeyyaniuk.testity.di.module.QuestionDetailFragModule;
 import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
 import com.sergeyyaniuk.testity.di.module.QuestionsListFragModule;
@@ -29,6 +30,7 @@ public interface AppComponent {
     QuestionsListComponent create(QuestionsListModule questionsListModule);
     MyTestsComponent create(MyTestsModule myTestsModule);
     EditComponent create(EditTestModule editTestModule);
+    PassTestComponent create(PassTestModule passTestModule);
 
 
     /* ----------Fragment components --------------*/

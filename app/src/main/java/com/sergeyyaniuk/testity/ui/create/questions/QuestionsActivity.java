@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -31,10 +32,13 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     @BindView(R.id.questions_toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.toolbar_title)
+    TextView mTitleTV;
+
     @Inject
     QuestionsPresenter mPresenter;
 
-    String mTestId, mTestTitle;
+    String mTestTitle;
     boolean isTestOnline, isTestCompleted;
 
     @Override
@@ -45,13 +49,13 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
         ButterKnife.bind(this);
         mPresenter.onCreate();
         //get data from intent
-        mTestId = getIntent().getStringExtra("test_id");
         mTestTitle = getIntent().getStringExtra("test_title");
         isTestOnline = getIntent().getBooleanExtra("is_online", false);
         //setup toolbar
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(mTestTitle);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mTitleTV.setText(mTestTitle);
         showQuestionsListFragment();
     }
 
