@@ -143,32 +143,12 @@ public class QuestionsPresenter extends BasePresenter {
                 .subscribe(questions -> {
                     List<Question> questionList = new ArrayList<>(questions);
                     int number = questionList.size();
-                    getNumberOfCorrectAnswers(isTestOnline, number, questions); }
+                    loadDataToTest(isTestOnline, number);
+                    }
                 , throwable -> {}));
     }
 
-    public void getNumberOfCorrectAnswers(boolean isTestOnline, int numberOfQuestion, List<Question> questions){
-        for (Question question : questions){
-            String questionId = question.getId();
-            getCompositeDisposable().add(mDatabase.getAnswerList(questionId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(answers -> {
-                        int correctAnswer = 0;
-                        for (Answer answer : answers){
-                            if (answer.isCorrect()){
-                                correctAnswer++;
-                            }
-                        }
-                        loadDataToTest(isTestOnline, numberOfQuestion, correctAnswer);
-
-                    }, throwable -> {
-
-                    }));
-        }
-    }
-
-    public void loadDataToTest(boolean isTestOnline, int numberOfQuestions, int numberOfCorr){
+    public void loadDataToTest(boolean isTestOnline, int numberOfQuestions){
         String testId = getTestId();
         getCompositeDisposable().add(mDatabase.getTest(testId)
                 .subscribeOn(Schedulers.io())
@@ -176,7 +156,6 @@ public class QuestionsPresenter extends BasePresenter {
                 .subscribe(test -> {
                     Test mTest = test;
                     mTest.setNumberOfQuestions(numberOfQuestions);
-                    mTest.setNumberOfCorrectAnswers(numberOfCorr);
                     updateTest(isTestOnline, mTest);
                         }, throwable -> {}));
     }

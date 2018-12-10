@@ -1,9 +1,17 @@
 package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
 
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
+import com.sergeyyaniuk.testity.data.model.Answer;
+import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class PassTestPresenter extends BasePresenter {
 
@@ -20,5 +28,51 @@ public class PassTestPresenter extends BasePresenter {
         this.mPrefHelper = prefHelper;
     }
 
+    public int getNumberOfCorrect(){
+        return mPrefHelper.getNumOfCorAnsw();
+    }
 
+    public void cleanTotalCorr(){
+        mPrefHelper.cleanNumOfCorAnsw();
+    }
+
+    public void loadQuestions(String testId){
+        getCompositeDisposable().add(mDatabase.getQuestionList(testId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        questions -> {
+                            mActivity.setQuestionList(questions);
+                            getNumberOfCorrectAnswers(questions);
+                        }, throwable -> { }));
+    }
+
+    public void loadAnswers(String questionId) {
+        getCompositeDisposable().add(mDatabase.getAnswerList(questionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(answers -> {
+                    mActivity.updateAnswers(answers);
+                }, throwable -> {
+
+                }));
+    }
+
+    public void getNumberOfCorrectAnswers(List<Question> questions){
+        for (Question question : questions){
+            String questionId = question.getId();
+            getCompositeDisposable().add(mDatabase.getAnswerList(questionId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(answers -> {
+                        for (Answer answer : answers){
+                            if (answer.isCorrect()){
+                                mPrefHelper.addCorrAnswer();
+                            }
+                        }
+                    }, throwable -> {
+
+                    }));
+        }
+    }
 }

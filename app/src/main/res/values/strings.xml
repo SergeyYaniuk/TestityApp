@@ -109,4 +109,7 @@
     <string name="start_test">Start test</string>
     <string name="next">Next</string>
 
+    <!-- End test activity !-->
+    <string name="your_score">Your score</string>
+    <string name="finish">Finish</string>
 </resources>

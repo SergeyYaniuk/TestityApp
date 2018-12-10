@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ public class AnswerListAdapter extends RecyclerView.Adapter<AnswerListAdapter.Vi
     private AnswerClickListener mListener;
 
     public interface AnswerClickListener{
-        void onAnswerClick(int position);
+        void onAnswerClick(boolean isCorrect);
     }
 
     public AnswerListAdapter(List<Answer> answers, AnswerClickListener listener) {
@@ -73,8 +74,10 @@ public class AnswerListAdapter extends RecyclerView.Adapter<AnswerListAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            mListener.onAnswerClick(position);
+            mItemLayout.setBackgroundColor(Color.YELLOW);
+            mItemLayout.setEnabled(false);
+            boolean isCorrect = getItem(getAdapterPosition()).isCorrect();
+            mListener.onAnswerClick(isCorrect);
         }
     }
 }

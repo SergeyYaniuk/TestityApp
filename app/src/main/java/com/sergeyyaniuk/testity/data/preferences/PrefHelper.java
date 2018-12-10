@@ -70,8 +70,13 @@ public class PrefHelper {
         mPrefs.edit().putInt(NUM_OF_COR_ANS, number).apply();
     }
 
+    public void addCorrAnswer(){
+        int currNumber = mPrefs.getInt(NUM_OF_COR_ANS, 0);
+        mPrefs.edit().putInt(NUM_OF_COR_ANS, currNumber + 1).apply();
+    }
+
     public int getNumOfCorAnsw(){
-        return mPrefs.getInt(NUM_OF_COR_ANS, -1);
+        return mPrefs.getInt(NUM_OF_COR_ANS, 0);
     }
 
     public void cleanNumOfCorAnsw(){
