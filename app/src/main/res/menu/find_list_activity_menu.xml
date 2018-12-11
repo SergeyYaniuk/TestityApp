@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/sign_out"
+        android:id="@+id/sort_tests"
         app:showAsAction="ifRoom"
-        android:title="@string/sign_out"
-        android:icon="@drawable/logout_icon">
+        android:title="@string/sort_tests"
+        android:icon="@drawable/ic_sort_24dp">
     </item>
 </menu>
