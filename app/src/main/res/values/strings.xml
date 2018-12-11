@@ -115,6 +115,7 @@
 
     <!-- FindListActivity !-->
     <string name="sort_tests">Sort tests</string>
-
+    <string name="header_filters">Filter tests</string>
+    <string name="apply">Apply</string>
 
 </resources>
