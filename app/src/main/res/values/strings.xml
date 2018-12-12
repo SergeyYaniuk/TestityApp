@@ -118,5 +118,6 @@
     <string name="header_filters">Filter tests</string>
     <string name="apply">Apply</string>
     <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+    <string name="no_tests_error">Cannot load tests</string>
 
 </resources>

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/find_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
@@ -9,7 +10,7 @@
     tools:layout_editor_absoluteY="25dp">
 
     <TextView
-        android:id="@+id/text_name_tv"
+        android:id="@+id/test_name_tv"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -42,7 +43,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/test_name_tv" />
 
     <TextView
         android:id="@+id/num_ratings_tv"
@@ -52,6 +53,6 @@
         android:layout_marginTop="8dp"
         android:text="(10)"
         app:layout_constraintStart_toEndOf="@+id/test_rating"
-        app:layout_constraintTop_toBottomOf="@+id/text_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/test_name_tv" />
 
 </android.support.constraint.ConstraintLayout>

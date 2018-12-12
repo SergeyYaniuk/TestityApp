@@ -28,6 +28,8 @@ public class Firestore {
     public static final String QUESTIONS = "questions";
     public static final String ANSWERS = "answers";
 
+    private static final int LIMIT = 50;
+
     FirebaseFirestore db;
 
     public Firestore() {
@@ -135,5 +137,9 @@ public class Firestore {
             batch.delete(db.collection(ANSWERS).document(answer.getId()));
         }
         return batch.commit();
+    }
+
+    public Query get50Tests(){
+        return db.collection(TESTS).orderBy("title", Query.Direction.DESCENDING).limit(LIMIT);
     }
 }

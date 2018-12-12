@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.find.findList;
 
+import com.google.firebase.firestore.Query;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
@@ -18,5 +19,9 @@ public class FindListPresenter extends BasePresenter {
         this.mDatabase = database;
         this.mFirestore = firestore;
         this.mPrefHelper = prefHelper;
+    }
+
+    public Query getTestList(){
+        return mFirestore.get50Tests();
     }
 }
