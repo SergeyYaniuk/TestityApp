@@ -22,8 +22,8 @@ import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.di.module.MainModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.create.createTest.CreateTestActivity;
-import com.sergeyyaniuk.testity.ui.find.FindTestActivity;
-import com.sergeyyaniuk.testity.ui.login.LoginActivity;;
+import com.sergeyyaniuk.testity.ui.find.findList.FindListActivity;
+import com.sergeyyaniuk.testity.ui.login.LoginActivity;
 import com.sergeyyaniuk.testity.ui.results.ResultsActivity;
 import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
 
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
 
     @OnClick(R.id.find_test_button)
     public void onFindTest(){
-        startActivity(new Intent(MainActivity.this, FindTestActivity.class));
+        startActivity(new Intent(MainActivity.this, FindListActivity.class));
     }
 
     @OnClick(R.id.invite_friend_button)
