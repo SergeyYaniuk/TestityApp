@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
+import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.FindListModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.find.findList.adapter.TestAdapter;
@@ -28,10 +29,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FindListActivity extends BaseActivity implements TestAdapter.OnTestSelectedListener,
-        FilterTestsDialog.FilterListener{
+        FilterTestsDialog.FilterListener, FindDetailDialog.FindDetailListener{
 
     private static final String TAG = "MyLog";
-    private static final String TEST_ID = "test_id";
+    public static final String TEST_ID = "test_id";
+    public static final String TEST_TITLE = "test_title";
+    public static final String TEST_CATEGORY = "test_category";
+    public static final String TEST_LANGUAGE = "test_language";
+    public static final String TEST_NUM_OF_QUES = "number_of_questions";
+    public static final String TEST_DESCR = "test_description";
 
     @Inject
     FindListPresenter mPresenter;
@@ -90,12 +96,20 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         mTestRecView.setAdapter(mAdapter);
     }
 
-
     @Override
     public void onTestSelected(DocumentSnapshot test) {
-        Intent intent = new Intent(FindListActivity.this, FindPassActivity.class);
-        intent.putExtra(TEST_ID, test.getId());
-        startActivity(intent);
+        FindDetailDialog dialog = new FindDetailDialog();
+        Test testObj = test.toObject(Test.class);
+        Bundle arguments = new Bundle();
+        arguments.putString(TEST_ID, testObj.getId());
+        arguments.putString(TEST_TITLE, testObj.getTitle());
+        arguments.putString(TEST_CATEGORY, testObj.getCategory());
+        arguments.putString(TEST_LANGUAGE, testObj.getLanguage());
+        arguments.putInt(TEST_NUM_OF_QUES, testObj.getNumberOfQuestions());
+        arguments.putString(TEST_DESCR, testObj.getDescription());
+
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "find_detail_dialog");
     }
 
     @Override
@@ -143,6 +157,13 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         Query query = mPresenter.getFilterTestList(filters);
         mQuery = query;
         mAdapter.setQuery(query);
+    }
+
+    @Override
+    public void passTest(String testId) {
+        Intent intent = new Intent(FindListActivity.this, FindPassActivity.class);
+        intent.putExtra(TEST_ID, testId);
+        startActivity(intent);
     }
 
     @Override
