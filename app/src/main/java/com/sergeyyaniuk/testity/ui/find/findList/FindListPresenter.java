@@ -21,7 +21,11 @@ public class FindListPresenter extends BasePresenter {
         this.mPrefHelper = prefHelper;
     }
 
-    public Query getTestList(){
-        return mFirestore.get50Tests();
+    public Query getTopTestsList(){
+        return mFirestore.getTop50Tests();
+    }
+
+    public Query getFilterTestList(Filters filters){
+        return mFirestore.getFilterTests(filters);
     }
 }

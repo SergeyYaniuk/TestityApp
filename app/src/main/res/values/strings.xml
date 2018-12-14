@@ -119,5 +119,12 @@
     <string name="apply">Apply</string>
     <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
     <string name="no_tests_error">Cannot load tests</string>
+    <string name="all_categories">All categories</string>
+    <string name="all_languages">All languages</string>
+    <string name="no_sorting">------</string>
+    <string name="sort_by_rating">Sort by Rating</string>
+    <string name="sort_by_popularity">Sort by Popularity</string>
+    <string name="by">By: </string>
+    <string name="author">Author</string>
 
 </resources>

@@ -27,7 +27,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FindListActivity extends BaseActivity implements TestAdapter.OnTestSelectedListener{
+public class FindListActivity extends BaseActivity implements TestAdapter.OnTestSelectedListener,
+        FilterTestsDialog.FilterListener{
 
     private static final String TAG = "MyLog";
     private static final String TEST_ID = "test_id";
@@ -60,7 +61,7 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
     }
 
     private void loadTestList(){
-        mQuery = mPresenter.getTestList();
+        mQuery = mPresenter.getTopTestsList();
     }
 
     private void initRecyclerView() {
@@ -135,6 +136,13 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         FragmentManager fm = getSupportFragmentManager();
         FilterTestsDialog filterTestsDialog = new FilterTestsDialog();
         filterTestsDialog.show(fm, "FilterTestsDialog");
+    }
+
+    @Override
+    public void onFilter(Filters filters) {
+        Query query = mPresenter.getFilterTestList(filters);
+        mQuery = query;
+        mAdapter.setQuery(query);
     }
 
     @Override

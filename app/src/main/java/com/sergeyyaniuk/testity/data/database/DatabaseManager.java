@@ -7,15 +7,12 @@ import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 @Singleton
 public class DatabaseManager {

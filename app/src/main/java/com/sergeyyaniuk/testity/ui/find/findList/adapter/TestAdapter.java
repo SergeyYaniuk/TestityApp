@@ -1,6 +1,5 @@
 package com.sergeyyaniuk.testity.ui.find.findList.adapter;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -70,8 +69,8 @@ public class TestAdapter extends FirestoreAdapter<TestAdapter.ViewHolder> {
             Test test = snapshot.toObject(Test.class);
 
             mTestName.setText(test.getTitle());
-            //mRatingNumber.setText(test.getNumberOfRatings.toString);
-            mAuthor.setText(test.getUserId());
+            mRatingNumber.setText(String.valueOf(test.getNumRatings()));
+            mAuthor.setText(test.getUserName());
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

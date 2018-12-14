@@ -35,6 +35,24 @@
         <item>Other</item>
     </string-array>
 
+    <string-array name="language_list_with_all">
+        <item>@string/all_languages</item>
+        <item>中文</item>
+        <item>Español</item>
+        <item>English</item>
+        <item>हिंदी</item>
+        <item>عربى</item>
+        <item>Português</item>
+        <item>Русский</item>
+        <item>日本語</item>
+        <item>Deutsche</item>
+        <item>Türk</item>
+        <item>Français</item>
+        <item>Українська</item>
+        <item>Italiano</item>
+        <item>Other</item>
+    </string-array>
+
     <string-array name="category_list">
         <item>@string/language</item>
         <item>@string/iq</item>
@@ -44,6 +62,24 @@
         <item>@string/psychological</item>
         <item>@string/astrological</item>
         <item>@string/other</item>
+    </string-array>
+
+    <string-array name="category_list_with_all">
+        <item>@string/all_categories</item>
+        <item>@string/language</item>
+        <item>@string/iq</item>
+        <item>@string/recruiting</item>
+        <item>@string/school</item>
+        <item>@string/geographical</item>
+        <item>@string/psychological</item>
+        <item>@string/astrological</item>
+        <item>@string/other</item>
+    </string-array>
+
+    <string-array name="sort_by">
+        <item>@string/no_sorting</item>
+        <item>@string/sort_by_rating</item>
+        <item>@string/sort_by_popularity</item>
     </string-array>
 
 </resources>

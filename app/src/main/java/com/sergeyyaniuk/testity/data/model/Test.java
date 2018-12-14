@@ -16,6 +16,12 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         indices = {@Index(value = "id", unique = true), @Index("title"), @Index("user_id")})
 public class Test {
 
+    @Ignore
+    public static final String FIELD_POPULARITY = "numRatings";
+
+    @Ignore
+    public static final String FIELD_AVG_RATING = "avgRating";
+
     @PrimaryKey()
     @NonNull
     private String id;
@@ -41,15 +47,21 @@ public class Test {
     @ColumnInfo(name = "user_id")
     private String userId;
 
-    @ColumnInfo(name = "number_of_correct_answers")
-    private int numberOfCorrectAnswers;
+    @ColumnInfo(name = "user_name")
+    private String userName;
+
+    @Ignore
+    private int numRatings;
+
+    @Ignore
+    private double avgRating;
 
     @Ignore
     public Test() {
     }
 
     public Test(@NonNull String id, String title, String category, String language, String description, boolean isOnline,
-                int numberOfQuestions, String userId, int numberOfCorrectAnswers) {
+                int numberOfQuestions, String userId, String userName) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -58,7 +70,7 @@ public class Test {
         this.isOnline = isOnline;
         this.numberOfQuestions = numberOfQuestions;
         this.userId = userId;
-        this.numberOfCorrectAnswers = numberOfCorrectAnswers;
+        this.userName = userName;
     }
 
     @NonNull
@@ -126,11 +138,27 @@ public class Test {
         this.userId = userId;
     }
 
-    public int getNumberOfCorrectAnswers() {
-        return numberOfCorrectAnswers;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNumberOfCorrectAnswers(int numberOfCorrectAnswers) {
-        this.numberOfCorrectAnswers = numberOfCorrectAnswers;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getNumRatings() {
+        return numRatings;
+    }
+
+    public void setNumRatings(int numRatings) {
+        this.numRatings = numRatings;
+    }
+
+    public double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating) {
+        this.avgRating = avgRating;
     }
 }

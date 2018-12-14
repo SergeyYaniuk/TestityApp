@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -15,6 +14,7 @@ import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.model.User;
+import com.sergeyyaniuk.testity.ui.find.findList.Filters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +58,9 @@ public class Firestore {
         return db.collection(TESTS).document(testId).delete();
     }
 
-    public Task<Void> updateTestAddTwo(Test test){
+    public Task<Void> updateTestAddQuesNum(Test test){
         WriteBatch batch = db.batch();
         batch.update(db.collection(TESTS).document(test.getId()), "numberOfQuestions", test.getNumberOfQuestions());
-        batch.update(db.collection(TESTS).document(test.getId()), "numberOfCorrectAnswers", test.getNumberOfCorrectAnswers());
         return batch.commit();
     }
 
@@ -139,7 +138,21 @@ public class Firestore {
         return batch.commit();
     }
 
-    public Query get50Tests(){
+    public Query getTop50Tests(){
         return db.collection(TESTS).orderBy("title", Query.Direction.DESCENDING).limit(LIMIT);
+    }
+
+    public Query getFilterTests(Filters filters){
+        Query query = db.collection(TESTS);
+        if (filters.hasCategory()){
+            query = query.whereEqualTo("category", filters.getCategory());
+        } if (filters.hasLanguage()){
+            query = query.whereEqualTo("language", filters.getLanguage());
+        } if (filters.hasSortBy()) {
+            query = query.orderBy(filters.getSortBy(), Query.Direction.DESCENDING);
+        } if (filters.hasAuthor()){
+            query = query.whereEqualTo("userName", filters.getAuthor());
+        }
+        return query = query.limit(LIMIT);
     }
 }

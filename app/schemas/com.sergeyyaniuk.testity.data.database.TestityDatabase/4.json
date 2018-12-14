@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "e21d9e9a347aea5617580a580bc0a4ca",
+    "identityHash": "2b62f8039c13d69255bf761c5657ba1a",
     "entities": [
       {
         "tableName": "users",
@@ -53,7 +53,7 @@
       },
       {
         "tableName": "tests",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT, `category` TEXT, `language` TEXT, `description` TEXT, `is_online` INTEGER NOT NULL, `number_of_questions` INTEGER NOT NULL, `user_id` TEXT, `number_of_correct_answers` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT, `category` TEXT, `language` TEXT, `description` TEXT, `is_online` INTEGER NOT NULL, `number_of_questions` INTEGER NOT NULL, `user_id` TEXT, `user_name` TEXT, `numRatings` INTEGER NOT NULL, `avgRating` REAL NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -104,9 +104,21 @@
             "notNull": false
           },
           {
-            "fieldPath": "numberOfCorrectAnswers",
-            "columnName": "number_of_correct_answers",
+            "fieldPath": "userName",
+            "columnName": "user_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "numRatings",
+            "columnName": "numRatings",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avgRating",
+            "columnName": "avgRating",
+            "affinity": "REAL",
             "notNull": true
           }
         ],
@@ -302,7 +314,7 @@
       },
       {
         "tableName": "results",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `test_id` TEXT, `applicant_name` TEXT, `score` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`test_id`) REFERENCES `tests`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `test_id` TEXT, `applicant_name` TEXT, `score` REAL NOT NULL, `userId` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`test_id`) REFERENCES `tests`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -325,8 +337,14 @@
           {
             "fieldPath": "score",
             "columnName": "score",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -370,7 +388,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e21d9e9a347aea5617580a580bc0a4ca\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2b62f8039c13d69255bf761c5657ba1a\")"
     ]
   }
 }

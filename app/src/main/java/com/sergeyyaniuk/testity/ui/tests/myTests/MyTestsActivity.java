@@ -17,7 +17,6 @@ import com.sergeyyaniuk.testity.di.module.MyTestsModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
 import com.sergeyyaniuk.testity.ui.tests.editTest.EditTestActivity;
-import com.sergeyyaniuk.testity.ui.tests.passTest.passTest.PassTestActivity;
 import com.sergeyyaniuk.testity.ui.tests.passTest.startTest.StartTestActivity;
 
 import java.util.ArrayList;

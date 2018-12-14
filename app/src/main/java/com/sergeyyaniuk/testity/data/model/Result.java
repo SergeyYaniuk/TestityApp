@@ -27,13 +27,16 @@ public class Result {
     private String applicantName;
 
     @ColumnInfo(name = "score")
-    private int score;
+    private double score;
+
+    @Ignore
+    private String userId;
 
     @Ignore
     public Result() {
     }
 
-    public Result(@NonNull String id, String testId, String applicantName, int score) {
+    public Result(@NonNull String id, String testId, String applicantName, double score) {
         this.id = id;
         this.testId = testId;
         this.applicantName = applicantName;
@@ -65,11 +68,19 @@ public class Result {
         this.applicantName = applicantName;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

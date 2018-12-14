@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_category"
-            android:entries="@array/category_list"
+            android:entries="@array/category_list_with_all"
             android:paddingBottom="16dp"
             style="Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_marginBottom="4dp"/>
@@ -65,10 +65,64 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_language"
-            android:entries="@array/language_list"
+            android:entries="@array/language_list_with_all"
             android:paddingBottom="16dp"
             style="Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_marginBottom="4dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:id="@+id/icon_sort"
+            android:layout_centerVertical="true"
+            android:tint="@color/black_50"
+            app:srcCompat="@drawable/sort"
+            tools:ignore="VectorDrawableCompat" />
+
+        <Spinner
+            android:id="@+id/spinner_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/icon_sort"
+            android:entries="@array/sort_by"
+            android:paddingBottom="16dp"
+            style="Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_marginBottom="4dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:id="@+id/author_label"
+            android:layout_centerVertical="true"
+            android:text="@string/by"
+            android:tint="@color/black_50"/>
+
+        <EditText
+            android:id="@+id/author_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/author_label"
+            android:paddingBottom="16dp"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/author"/>
 
     </RelativeLayout>
 

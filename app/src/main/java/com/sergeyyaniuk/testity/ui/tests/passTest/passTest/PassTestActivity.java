@@ -7,13 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
-import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.di.module.PassTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.tests.passTest.endTest.EndTestActivity;
