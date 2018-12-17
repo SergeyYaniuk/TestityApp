@@ -16,7 +16,6 @@ import com.sergeyyaniuk.testity.di.module.PassTestModule;
 import com.sergeyyaniuk.testity.di.module.QuestionDetailFragModule;
 import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
 import com.sergeyyaniuk.testity.di.module.QuestionsListFragModule;
-import com.sergeyyaniuk.testity.di.module.RateTestModule;
 
 import javax.inject.Singleton;
 
@@ -36,8 +35,6 @@ public interface AppComponent {
     PassTestComponent create(PassTestModule passTestModule);
     FindListComponent create(FindListModule findListModule);
     FPassTestComponent create(FPassTestModule fPassTestModule);
-    RateComponent create(RateTestModule rateTestModule);
-
 
     /* ----------Fragment components --------------*/
     QuestionsListFragComponent create(QuestionsListFragModule questionsListFragModule);

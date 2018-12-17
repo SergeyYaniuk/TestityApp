@@ -106,4 +106,16 @@ public class FPassTestPresenter extends BasePresenter {
             }
         });
     }
+
+    public void addRating(String testId, double rating){
+        mFirestore.addRating(testId, rating).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+            }
+        });
+    }
 }

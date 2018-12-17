@@ -72,6 +72,7 @@ public class TestAdapter extends FirestoreAdapter<TestAdapter.ViewHolder> {
             mTestName.setText(test.getTitle());
             mRatingNumber.setText(String.valueOf(test.getNumRatings()));
             mAuthor.setText(test.getUserName());
+            mRatingBar.setRating((float)test.getAvgRating());
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

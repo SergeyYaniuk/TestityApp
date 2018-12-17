@@ -3,6 +3,7 @@ package com.sergeyyaniuk.testity.ui.find.findPass.passTest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
@@ -16,7 +17,7 @@ import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.di.module.FPassTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.find.findPass.endTest.rateTest.RateTestActivity;
+import com.sergeyyaniuk.testity.ui.find.findPass.endTest.FEndTestActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,12 +30,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FPassTestActivity extends BaseActivity{
+public class FPassTestActivity extends BaseActivity implements RateTestDialog.RateTestListener {
 
     private static final String KEY_INDEX = "index";
     private static final String KEY_NUMBER_OF_CORRECT = "number_of_correct";
     private static final String KEY_SCORE = "score";
-    private static final String KEY_TEST_ID = "test_id";
 
     @Inject
     FPassTestPresenter mPresenter;
@@ -150,8 +150,14 @@ public class FPassTestActivity extends BaseActivity{
         if (mCurrentIndex < mQuestionList.size()){
             updateData();
         } else {
-            saveResults();
+            showRateTestDialog();
         }
+    }
+
+    private void showRateTestDialog(){
+        FragmentManager fm = getSupportFragmentManager();
+        RateTestDialog rateTestDialog = new RateTestDialog();
+        rateTestDialog.show(fm, "rateTestDialog");
     }
 
     private void saveResults(){
@@ -167,10 +173,20 @@ public class FPassTestActivity extends BaseActivity{
     }
 
     private void showResults(double score){
-        Intent intent = new Intent(FPassTestActivity.this, RateTestActivity.class);
+        Intent intent = new Intent(FPassTestActivity.this, FEndTestActivity.class);
         intent.putExtra(KEY_SCORE, score);
-        intent.putExtra(KEY_TEST_ID, mTestId);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRateTest(double rating) {
+        mPresenter.addRating(mTestId, rating);
+        saveResults();
+    }
+
+    @Override
+    public void onCancelRating() {
+        saveResults();
     }
 
     private String generateResultId(){

@@ -1,14 +1,18 @@
 package com.sergeyyaniuk.testity.firebase;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
@@ -175,5 +179,23 @@ public class Firestore {
 
     public Task<Void> addResult(Result result){
         return db.collection(RESULTS).document(result.getId()).set(result);
+    }
+
+    public Task<Void> addRating(String testId, double rating){
+        return db.runTransaction(new Transaction.Function<Void>() {
+            @Nullable
+            @Override
+            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                DocumentReference testRef = db.collection(TESTS).document(testId);
+                Test test = transaction.get(testRef).toObject(Test.class);
+                int newNumRating = test.getNumRatings() + 1;
+                double oldRatingTotal = test.getAvgRating() * test.getNumRatings();
+                double newAvgRating = (oldRatingTotal + rating) / newNumRating;
+                test.setNumRatings(newNumRating);
+                test.setAvgRating(newAvgRating);
+                transaction.set(testRef, test);
+                return null;
+            }
+        });
     }
 }

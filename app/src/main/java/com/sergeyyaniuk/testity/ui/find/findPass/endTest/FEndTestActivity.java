@@ -1,16 +1,15 @@
 package com.sergeyyaniuk.testity.ui.find.findPass.endTest;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.main.MainActivity;
-import com.sergeyyaniuk.testity.ui.tests.passTest.endTest.EndTestActivity;
+
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +26,9 @@ public class FEndTestActivity extends BaseActivity {
         setContentView(R.layout.activity_fend_test);
         ButterKnife.bind(this);
         double score = getIntent().getDoubleExtra("score", 0);
-        @SuppressLint("DefaultLocale") String scoreStr = String.format ("%.2f", score) + " %";
-        mScoreTextView.setText(scoreStr);
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        String scoreString = decimalFormat.format(score);
+        mScoreTextView.setText(scoreString);
     }
 
     @OnClick(R.id.finish_btn)
