@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
+package com.sergeyyaniuk.testity.ui.find.findPass.passTest;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,9 +14,9 @@ import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Result;
-import com.sergeyyaniuk.testity.di.module.PassTestModule;
+import com.sergeyyaniuk.testity.di.module.FPassTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.tests.passTest.endTest.EndTestActivity;
+import com.sergeyyaniuk.testity.ui.find.findPass.endTest.rateTest.RateTestActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,16 +29,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PassTestActivity extends BaseActivity {
+public class FPassTestActivity extends BaseActivity{
 
     private static final String KEY_INDEX = "index";
     private static final String KEY_NUMBER_OF_CORRECT = "number_of_correct";
     private static final String KEY_SCORE = "score";
+    private static final String KEY_TEST_ID = "test_id";
 
     @Inject
-    PassTestPresenter mPresenter;
+    FPassTestPresenter mPresenter;
 
-    AnswerListAdapter mAdapter;
+    FAnswerListAdapter mAdapter;
 
     @BindView(R.id.answers_rec_view)
     RecyclerView mAnswersRecView;
@@ -65,7 +66,7 @@ public class PassTestActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_test);
-        App.get(this).getAppComponent().create(new PassTestModule(this))
+        App.get(this).getAppComponent().create(new FPassTestModule(this))
                 .inject(this);  //inject presenter
         mPresenter.onCreate();  //create CompositeDisposable
         ButterKnife.bind(this);
@@ -119,7 +120,7 @@ public class PassTestActivity extends BaseActivity {
     public void updateAnswers(List<Answer> answers){
         mAnswerList = new ArrayList<>(answers);
         mAnswersRecView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new AnswerListAdapter(mAnswerList, answerClickListener);
+        mAdapter = new FAnswerListAdapter(mAnswerList, answerClickListener);
         mAnswersRecView.setAdapter(mAdapter);
         mNumberOfTries = 0;
         mNumberOfChance = 0;
@@ -134,7 +135,7 @@ public class PassTestActivity extends BaseActivity {
         }
     }
 
-    AnswerListAdapter.AnswerClickListener answerClickListener = new AnswerListAdapter.AnswerClickListener() {
+    FAnswerListAdapter.AnswerClickListener answerClickListener = new FAnswerListAdapter.AnswerClickListener() {
         @Override
         public void onAnswerClick(boolean isCorrect) {
             mNumberOfTries = mNumberOfTries + 1;
@@ -158,14 +159,17 @@ public class PassTestActivity extends BaseActivity {
         int totalCorrectAnswers = mPresenter.getNumberOfCorrect();
         double score = (mCorrectAnswers * 100) / totalCorrectAnswers;
         String resultId = generateResultId();
+        String userId = mPresenter.getUserId();
         Result result = new Result(resultId, mTestId, mApplicantName, score);
+        result.setUserId(userId);
         mPresenter.saveResult(result);
         showResults(score);
     }
 
     private void showResults(double score){
-        Intent intent = new Intent(PassTestActivity.this, EndTestActivity.class);
+        Intent intent = new Intent(FPassTestActivity.this, RateTestActivity.class);
         intent.putExtra(KEY_SCORE, score);
+        intent.putExtra(KEY_TEST_ID, mTestId);
         startActivity(intent);
     }
 

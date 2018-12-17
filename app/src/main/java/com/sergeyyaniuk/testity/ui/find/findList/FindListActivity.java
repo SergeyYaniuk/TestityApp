@@ -21,7 +21,8 @@ import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.FindListModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.find.findList.adapter.TestAdapter;
-import com.sergeyyaniuk.testity.ui.find.findPass.FindPassActivity;
+import com.sergeyyaniuk.testity.ui.find.findPass.passTest.FPassTestActivity;
+import com.sergeyyaniuk.testity.ui.find.findPass.startTest.FStartTestActivity;
 
 import javax.inject.Inject;
 
@@ -71,9 +72,6 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
     }
 
     private void initRecyclerView() {
-        if (mQuery == null) {
-            Log.d(TAG, "initRecyclerView: query is empty");
-        }
         mAdapter = new TestAdapter(mQuery, this){
 
             @Override
@@ -161,7 +159,7 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
 
     @Override
     public void passTest(String testId) {
-        Intent intent = new Intent(FindListActivity.this, FindPassActivity.class);
+        Intent intent = new Intent(FindListActivity.this, FStartTestActivity.class);
         intent.putExtra(TEST_ID, testId);
         startActivity(intent);
     }

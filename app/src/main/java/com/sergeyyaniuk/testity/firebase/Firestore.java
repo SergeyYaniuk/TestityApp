@@ -12,6 +12,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
+import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.model.User;
 import com.sergeyyaniuk.testity.ui.find.findList.Filters;
@@ -27,6 +28,7 @@ public class Firestore {
     public static final String TESTS = "tests";
     public static final String QUESTIONS = "questions";
     public static final String ANSWERS = "answers";
+    public static final String RESULTS = "results";
 
     private static final int LIMIT = 50;
 
@@ -154,5 +156,24 @@ public class Firestore {
             query = query.whereEqualTo("userName", filters.getAuthor());
         }
         return query = query.limit(LIMIT);
+    }
+
+    public Query getQuestionList(String testId){
+        return db.collection(QUESTIONS).whereEqualTo("testId", testId);
+    }
+
+    public Query getAnswerList(String questionId){
+        return db.collection(ANSWERS).whereEqualTo("questionId", questionId);
+    }
+
+    public Query getCorrectAnswers(String questionId){
+        Query query = db.collection(ANSWERS);
+        query = query.whereEqualTo("questionId", questionId);
+        query = query.whereEqualTo("correct", true);
+        return  query;
+    }
+
+    public Task<Void> addResult(Result result){
+        return db.collection(RESULTS).document(result.getId()).set(result);
     }
 }

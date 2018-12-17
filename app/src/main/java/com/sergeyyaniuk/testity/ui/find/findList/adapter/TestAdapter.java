@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Test;
+import com.sergeyyaniuk.testity.firebase.FirestoreAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

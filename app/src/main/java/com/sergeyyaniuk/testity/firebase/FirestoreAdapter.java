@@ -1,4 +1,4 @@
-package com.sergeyyaniuk.testity.ui.find.findList.adapter;
+package com.sergeyyaniuk.testity.firebase;
 
 import android.support.v7.widget.RecyclerView;
 

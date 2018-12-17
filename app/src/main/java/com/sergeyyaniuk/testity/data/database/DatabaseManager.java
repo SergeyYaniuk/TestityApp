@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
+import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.data.model.User;
 
@@ -168,6 +169,16 @@ public class DatabaseManager {
             @Override
             public Boolean call() throws Exception {
                 testityDatabase.answerDao().deleteAnswersByQuestionId(questionId);
+                return true;
+            }
+        });
+    }
+
+    public Observable<Boolean> insertResult(final Result result){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.resultDao().insert(result);
                 return true;
             }
         });

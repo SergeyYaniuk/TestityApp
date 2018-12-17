@@ -1,8 +1,12 @@
 package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
 
+import android.util.Log;
+
+import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
+import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
@@ -14,6 +18,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class PassTestPresenter extends BasePresenter {
+
+    private static final String TAG = "MyLog";
 
     private PassTestActivity mActivity;
     private DatabaseManager mDatabase;
@@ -74,5 +80,16 @@ public class PassTestPresenter extends BasePresenter {
 
                     }));
         }
+    }
+
+    public void saveResult(Result result){
+        getCompositeDisposable().add(mDatabase.insertResult(result)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    Log.d(TAG, "saveResult: successful");
+                }, throwable -> {
+                    Log.d(TAG, "saveResult: Error");
+                }));
     }
 }
