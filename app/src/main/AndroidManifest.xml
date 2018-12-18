@@ -76,6 +76,7 @@
         <activity android:name=".ui.find.findPass.passTest.FPassTestActivity" />
         <activity android:name=".ui.find.findPass.startTest.FStartTestActivity" />
         <activity android:name=".ui.find.findPass.endTest.FEndTestActivity" />
+        <activity android:name=".ui.results.ResultsActivity"/>
     </application>
 
 </manifest>
