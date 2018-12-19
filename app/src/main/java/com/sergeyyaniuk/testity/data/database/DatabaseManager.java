@@ -183,4 +183,13 @@ public class DatabaseManager {
             }
         });
     }
+
+    public Observable<List<Result>> getResultList(final String testId){
+        return Observable.fromCallable(new Callable<List<Result>>() {
+            @Override
+            public List<Result> call() throws Exception {
+                return testityDatabase.resultDao().getResulstByTest(testId);
+            }
+        });
+    }
 }

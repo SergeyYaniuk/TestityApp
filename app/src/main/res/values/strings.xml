@@ -128,7 +128,8 @@
     <string name="author">Author</string>
     <string name="no_answers">Cannot load answers</string>
 
-    <!-- RateTestActivity !-->
-    <string name="rate_test">Rate the test</string>
+    <!-- ResultsActivity !-->
+    <string name="local_results">Local</string>
+    <string name="online_results">Online</string>
 
 </resources>

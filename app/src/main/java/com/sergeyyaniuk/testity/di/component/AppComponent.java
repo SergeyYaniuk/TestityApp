@@ -9,9 +9,11 @@ import com.sergeyyaniuk.testity.di.module.EditTestFragModule;
 import com.sergeyyaniuk.testity.di.module.EditTestModule;
 import com.sergeyyaniuk.testity.di.module.FPassTestModule;
 import com.sergeyyaniuk.testity.di.module.FindListModule;
+import com.sergeyyaniuk.testity.di.module.LocalResultsModule;
 import com.sergeyyaniuk.testity.di.module.LoginModule;
 import com.sergeyyaniuk.testity.di.module.MainModule;
 import com.sergeyyaniuk.testity.di.module.MyTestsModule;
+import com.sergeyyaniuk.testity.di.module.OnlineResultsModule;
 import com.sergeyyaniuk.testity.di.module.PassTestModule;
 import com.sergeyyaniuk.testity.di.module.QuestionDetailFragModule;
 import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
@@ -45,4 +47,6 @@ public interface AppComponent {
     EditFragComponent create(EditTestFragModule editTestFragModule);
     EditListComponent create(EditListModule editListModule);
     EditQuestionComponent create(EditQuestionModule editQuestionModule);
+    LocalResultsComponent create(LocalResultsModule localResultsModule);
+    OnlineResultsComponent create(OnlineResultsModule onlineResultsModule);
 }
