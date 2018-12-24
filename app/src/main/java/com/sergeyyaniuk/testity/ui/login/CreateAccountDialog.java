@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,9 @@ import android.widget.Toast;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 public class CreateAccountDialog extends BaseDialogNoTitle {
@@ -123,7 +119,7 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
 
         String email = mEmailEditText.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailEditText.setError("Required.");
+            mEmailEditText.setError(getResources().getString(R.string.required));
             valid = false;
         } else {
             mEmailEditText.setError(null);
@@ -131,10 +127,18 @@ public class CreateAccountDialog extends BaseDialogNoTitle {
 
         String password = mPasswordEditText.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordEditText.setError("Required.");
+            mPasswordEditText.setError(getResources().getString(R.string.required));
             valid = false;
         } else {
             mPasswordEditText.setError(null);
+        }
+
+        String name = mNameEditText.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            mNameEditText.setError(getResources().getString(R.string.required));
+            valid = false;
+        } else {
+            mNameEditText.setError(null);
         }
 
         return valid;

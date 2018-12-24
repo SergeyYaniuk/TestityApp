@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +36,6 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         GoogleApiClient.OnConnectionFailedListener{
 
     private static final int REQUEST_INVITE = 0;
-    private static final String TAG = "MainActivity";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -114,14 +112,9 @@ public class MainActivity extends BaseActivity implements ExitDialogFragment.Exi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_INVITE) {
             if (resultCode == RESULT_OK) {
-                // Get the invitation IDs of all sent messages
-                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
-                for (String id : ids) {
-                    Log.d(TAG, "onActivityResult: sent invitation " + id);
-                }
+                showToast(this, R.string.invitation_sent);
             } else {
                 showToast(MainActivity.this, R.string.send_invitation_failed);
-
             }
         }
     }

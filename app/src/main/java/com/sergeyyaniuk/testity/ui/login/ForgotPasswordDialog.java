@@ -6,9 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +17,9 @@ import android.widget.Toast;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseDialogNoTitle;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 public class ForgotPasswordDialog extends BaseDialogNoTitle {
@@ -113,7 +108,7 @@ public class ForgotPasswordDialog extends BaseDialogNoTitle {
 
         String email = mEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmail.setError("Required.");
+            mEmail.setError(getResources().getString(R.string.required));
             valid = false;
         } else {
             mEmail.setError(null);
@@ -128,5 +123,4 @@ public class ForgotPasswordDialog extends BaseDialogNoTitle {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
-
 }

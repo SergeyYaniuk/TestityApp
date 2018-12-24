@@ -94,6 +94,7 @@ public class FPassTestPresenter extends BasePresenter {
     }
 
     public void saveResult(Result result){
+        result.setUserId(getUserId());
         mFirestore.addResult(result).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

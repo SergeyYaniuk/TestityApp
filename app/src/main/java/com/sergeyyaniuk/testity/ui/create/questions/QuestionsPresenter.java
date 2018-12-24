@@ -169,7 +169,7 @@ public class QuestionsPresenter extends BasePresenter {
                         }, throwable -> {}
                 ));
         if (isTestOnline){
-            mFirestore.updateTestAddQuesNum(test).addOnSuccessListener(new OnSuccessListener<Void>() {
+            mFirestore.addNumOfQuesToTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }

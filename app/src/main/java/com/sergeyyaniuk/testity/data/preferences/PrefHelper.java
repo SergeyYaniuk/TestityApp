@@ -42,18 +42,6 @@ public class PrefHelper {
         mPrefs.edit().remove(CURRENT_USER_NAME).apply();
     }
 
-    public void setCurrentUserEmail(String email){
-        mPrefs.edit().putString(CURRENT_USER_EMAIL, email).apply();
-    }
-
-    public String getCurrentUserEmail(){
-        return mPrefs.getString(CURRENT_USER_EMAIL, null);
-    }
-
-    public void removeCurrentUserEmail(){
-        mPrefs.edit().remove(CURRENT_USER_EMAIL).apply();
-    }
-
     public void clearSharedPreferences(){
         mPrefs.edit().clear().apply();
     }

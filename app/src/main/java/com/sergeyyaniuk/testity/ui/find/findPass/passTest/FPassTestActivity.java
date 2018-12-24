@@ -167,7 +167,6 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
         String resultId = generateResultId();
         String userId = mPresenter.getUserId();
         Result result = new Result(resultId, mTestId, mApplicantName, score);
-        result.setUserId(userId);
         mPresenter.saveResult(result);
         showResults(score);
     }

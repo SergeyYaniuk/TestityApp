@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.facebook.CallbackManager;
 import com.facebook.internal.CallbackManagerImpl;
 import com.google.android.gms.auth.api.Auth;
@@ -152,7 +154,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
         mEmail = mEmailEditText.getText().toString();
         if (TextUtils.isEmpty(mEmail)) {
-            mEmailEditText.setError("Required.");
+            mEmailEditText.setError(getResources().getString(R.string.required));
             valid = false;
         } else {
             mEmailEditText.setError(null);
@@ -160,7 +162,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
 
         mPassword = mPasswordEditText.getText().toString();
         if (TextUtils.isEmpty(mPassword)) {
-            mPasswordEditText.setError("Required.");
+            mPasswordEditText.setError(getResources().getString(R.string.required));
             valid = false;
         } else {
             mPasswordEditText.setError(null);

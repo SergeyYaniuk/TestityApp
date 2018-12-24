@@ -27,6 +27,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.User;
@@ -44,8 +45,6 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class LoginPresenter extends BasePresenter{
-    
-    private static final String TAG = "MyLog";
 
     private LoginActivity mActivity;
     private Authentication mAuthentication;
@@ -64,30 +63,24 @@ public class LoginPresenter extends BasePresenter{
 
     //Auth with Google
     protected Intent loginWithGoogle(){
-        Log.d(TAG, "loginWithGoogle: start");
         return mAuthentication.getUserWithGoogle(mActivity);
     }
 
     protected void getAuthWithGoogle(GoogleSignInResult result){
         mActivity.showProgressDialog();
         if (result.isSuccess()){
-            Log.d(TAG, "getAuthWithGoogle: before final GoogleSignInAccount");
             final GoogleSignInAccount account = result.getSignInAccount();
-            Log.d(TAG, "getAuthWithGoogle: before mAuthentication");
             mAuthentication.getAuthWithGoogle(mActivity, account)
                     .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Log.d(TAG, "Successful: getAuthWithGoogle start");
                                 saveUser("google", null);
-                                Log.d(TAG, "Successful: getAuthWithGoogle finish");
                                 mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_successful);
                                 mActivity.startIntent();
                             }
                             else {
-                                Log.d(TAG, "Error: getAuthWithGoogle");
                                 mActivity.hideProgressDialog();
                                 mActivity.showToast(mActivity, R.string.auth_failed);
                             }
@@ -170,14 +163,10 @@ public class LoginPresenter extends BasePresenter{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             setUserName(name);
-                            saveUser("create account", name);
-                            mActivity.hideProgressDialog();
-                            mActivity.showToast(mActivity, R.string.auth_successful);
-                            mActivity.startIntent();
                         }
                         else {
                             mActivity.hideProgressDialog();
-                            mActivity.showToast(mActivity, R.string.auth_failed);
+                            mActivity.showToast(mActivity, R.string.cannot_create_acc);
                         }
                     }
                 });
@@ -188,9 +177,16 @@ public class LoginPresenter extends BasePresenter{
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.d(TAG, "setUserName: Success");
+                    saveUser("create account", name);
+                    mActivity.hideProgressDialog();
+                    mActivity.showToast(mActivity, R.string.auth_successful);
+                    mActivity.startIntent();
                 } else {
-                    Log.d(TAG, "setUserName: Failed");
+                    String anonymous = getResources(mActivity, R.string.anonymous);
+                    saveUser("create account", anonymous);
+                    mActivity.hideProgressDialog();
+                    mActivity.showToast(mActivity, R.string.unable_set_name);
+                    mActivity.startIntent();
                 }
             }
         });
@@ -220,7 +216,7 @@ public class LoginPresenter extends BasePresenter{
         String id = firebaseUser.getUid();
         String name = userName != null ? userName : firebaseUser.getDisplayName();
         String email = firebaseUser.getEmail();
-        insertUserDataToPreferences(id, name, email);  //add user to SharedPreferences
+        insertUserDataToPreferences(id, name);  //add user to SharedPreferences
         User user = new User(id, name, email, loginWith);
         insertUserDataToDatabase(user);  //add user to RoomDatabase
         mFirestore.addUser(user);  //add user to Firestore
@@ -237,9 +233,8 @@ public class LoginPresenter extends BasePresenter{
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    private void insertUserDataToPreferences(String id, String name, String email){
+    private void insertUserDataToPreferences(String id, String name){
         mPrefHelper.setCurrentUserName(name);
-        mPrefHelper.setCurrentUserEmail(email);
         mPrefHelper.setCurrentUserId(id);
     }
 
@@ -248,10 +243,9 @@ public class LoginPresenter extends BasePresenter{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
-                            Log.d(TAG, "insertUserDataToDatabase: success");
                         },
                         throwable -> {
-                            Log.d(TAG, "insertUserDataToDatabase: Error");
+                    mAuthentication.signOut();
                         }));
     }
 }

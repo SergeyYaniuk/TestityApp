@@ -13,8 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppMainTheme">
-        <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.main.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.login.LoginActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/AppMainTheme.Launcher">
@@ -49,8 +49,7 @@
 
         <!-- Activity to handle deep link ! -->
         <activity
-            android:name=".ui.main.DeepLinkActivity"
-            android:theme="@style/AppMainTheme">
+            android:name=".ui.main.DeepLinkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -65,18 +64,18 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.create.createTest.CreateTestActivity" />
-        <activity android:name=".ui.create.questions.QuestionsActivity" />
-        <activity android:name=".ui.tests.myTests.MyTestsActivity" />
-        <activity android:name=".ui.tests.editTest.EditTestActivity" />
-        <activity android:name=".ui.tests.passTest.passTest.PassTestActivity" />
-        <activity android:name=".ui.tests.passTest.startTest.StartTestActivity" />
-        <activity android:name=".ui.tests.passTest.endTest.EndTestActivity" />
-        <activity android:name=".ui.find.findList.FindListActivity" />
-        <activity android:name=".ui.find.findPass.passTest.FPassTestActivity" />
-        <activity android:name=".ui.find.findPass.startTest.FStartTestActivity" />
-        <activity android:name=".ui.find.findPass.endTest.FEndTestActivity" />
-        <activity android:name=".ui.results.ResultsActivity"/>
+        <activity android:name=".ui.create.createTest.CreateTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.create.questions.QuestionsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.tests.myTests.MyTestsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.tests.editTest.EditTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.tests.passTest.passTest.PassTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.tests.passTest.startTest.StartTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.tests.passTest.endTest.EndTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.find.findList.FindListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.find.findPass.passTest.FPassTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.find.findPass.startTest.FStartTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.find.findPass.endTest.FEndTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.results.ResultsActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

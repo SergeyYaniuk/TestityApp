@@ -102,12 +102,17 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         notifyItemRemoved(change.getOldIndex());
     }
 
+    public void remoteItem(int index){
+        mSnapshots.remove(index);
+        notifyItemRemoved(index);
+    }
+
     @Override
     public int getItemCount() {
         return mSnapshots.size();
     }
 
-    protected DocumentSnapshot getSnapshot(int index) {
+    public DocumentSnapshot getSnapshot(int index) {
         return mSnapshots.get(index);
     }
 

@@ -29,11 +29,13 @@
     <string name="cancel">CANCEL</string>
     <string name="reset_password">reset password</string>
     <string name="auth_successful">Authentication successful</string>
-    <string name="auth_failed">Authentication failed\nTry again</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="cannot_create_acc">Cannot create account</string>
     <string name="pass_sent">Link to reset password have been sent to your email</string>
+    <string name="unable_set_name">Unable to set user name</string>
     <string name="unable_send">Unable to send link to reset password</string>
     <string name="no_email">No Email</string>
-    <string name="no_connection">No internet connection!\n Please connect and try again</string>
+    <string name="no_connection">No internet connection!\nPlease connect and try again</string>
 
     <!-- For Facebook login !-->
     <string name="facebook_app_id">694422630950774</string>
@@ -45,6 +47,7 @@
     <string name="invitation_custom_image">https://developers.google.com/identity/images/g-logo.png</string>
     <string name="invitation_deep_link">http://sergeyyaniuk.com/testity/</string>
     <string name="invitation_cta">Install!</string>
+    <string name="invitation_sent">Invitation sent successfully</string>
     <string name="send_invitation_failed">Sending invitations failed</string>
     <string name="google_play_services_error">Google Play Services Error</string>
 
@@ -89,7 +92,7 @@
     <string name="question_deleted">Question deleted!</string>
 
     <!-- Error messages text !-->
-    <string name="required">"Required."</string>
+    <string name="required">This field is required</string>
 
     <!-- MyTestsActivity !-->
     <string name="edit_test">edit test</string>
@@ -127,6 +130,9 @@
     <string name="by">By: </string>
     <string name="author">Author</string>
     <string name="no_answers">Cannot load answers</string>
+
+    <!--FPassTestActivity !-->
+    <string name="rate_test">Rate the test</string>
 
     <!-- ResultsActivity !-->
     <string name="local_results">Local</string>

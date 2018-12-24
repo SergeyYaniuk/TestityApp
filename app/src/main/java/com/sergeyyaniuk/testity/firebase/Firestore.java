@@ -2,7 +2,6 @@ package com.sergeyyaniuk.testity.firebase;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,8 +25,6 @@ import java.util.List;
 
 public class Firestore {
 
-    private static final String TAG = "MyLog";
-
     public static final String USERS = "users";
     public static final String TESTS = "tests";
     public static final String QUESTIONS = "questions";
@@ -50,7 +47,7 @@ public class Firestore {
         return db.collection(TESTS).document(test.getId()).set(test);
     }
 
-    public Task<Void> updateTestEditFive(Test test){
+    public Task<Void> updateTest(Test test){
         WriteBatch batch = db.batch();
         batch.update(db.collection(TESTS).document(test.getId()), "title", test.getTitle());
         batch.update(db.collection(TESTS).document(test.getId()), "category", test.getCategory());
@@ -64,7 +61,7 @@ public class Firestore {
         return db.collection(TESTS).document(testId).delete();
     }
 
-    public Task<Void> updateTestAddQuesNum(Test test){
+    public Task<Void> addNumOfQuesToTest(Test test){
         WriteBatch batch = db.batch();
         batch.update(db.collection(TESTS).document(test.getId()), "numberOfQuestions", test.getNumberOfQuestions());
         return batch.commit();
@@ -94,7 +91,6 @@ public class Firestore {
                                 questionList.add(document.toObject(Question.class));
                             }
                         } else{
-                            Log.d(TAG, "deleteQuestionList: Error");
                         }
                     }
                 });
@@ -133,7 +129,6 @@ public class Firestore {
                         answerList.add(document.toObject(Answer.class));
                     }
                 } else {
-                    Log.d(TAG, "deleteAnswerList: Error");
                 }
             }
         });
@@ -197,5 +192,9 @@ public class Firestore {
                 return null;
             }
         });
+    }
+
+    public Query getUserResults(String userId){
+        return db.collection(RESULTS).whereEqualTo("userId", userId);
     }
 }

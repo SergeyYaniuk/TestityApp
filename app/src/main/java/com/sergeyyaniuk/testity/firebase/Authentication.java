@@ -2,52 +2,35 @@ package com.sergeyyaniuk.testity.firebase;
 
 import android.app.Application;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 
-import java.net.URL;
-
 public class Authentication {
-    
-    public static final String TAG = "MyLog";
 
     private Application mApplication;
     private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
 
     //for google auth
     GoogleSignInClient mGoogleSignInClient;
 
     //for facebook auth;
     CallbackManager mCallbackManager;
-
-    protected boolean usernameIsSet;
 
     public Authentication(Application application){
         this.mApplication = application;

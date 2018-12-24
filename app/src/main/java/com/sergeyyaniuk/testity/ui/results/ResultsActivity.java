@@ -19,7 +19,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ResultsActivity extends BaseActivity {
+public class ResultsActivity extends BaseActivity implements LocalResultsFragment.LocalResultsListener,
+        OnlineResultsFragment.OnlineResultsListener{
 
     @Inject
     ResultsPresenter mPresenter;
@@ -45,6 +46,16 @@ public class ResultsActivity extends BaseActivity {
                 new SectionsPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mTabLayout.setupWithViewPager(mPager);
+    }
+
+    @Override
+    public void onLocalResultDeleted(String resultId) {
+
+    }
+
+    @Override
+    public void onOnlineResultDelete(String resultId) {
+
     }
 
     @Override

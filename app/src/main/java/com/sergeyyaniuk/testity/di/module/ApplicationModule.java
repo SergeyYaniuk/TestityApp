@@ -3,7 +3,6 @@ package com.sergeyyaniuk.testity.di.module;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.util.Log;
 
 import com.sergeyyaniuk.testity.data.database.TestityDatabase;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;

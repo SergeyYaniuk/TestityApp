@@ -9,7 +9,6 @@ import android.arch.persistence.room.Update;
 
 import com.sergeyyaniuk.testity.data.model.Question;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao

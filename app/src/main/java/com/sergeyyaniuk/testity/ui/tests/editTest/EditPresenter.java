@@ -52,7 +52,7 @@ public class EditPresenter extends BasePresenter {
                     mActivity.showToast(mActivity, R.string.cannot_update_test);
                 }));
         if (test.isOnline()){
-            mFirestore.updateTestEditFive(test).addOnSuccessListener(new OnSuccessListener<Void>() {
+            mFirestore.updateTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }
@@ -191,7 +191,7 @@ public class EditPresenter extends BasePresenter {
                         }, throwable -> {}
                 ));
         if (isTestOnline){
-            mFirestore.updateTestAddQuesNum(test).addOnSuccessListener(new OnSuccessListener<Void>() {
+            mFirestore.addNumOfQuesToTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }
