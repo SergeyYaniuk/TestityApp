@@ -53,13 +53,12 @@ public class PassTestActivity extends BaseActivity {
     ProgressBar mTestProgress;
 
     String mTestId, mApplicantName;
-    private int mCurrentIndex = 0;
-    private int mCorrectAnswers = 0;
+    private int mCurrentIndex;
+    private int mCorrectAnswers;
     private int mNumberOfTries;
     private int mNumberOfChance;
     List<Question> mQuestionList;
     List<Answer> mAnswerList;
-    boolean isTestCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +153,6 @@ public class PassTestActivity extends BaseActivity {
     }
 
     private void saveResults(){
-        isTestCompleted = true;
         int totalCorrectAnswers = mPresenter.getNumberOfCorrect();
         double score = (mCorrectAnswers * 100) / totalCorrectAnswers;
         String resultId = generateResultId();
@@ -178,9 +176,6 @@ public class PassTestActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (!isTestCompleted){
-            saveResults();
-        }
         mPresenter.onDestroy();
     }
 }

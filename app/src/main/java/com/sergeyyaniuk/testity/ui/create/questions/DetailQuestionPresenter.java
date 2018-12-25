@@ -1,7 +1,5 @@
 package com.sergeyyaniuk.testity.ui.create.questions;
 
-import android.util.Log;
-
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;

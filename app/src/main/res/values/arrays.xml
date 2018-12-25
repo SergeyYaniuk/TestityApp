@@ -54,25 +54,31 @@
     </string-array>
 
     <string-array name="category_list">
-        <item>@string/language</item>
-        <item>@string/iq</item>
         <item>@string/recruiting</item>
-        <item>@string/school</item>
-        <item>@string/geographical</item>
-        <item>@string/psychological</item>
-        <item>@string/astrological</item>
+        <item>@string/language</item>
+        <item>@string/books</item>
+        <item>@string/iq</item>
+        <item>@string/kids</item>
+        <item>@string/movie</item>
+        <item>@string/health</item>
+        <item>@string/personality</item>
+        <item>@string/think_memory</item>
+        <item>@string/science</item>
         <item>@string/other</item>
     </string-array>
 
     <string-array name="category_list_with_all">
         <item>@string/all_categories</item>
-        <item>@string/language</item>
-        <item>@string/iq</item>
         <item>@string/recruiting</item>
-        <item>@string/school</item>
-        <item>@string/geographical</item>
-        <item>@string/psychological</item>
-        <item>@string/astrological</item>
+        <item>@string/language</item>
+        <item>@string/books</item>
+        <item>@string/iq</item>
+        <item>@string/kids</item>
+        <item>@string/movie</item>
+        <item>@string/health</item>
+        <item>@string/personality</item>
+        <item>@string/think_memory</item>
+        <item>@string/science</item>
         <item>@string/other</item>
     </string-array>
 

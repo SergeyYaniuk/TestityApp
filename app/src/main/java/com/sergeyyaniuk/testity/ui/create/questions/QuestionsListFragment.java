@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.di.module.QuestionsListFragModule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,8 +44,6 @@ public class QuestionsListFragment extends Fragment {
     @BindView(R.id.saveActionButton)
     FloatingActionButton saveTestButton;
 
-    List<Question> mQuestions;
-
     QuestionsListAdapter mQuestionsAdapter;
     QuestionsListListener mListener;
 
@@ -71,17 +67,16 @@ public class QuestionsListFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         ((App)getActivity().getApplication()).getAppComponent().create(new QuestionsListFragModule(this)).inject(this);
         mPresenter.onCreate();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        mQuestions = new ArrayList<>();
-        mQuestionsAdapter = new QuestionsListAdapter(mQuestions, questionClickListener);
-        mRecyclerView.setAdapter(mQuestionsAdapter);
-        enableSwipe();
         mPresenter.loadQuestions();
         return view;
     }
 
-    public void updateList(List<Question> questions){
-        mQuestionsAdapter.updateData(questions);
+    //invoke from presenter
+    public void setRecyclerView(List<Question> questions){
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+        mQuestionsAdapter = new QuestionsListAdapter(questions, questionClickListener);
+        mRecyclerView.setAdapter(mQuestionsAdapter);
+        enableSwipe();
     }
 
     @Override

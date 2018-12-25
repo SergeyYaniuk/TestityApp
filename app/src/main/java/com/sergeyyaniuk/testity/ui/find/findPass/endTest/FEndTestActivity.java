@@ -26,9 +26,13 @@ public class FEndTestActivity extends BaseActivity {
         setContentView(R.layout.activity_fend_test);
         ButterKnife.bind(this);
         double score = getIntent().getDoubleExtra("score", 0);
-        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        String scoreString = decimalFormat.format(score);
-        mScoreTextView.setText(scoreString);
+        if (score > 0){
+            DecimalFormat decimalFormat = new DecimalFormat("#.00");
+            String scoreString = decimalFormat.format(score) + "%";
+            mScoreTextView.setText(scoreString);
+        } else {
+            mScoreTextView.setText("0.0%");
+        }
     }
 
     @OnClick(R.id.finish_btn)

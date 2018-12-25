@@ -76,6 +76,7 @@ public class FPassTestPresenter extends BasePresenter {
                     answers.add(answer);
                 }
                 mActivity.updateAnswers(answers);
+                mActivity.hideProgressBar();
             }
         });
     }

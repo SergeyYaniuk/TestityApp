@@ -41,7 +41,7 @@ public class MyTestsPresenter extends BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tests -> {
-                    mActivity.updateTestList(tests);
+                    mActivity.setRecyclerView(tests);
                 }, throwable -> {}));
     }
 

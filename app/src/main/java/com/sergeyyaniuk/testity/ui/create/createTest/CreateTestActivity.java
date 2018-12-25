@@ -39,7 +39,6 @@ public class CreateTestActivity extends BaseActivity implements CreateTestFragme
         ButterKnife.bind(this);
         mPresenter.onCreate();
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mTitle.setText(R.string.create_test);
     }

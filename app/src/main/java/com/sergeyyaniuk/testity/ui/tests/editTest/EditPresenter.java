@@ -23,8 +23,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class EditPresenter extends BasePresenter {
 
-    private static final String TAG = "MyLog";
-
     private DatabaseManager mDatabase;
     private Firestore mFirestore;
     private PrefHelper mPrefHelper;
@@ -166,12 +164,12 @@ public class EditPresenter extends BasePresenter {
                 .subscribe(questions -> {
                             List<Question> questionList = new ArrayList<>(questions);
                             int number = questionList.size();
-                            loadDataToTest(testId, isTestOnline, number);
+                            setNumberOfQues(testId, isTestOnline, number);
                             }
                         , throwable -> {}));
     }
 
-    public void loadDataToTest(String testId, boolean isTestOnline, int numberOfQuestions){
+    public void setNumberOfQues(String testId, boolean isTestOnline, int numberOfQuestions){
         getCompositeDisposable().add(mDatabase.getTest(testId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

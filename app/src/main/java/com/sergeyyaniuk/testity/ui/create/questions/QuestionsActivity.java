@@ -14,7 +14,6 @@ import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.main.MainActivity;
 import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
 
 import java.util.List;
@@ -53,7 +52,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
         isTestOnline = getIntent().getBooleanExtra("is_online", false);
         //setup toolbar
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mTitleTV.setText(mTestTitle);
         showQuestionsListFragment();

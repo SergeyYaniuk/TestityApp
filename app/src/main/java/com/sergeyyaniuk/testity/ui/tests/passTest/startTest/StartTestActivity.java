@@ -1,14 +1,12 @@
 package com.sergeyyaniuk.testity.ui.tests.passTest.startTest;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
 import com.sergeyyaniuk.testity.ui.tests.passTest.passTest.PassTestActivity;
 
 import butterknife.BindView;
@@ -50,7 +48,7 @@ public class StartTestActivity extends BaseActivity {
         boolean valid = true;
         mName = mNameEditText.getText().toString();
         if (TextUtils.isEmpty(mName)) {
-            mNameEditText.setError("Required.");
+            mNameEditText.setError(getResources().getString(R.string.required));
             valid = false;
         } else {
             mNameEditText.setError(null);

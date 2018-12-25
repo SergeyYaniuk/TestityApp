@@ -143,12 +143,12 @@ public class QuestionsPresenter extends BasePresenter {
                 .subscribe(questions -> {
                     List<Question> questionList = new ArrayList<>(questions);
                     int number = questionList.size();
-                    loadDataToTest(isTestOnline, number);
+                    setNumberOfQuestions(isTestOnline, number);
                     }
                 , throwable -> {}));
     }
 
-    public void loadDataToTest(boolean isTestOnline, int numberOfQuestions){
+    public void setNumberOfQuestions(boolean isTestOnline, int numberOfQuestions){
         String testId = getTestId();
         getCompositeDisposable().add(mDatabase.getTest(testId)
                 .subscribeOn(Schedulers.io())

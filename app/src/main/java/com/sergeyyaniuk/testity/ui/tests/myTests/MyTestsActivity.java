@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,6 @@ import com.sergeyyaniuk.testity.ui.main.MainActivity;
 import com.sergeyyaniuk.testity.ui.tests.editTest.EditTestActivity;
 import com.sergeyyaniuk.testity.ui.tests.passTest.startTest.StartTestActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,8 +37,6 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
 
     public static final String POSITION = "position";
     public static final String IS_TEST_ONLINE = "is_test_online";
-
-    private static final String TAG = "MyLog";
 
     @Inject
     MyTestsPresenter mPresenter;
@@ -62,28 +58,19 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
         App.get(this).getAppComponent().create(new MyTestsModule(this)).inject(this);
         mPresenter.onCreate();
         ButterKnife.bind(this);
-        //setup RecyclerView
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mTests = new ArrayList<>();
-        mAdapter = new TestListAdapter(mTests, testClickListener);
-        mRecyclerView.setAdapter(mAdapter);
-        enableSwipe();
+        mPresenter.loadTests();
         //setup toolbar
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPresenter.loadTests();
-    }
-
-    //this method is invoked from presenter
-    public void updateTestList(List<Test> tests){
-        mAdapter.updateData(tests);
+    //invoke from presenter
+    public void setRecyclerView(List<Test> tests){
         mTests = tests;
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new TestListAdapter(tests, testClickListener);
+        mRecyclerView.setAdapter(mAdapter);
+        enableSwipe();
     }
 
     TestListAdapter.TestClickListener testClickListener = new TestListAdapter.TestClickListener() {
@@ -150,10 +137,14 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     }
 
     @Override
-    public void passTest(String testId) {
-        Intent intent = new Intent(MyTestsActivity.this, StartTestActivity.class);
-        intent.putExtra(TEST_ID, testId);
-        startActivity(intent);
+    public void passTest(String testId, int numberOfQuestions) {
+        if (numberOfQuestions > 0){
+            Intent intent = new Intent(MyTestsActivity.this, StartTestActivity.class);
+            intent.putExtra(TEST_ID, testId);
+            startActivity(intent);
+        } else {
+            showToast(this, R.string.please_add_ques);
+        }
     }
 
     @Override

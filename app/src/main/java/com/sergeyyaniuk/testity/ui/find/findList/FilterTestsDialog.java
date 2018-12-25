@@ -3,7 +3,6 @@ package com.sergeyyaniuk.testity.ui.find.findList;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,14 +106,6 @@ public class FilterTestsDialog extends BaseDialogNoTitle {
     @OnClick(R.id.button_cancel)
     public void onCancelClicked() {
         dismiss();
-    }
-
-    public void resetFilters() {
-        if (mRootView != null) {
-            mCategorySpinner.setSelection(0);
-            mLanguageSpinner.setSelection(0);
-            mSortSpinner.setSelection(0);
-        }
     }
 
     public Filters getFilters() {

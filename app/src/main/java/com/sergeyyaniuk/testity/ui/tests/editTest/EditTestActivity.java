@@ -48,7 +48,6 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         mTestId = getIntent().getStringExtra("test_id");
         mPresenter.setTestId(mTestId);
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         showEditTestFragment();
     }

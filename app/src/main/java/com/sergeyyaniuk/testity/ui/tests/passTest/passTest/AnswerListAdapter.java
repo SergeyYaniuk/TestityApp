@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Answer;
-import com.sergeyyaniuk.testity.ui.tests.myTests.TestListAdapter;
 
 import java.util.List;
 
@@ -40,12 +39,6 @@ public class AnswerListAdapter extends RecyclerView.Adapter<AnswerListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.mAnswerText.setText(mAnswers.get(i).getAnswerText());
-    }
-
-    public void updateData(List<Answer> answers){
-        mAnswers.clear();
-        mAnswers.addAll(answers);
-        notifyDataSetChanged();
     }
 
     public Answer getItem(int position){

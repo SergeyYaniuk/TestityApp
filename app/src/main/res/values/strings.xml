@@ -54,12 +54,15 @@
     <!--  CreateTestActivity test activity !-->
     <string name="language">Language</string>
     <string name="iq">IQ</string>
-    <string name="recruiting">Recruiting</string>
-    <string name="school">School</string>
-    <string name="geographical">Geographical</string>
-    <string name="psychological">Psychological</string>
-    <string name="astrological">Astrological</string>
+    <string name="recruiting">Career/Recruiting</string>
+    <string name="books">Books</string>
+    <string name="kids">Kids</string>
     <string name="other">Other</string>
+    <string name="movie">Movie</string>
+    <string name="health">Health</string>
+    <string name="personality">Personality</string>
+    <string name="think_memory">Think/Memory</string>
+    <string name="science">Science</string>
 
     <string name="title_hint">Test name</string>
     <string name="hint_description_test">Description</string>
@@ -102,6 +105,7 @@
     <string name="test_deleted">Test deleted</string>
     <string name="delete_test">Delete test?</string>
     <string name="confirm">Confirm</string>
+    <string name="please_add_ques">Please add questions to the test.</string>
 
     <!-- EditTestActivity !-->
     <string name="edit_questions">Edit questions</string>
@@ -117,6 +121,7 @@
     <string name="finish">Finish</string>
 
     <!-- FindListActivity !-->
+    <string name="find_test_o">FIND TEST</string>
     <string name="sort_tests">Sort tests</string>
     <string name="header_filters">Filter tests</string>
     <string name="apply">Apply</string>

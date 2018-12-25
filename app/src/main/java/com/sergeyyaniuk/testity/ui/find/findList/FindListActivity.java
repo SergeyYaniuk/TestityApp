@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,7 +21,6 @@ import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.FindListModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.find.findList.adapter.TestAdapter;
-import com.sergeyyaniuk.testity.ui.find.findPass.passTest.FPassTestActivity;
 import com.sergeyyaniuk.testity.ui.find.findPass.startTest.FStartTestActivity;
 
 import javax.inject.Inject;
@@ -32,7 +31,6 @@ import butterknife.ButterKnife;
 public class FindListActivity extends BaseActivity implements TestAdapter.OnTestSelectedListener,
         FilterTestsDialog.FilterListener, FindDetailDialog.FindDetailListener{
 
-    private static final String TAG = "MyLog";
     public static final String TEST_ID = "test_id";
     public static final String TEST_TITLE = "test_title";
     public static final String TEST_CATEGORY = "test_category";
@@ -46,11 +44,14 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
     @BindView(R.id.find_test_toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.title_tv)
+    TextView mTitle;
+
     @BindView(R.id.find_rec_view)
     RecyclerView mTestRecView;
 
-    @BindView(R.id.no_results_tv)
-    TextView mNoResultsTV;
+    @BindView(R.id.loading_test_pb)
+    ProgressBar mLoadingTestsPB;
 
     TestAdapter mAdapter;
     private Query mQuery;
@@ -63,12 +64,10 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         ButterKnife.bind(this);
         mPresenter.onCreate();
         setSupportActionBar(mToolbar);
-        loadTestList();
-        initRecyclerView();
-    }
-
-    private void loadTestList(){
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mTitle.setText(R.string.find_test_o);
         mQuery = mPresenter.getTopTestsList();
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
@@ -78,10 +77,10 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
             protected void onDataChanged() {
                 if (getItemCount() == 0) {
                     mTestRecView.setVisibility(View.GONE);
-                    mNoResultsTV.setVisibility(View.VISIBLE);
+                    mLoadingTestsPB.setVisibility(View.VISIBLE);
                 } else {
                     mTestRecView.setVisibility(View.VISIBLE);
-                    mNoResultsTV.setVisibility(View.GONE);
+                    mLoadingTestsPB.setVisibility(View.GONE);
                 }
             }
 

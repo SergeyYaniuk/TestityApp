@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,14 +54,16 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     @BindView(R.id.test_progress)
     ProgressBar mTestProgress;
 
+    @BindView(R.id.answers_prog_bar)
+    ProgressBar mAnswersLoading;
+
     String mTestId, mApplicantName;
-    private int mCurrentIndex = 0;
-    private int mCorrectAnswers = 0;
+    private int mCurrentIndex;
+    private int mCorrectAnswers;
     private int mNumberOfTries;
     private int mNumberOfChance;
     List<Question> mQuestionList;
     List<Answer> mAnswerList;
-    boolean isTestCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +110,7 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     }
 
     private void loadAnswers(){
+        showProgressBar();
         String questionId = mQuestionList.get(mCurrentIndex).getId();
         mPresenter.loadAnswers(questionId);
     }
@@ -160,8 +164,15 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
         rateTestDialog.show(fm, "rateTestDialog");
     }
 
+    public void hideProgressBar(){
+        mAnswersLoading.setVisibility(View.GONE);
+    }
+
+    private void showProgressBar(){
+        mAnswersLoading.setVisibility(View.VISIBLE);
+    }
+
     private void saveResults(){
-        isTestCompleted = true;
         int totalCorrectAnswers = mPresenter.getNumberOfCorrect();
         double score = (mCorrectAnswers * 100) / totalCorrectAnswers;
         String resultId = generateResultId();
@@ -197,9 +208,6 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (!isTestCompleted){
-            saveResults();
-        }
         mPresenter.onDestroy();
     }
 }

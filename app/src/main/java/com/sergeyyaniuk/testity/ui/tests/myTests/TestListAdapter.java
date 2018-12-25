@@ -58,11 +58,6 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public void restoreTest(Test test, int position){
-        mTests.add(position, test);
-        notifyItemInserted(position);
-    }
-
     public Test getItem(int position){
         return mTests.get(position);
     }

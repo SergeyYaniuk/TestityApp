@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,7 +20,7 @@
         android:gravity="center"
         android:maxLines="5"
         android:padding="16dp"
-        android:text="textView"
+        android:text="QUESTION"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/test_progress" />
@@ -66,5 +67,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ProgressBar
+        android:id="@+id/answers_prog_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/answers_rec_view"
+        app:layout_constraintEnd_toEndOf="@+id/answers_rec_view"
+        app:layout_constraintStart_toStartOf="@+id/answers_rec_view"
+        app:layout_constraintTop_toTopOf="@+id/answers_rec_view" />
 
 </android.support.constraint.ConstraintLayout>

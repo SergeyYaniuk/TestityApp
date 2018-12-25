@@ -30,7 +30,7 @@ public class QuestionsListPresenter extends BasePresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         questions -> {
-                            mFragment.updateList(questions);
+                            mFragment.setRecyclerView(questions);
                         }, throwable -> { }));
     }
 }

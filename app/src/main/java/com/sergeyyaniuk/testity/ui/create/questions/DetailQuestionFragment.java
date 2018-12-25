@@ -148,7 +148,7 @@ public class DetailQuestionFragment extends Fragment {
 
     @OnClick(R.id.saveQuestionButton)
     public void onSaveQuestion(){
-        if (isQuestionNotEmpty(mQuestionEditText)){
+        if (isQuestionEmpty(mQuestionEditText)){
             return;
         }
         Question question = new Question(mQuestionId, mQuestionEditText.getText().toString(), mTestId);
@@ -208,11 +208,11 @@ public class DetailQuestionFragment extends Fragment {
     }
 
 
-    private boolean isQuestionNotEmpty(EditText questionET){
+    private boolean isQuestionEmpty(EditText questionET){
         boolean isEmpty;
         String questionText = questionET.getText().toString();
         if (TextUtils.isEmpty(questionText)){
-            questionET.setError("Required.");
+            questionET.setError(getResources().getString(R.string.required));
             isEmpty = true;
         } else {
             questionET.setError(null);
