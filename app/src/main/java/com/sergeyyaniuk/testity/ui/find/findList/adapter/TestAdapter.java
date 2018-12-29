@@ -44,20 +44,26 @@ public class TestAdapter extends FirestoreAdapter<TestAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.find_list_item)
-        ViewGroup mLayout;
-
         @BindView(R.id.test_name_tv)
         TextView mTestName;
+
+        @BindView(R.id.category_tv)
+        TextView mCategory;
+
+        @BindView(R.id.language_tv)
+        TextView mLanguage;
+
+        @BindView(R.id.date_tv)
+        TextView mDate;
 
         @BindView(R.id.author_tv)
         TextView mAuthor;
 
         @BindView(R.id.test_rating)
-        MaterialRatingBar mRatingBar;
+        MaterialRatingBar mTestRating;
 
         @BindView(R.id.num_ratings_tv)
-        TextView mRatingNumber;
+        TextView mNumRatings;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,9 +76,12 @@ public class TestAdapter extends FirestoreAdapter<TestAdapter.ViewHolder> {
             Test test = snapshot.toObject(Test.class);
 
             mTestName.setText(test.getTitle());
-            mRatingNumber.setText(String.valueOf(test.getNumRatings()));
+            mCategory.setText(test.getCategory());
+            mLanguage.setText(test.getLanguage());
             mAuthor.setText(test.getUserName());
-            mRatingBar.setRating((float)test.getAvgRating());
+            mDate.setText(test.getDate());
+            mTestRating.setRating((float)test.getAvgRating());
+            mNumRatings.setText(String.valueOf(test.getNumRatings()));
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

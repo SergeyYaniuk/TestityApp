@@ -1,5 +1,7 @@
 package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
 
+import android.annotation.SuppressLint;
+
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
@@ -8,6 +10,8 @@ import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -76,12 +80,26 @@ public class PassTestPresenter extends BasePresenter {
         }
     }
 
-    public void saveResult(Result result){
+    public void saveResult(String testId, String applicantName,String testTitle, double score){
+        String userId = mPrefHelper.getCurrentUserId();
+        String date = getCurrentDate();
+        String resultId = testId + userId + getCurrentTime();
+        Result result = new Result(resultId, testId, applicantName, score, userId, testTitle, date);
         getCompositeDisposable().add(mDatabase.insertResult(result)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                 }, throwable -> {
                 }));
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String getCurrentDate(){
+        return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String getCurrentTime(){
+        return new SimpleDateFormat("yyMMddHHmmss").format(new Date());
     }
 }

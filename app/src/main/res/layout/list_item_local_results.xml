@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="8dp"
+    android:background="@color/light_blue">
 
     <TextView
         android:id="@+id/applicant_name_tv"
@@ -46,24 +49,16 @@
 
     <FrameLayout
         android:id="@+id/result_layout"
-        android:layout_width="48dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/buttons_main_activity_not_pressed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/buttons_main_activity_not_pressed"
         app:layout_constraintVertical_bias="0.0">
-
-        <ProgressBar
-            android:id="@+id/result_progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:max="100"
-            android:progress="90" />
 
         <TextView
             android:id="@+id/result_tv"
@@ -71,6 +66,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:padding="15dp"
-            android:text="98%" />
+            android:text="100%" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

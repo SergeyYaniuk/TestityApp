@@ -197,4 +197,8 @@ public class Firestore {
     public Query getUserResults(String userId){
         return db.collection(RESULTS).whereEqualTo("userId", userId);
     }
+
+    public Task<Void> deleteResult(String resultId){
+        return db.collection(RESULTS).document(resultId).delete();
+    }
 }

@@ -51,12 +51,6 @@ public class QuestionsListAdapter extends RecyclerView.Adapter<QuestionsListAdap
         notifyItemRemoved(position);
     }
 
-    public void updateData(List<Question> questions){
-        mQuestions.clear();
-        mQuestions.addAll(questions);
-        notifyDataSetChanged();
-    }
-
     public Question getItem(int position) {
         return mQuestions.get(position);
     }

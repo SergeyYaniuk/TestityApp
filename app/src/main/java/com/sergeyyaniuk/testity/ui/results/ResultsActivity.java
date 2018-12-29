@@ -1,13 +1,17 @@
 package com.sergeyyaniuk.testity.ui.results;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -20,19 +24,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ResultsActivity extends BaseActivity implements LocalResultsFragment.LocalResultsListener,
-        OnlineResultsFragment.OnlineResultsListener{
+        OnlineResultsFragment.OnlineResultsListener, DeleteLocalResultDialog.DeleteLocalResultListener,
+        DeleteOnlineResultDialog.DeleteOnlineResultListener {
+
+    public static final String RESULT_ID = "result_id";
+    public static final String POSITION = "position";
 
     @Inject
     ResultsPresenter mPresenter;
 
-    @BindView(R.id.toolbar)
+    LocalResultsFragment mLocalFragment;
+    OnlineResultsFragment mOnlineFragment;
+
+    @BindView(R.id.results_toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.results_pager)
-    ViewPager mPager;
+    @BindView(R.id.toolbar_title)
+    TextView mTitle;
 
-    @BindView(R.id.tabs)
-    TabLayout mTabLayout;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,59 +52,80 @@ public class ResultsActivity extends BaseActivity implements LocalResultsFragmen
         App.get(this).getAppComponent().create(new ResultsModule(this)).inject(this);
         ButterKnife.bind(this);
         mPresenter.onCreate();
+        mLocalFragment = new LocalResultsFragment();
+        mOnlineFragment = new OnlineResultsFragment();
+        setBottomNavListener();
         setSupportActionBar(mToolbar);
-        SectionsPagerAdapter pagerAdapter =
-                new SectionsPagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(pagerAdapter);
-        mTabLayout.setupWithViewPager(mPager);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mTitle.setText(R.string.results);
+    }
+
+    private void setBottomNavListener(){
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment fragment = new Fragment();
+                switch (menuItem.getItemId()) {
+                    case R.id.action_local_results:
+                        fragment = mLocalFragment;
+                        break;
+                    case R.id.action_online_results:
+                        fragment = mOnlineFragment;
+                        break;
+                }
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                return true;
+            }
+        });
+        bottomNavigationView.setSelectedItemId(R.id.action_local_results);
     }
 
     @Override
-    public void onLocalResultDeleted(String resultId) {
-
+    public void onLocalResultDeleted(String resultId, int position) {
+        DeleteLocalResultDialog dialog = new DeleteLocalResultDialog();
+        Bundle arguments = new Bundle();
+        arguments.putString(RESULT_ID, resultId);
+        arguments.putInt(POSITION, position);
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "dialog_delete_local_result");
     }
 
     @Override
-    public void onOnlineResultDelete(String resultId) {
+    public void onConfDelLocalResult(String resultId, int position) {
+        mPresenter.deleteLocalResult(resultId);
+        mLocalFragment.removeResult(position);
+    }
 
+    @Override
+    public void onCancelDelLocalResult() {
+        mLocalFragment.notifyAdapterAboutChanges();
+    }
+
+    @Override
+    public void onOnlineResultDelete(String resultId, int position) {
+        DeleteOnlineResultDialog dialog = new DeleteOnlineResultDialog();
+        Bundle arguments = new Bundle();
+        arguments.putString(RESULT_ID, resultId);
+        arguments.putInt(POSITION, position);
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "dialog_delete_online_result");
+    }
+
+    @Override
+    public void onConfDelOnlineResult(String resultId, int position) {
+        mPresenter.deleteOnlineResult(resultId);
+        mOnlineFragment.removeResult(position);
+    }
+
+    @Override
+    public void onCancelDelOnlineResult() {
+        mOnlineFragment.notifyAdapterAboutChanges();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
-    }
-
-    private class SectionsPagerAdapter extends FragmentPagerAdapter {
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new LocalResultsFragment();
-                case 1:
-                    return new OnlineResultsFragment();
-            }
-            return null;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getResources().getText(R.string.local_results);
-                case 1:
-                    return getResources().getText(R.string.online_results);
-            }
-            return null;
-        }
     }
 }

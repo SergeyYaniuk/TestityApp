@@ -53,10 +53,12 @@ public class EditPresenter extends BasePresenter {
             mFirestore.updateTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    mActivity.closeEditTestFragment();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    mActivity.closeEditTestFragment();
                 }
             });
         }
@@ -111,8 +113,10 @@ public class EditPresenter extends BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
-                    mActivity.showToast(mActivity, R.string.question_deleted);
-                }, throwable -> {}));
+                    mActivity.showToast(mActivity, R.string.question_is_deleted);
+                }, throwable -> {
+                    mActivity.showToast(mActivity, R.string.unable_delete_question);
+                }));
         if (isOnline){
             mFirestore.deleteQuestion(questionId).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

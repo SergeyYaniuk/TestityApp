@@ -1,5 +1,6 @@
 package com.sergeyyaniuk.testity.ui.tests.myTests;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,10 +37,18 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.mTitle.setText(mTests.get(i).getTitle());
+        viewHolder.mTestName.setText(mTests.get(i).getTitle());
         viewHolder.mCategory.setText(mTests.get(i).getCategory());
         viewHolder.mLanguage.setText(mTests.get(i).getLanguage());
-        viewHolder.mNumberOfQuestions.setText(String.valueOf(mTests.get(i).getNumberOfQuestions()));
+        viewHolder.mDate.setText(mTests.get(i).getDate());
+        boolean isOnline = mTests.get(i).isOnline();
+        if (isOnline){
+            viewHolder.isOnline.setText(R.string.online);
+            viewHolder.isOnline.setBackgroundColor(Color.GREEN);
+        } else {
+            viewHolder.isOnline.setText(R.string.offline);
+            viewHolder.isOnline.setBackgroundColor(Color.GRAY);
+        }
     }
 
     @Override
@@ -52,29 +61,24 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
         notifyItemRemoved(position);
     }
 
-    public void updateData(List<Test> tests){
-        mTests.clear();
-        mTests.addAll(tests);
-        notifyDataSetChanged();
-    }
-
     public Test getItem(int position){
         return mTests.get(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView mTitle, mCategory, mLanguage, mNumberOfQuestions;
+        TextView mTestName, mCategory, mLanguage, mDate, isOnline;
 
         TestClickListener mListener;
 
         public ViewHolder(@NonNull View itemView, TestClickListener listener) {
             super(itemView);
             this.mListener = listener;
-            mTitle = itemView.findViewById(R.id.test_title_tv);
+            mTestName = itemView.findViewById(R.id.test_name_tv);
             mCategory = itemView.findViewById(R.id.category_tv);
             mLanguage = itemView.findViewById(R.id.language_tv);
-            mNumberOfQuestions = itemView.findViewById(R.id.num_of_ques_tv);
+            mDate = itemView.findViewById(R.id.date_tv);
+            isOnline = itemView.findViewById(R.id.is_online_tv);
             itemView.setOnClickListener(this);
         }
 

@@ -38,7 +38,7 @@ public class LocalResultsFragment extends Fragment {
     LocalResultsListener mListener;
 
     public interface LocalResultsListener{
-        void onLocalResultDeleted(String resultId);
+        void onLocalResultDeleted(String resultId, int position);
     }
 
     public LocalResultsFragment() {
@@ -71,12 +71,19 @@ public class LocalResultsFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 final int position = viewHolder.getAdapterPosition();
                 String resultId = mAdapter.getItem(position).getId();
-                mListener.onLocalResultDeleted(resultId);
-                mAdapter.removeResult(position);
+                mListener.onLocalResultDeleted(resultId, position);
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(resultsSwipeCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    public void removeResult(int position){
+        mAdapter.removeResult(position);
+    }
+
+    public void notifyAdapterAboutChanges(){
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

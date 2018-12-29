@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -37,6 +38,12 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     private static final String KEY_NUMBER_OF_CORRECT = "number_of_correct";
     private static final String KEY_SCORE = "score";
 
+    @BindView(R.id.pass_test_toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.toolbar_title)
+    TextView mTitle;
+
     @Inject
     FPassTestPresenter mPresenter;
 
@@ -55,9 +62,9 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     ProgressBar mTestProgress;
 
     @BindView(R.id.answers_prog_bar)
-    ProgressBar mAnswersLoading;
+    ProgressBar mLoadingAnswers;
 
-    String mTestId, mApplicantName;
+    String mTestId, mApplicantName, mTestTitle;
     private int mCurrentIndex;
     private int mCorrectAnswers;
     private int mNumberOfTries;
@@ -68,7 +75,7 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pass_test);
+        setContentView(R.layout.activity_fpass_test);
         App.get(this).getAppComponent().create(new FPassTestModule(this))
                 .inject(this);  //inject presenter
         mPresenter.onCreate();  //create CompositeDisposable
@@ -76,6 +83,10 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
         //get data from intent
         mTestId = getIntent().getStringExtra("test_id");
         mApplicantName = getIntent().getStringExtra("name");
+        mTestTitle = getIntent().getStringExtra("test_title");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mTitle.setText(mTestTitle);
         mPresenter.cleanTotalCorr();  //clean number of total correct answers
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
@@ -165,20 +176,17 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     }
 
     public void hideProgressBar(){
-        mAnswersLoading.setVisibility(View.GONE);
+        mLoadingAnswers.setVisibility(View.GONE);
     }
 
     private void showProgressBar(){
-        mAnswersLoading.setVisibility(View.VISIBLE);
+        mLoadingAnswers.setVisibility(View.VISIBLE);
     }
 
     private void saveResults(){
         int totalCorrectAnswers = mPresenter.getNumberOfCorrect();
         double score = (mCorrectAnswers * 100) / totalCorrectAnswers;
-        String resultId = generateResultId();
-        String userId = mPresenter.getUserId();
-        Result result = new Result(resultId, mTestId, mApplicantName, score);
-        mPresenter.saveResult(result);
+        mPresenter.saveResult(mTestId, mApplicantName, mTestTitle, score);
         showResults(score);
     }
 
@@ -197,12 +205,6 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     @Override
     public void onCancelRating() {
         saveResults();
-    }
-
-    private String generateResultId(){
-        @SuppressLint("SimpleDateFormat")
-        String currentTime = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
-        return mTestId + mApplicantName + currentTime;
     }
 
     @Override

@@ -8,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Query;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Result;
-import com.sergeyyaniuk.testity.firebase.FirestoreAdapter;
 
 import java.util.List;
 
@@ -21,10 +18,10 @@ import butterknife.ButterKnife;
 
 public class OnlineResultsAdapter extends RecyclerView.Adapter<OnlineResultsAdapter.ViewHolder> {
 
-    private List<Result> mResult;
+    private List<Result> mResults;
 
     public OnlineResultsAdapter(List<Result> results) {
-        this.mResult = results;
+        this.mResults = results;
     }
 
     @NonNull
@@ -37,24 +34,25 @@ public class OnlineResultsAdapter extends RecyclerView.Adapter<OnlineResultsAdap
 
     @Override
     public void onBindViewHolder(@NonNull OnlineResultsAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.mApplicantName.setText(mResult.get(i).getApplicantName());
-        viewHolder.mTestName.setText(mResult.get(i).getTestId());
-        viewHolder.mResultTV.setText(String.valueOf(mResult.get(i).getScore()));
-        viewHolder.mResultProgress.setProgress((int)mResult.get(i).getScore());
+        viewHolder.mApplicantName.setText(mResults.get(i).getApplicantName());
+        viewHolder.mTestName.setText(mResults.get(i).getUserName());
+        String result = String.valueOf(mResults.get(i).getScore()) + "%";
+        viewHolder.mResultTV.setText(result);
+        viewHolder.mDate.setText(mResults.get(i).getDate());
     }
 
     @Override
     public int getItemCount() {
-        return mResult.size();
+        return mResults.size();
     }
 
     public void removeResult(int position){
-        mResult.remove(position);
+        mResults.remove(position);
         notifyItemRemoved(position);
     }
 
     public Result getItem(int position) {
-        return mResult.get(position);
+        return mResults.get(position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder  {
@@ -67,9 +65,6 @@ public class OnlineResultsAdapter extends RecyclerView.Adapter<OnlineResultsAdap
 
         @BindView(R.id.date_tv)
         TextView mDate;
-
-        @BindView(R.id.result_progress_bar)
-        ProgressBar mResultProgress;
 
         @BindView(R.id.result_tv)
         TextView mResultTV;

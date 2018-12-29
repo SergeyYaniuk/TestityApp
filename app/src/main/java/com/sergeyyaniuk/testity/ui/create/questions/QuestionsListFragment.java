@@ -51,7 +51,7 @@ public class QuestionsListFragment extends Fragment {
         void onAddNewQuestion();
         void onTestCompleted();
         void onClickQuestion(String questionId);
-        void onSwipedQuestion(String questionId);
+        void onSwipedQuestion(String questionId, int position);
     }
 
     public QuestionsListFragment(){
@@ -114,12 +114,19 @@ public class QuestionsListFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
                 String questionId = mQuestionsAdapter.getItem(position).getId();
-                mListener.onSwipedQuestion(questionId);
-                mQuestionsAdapter.removeQuestion(position);
+                mListener.onSwipedQuestion(questionId, position);
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(questionsSwipeCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    public void removeQuestion(int position){
+        mQuestionsAdapter.removeQuestion(position);
+    }
+
+    public void notifyAdapterAboutChanges(){
+        mQuestionsAdapter.notifyDataSetChanged();
     }
 
     @Override

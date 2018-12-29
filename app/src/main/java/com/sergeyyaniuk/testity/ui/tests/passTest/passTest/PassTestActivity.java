@@ -3,8 +3,10 @@ package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,6 +42,12 @@ public class PassTestActivity extends BaseActivity {
 
     AnswerListAdapter mAdapter;
 
+    @BindView(R.id.pass_test_toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.toolbar_title)
+    TextView mTitle;
+
     @BindView(R.id.answers_rec_view)
     RecyclerView mAnswersRecView;
 
@@ -52,7 +60,10 @@ public class PassTestActivity extends BaseActivity {
     @BindView(R.id.test_progress)
     ProgressBar mTestProgress;
 
-    String mTestId, mApplicantName;
+    @BindView(R.id.question_layout)
+    ConstraintLayout mLayout;
+
+    String mTestId, mApplicantName, mTestTitle;
     private int mCurrentIndex;
     private int mCorrectAnswers;
     private int mNumberOfTries;
@@ -71,6 +82,10 @@ public class PassTestActivity extends BaseActivity {
         //get data from intent
         mTestId = getIntent().getStringExtra("test_id");
         mApplicantName = getIntent().getStringExtra("name");
+        mTestTitle = getIntent().getStringExtra("test_title");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mTitle.setText(mTestTitle);
         mPresenter.cleanTotalCorr();  //clean number of total correct answers
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
@@ -155,9 +170,7 @@ public class PassTestActivity extends BaseActivity {
     private void saveResults(){
         int totalCorrectAnswers = mPresenter.getNumberOfCorrect();
         double score = (mCorrectAnswers * 100) / totalCorrectAnswers;
-        String resultId = generateResultId();
-        Result result = new Result(resultId, mTestId, mApplicantName, score);
-        mPresenter.saveResult(result);
+        mPresenter.saveResult(mTestId, mApplicantName, mTestTitle, score);
         showResults(score);
     }
 
@@ -165,12 +178,6 @@ public class PassTestActivity extends BaseActivity {
         Intent intent = new Intent(PassTestActivity.this, EndTestActivity.class);
         intent.putExtra(KEY_SCORE, score);
         startActivity(intent);
-    }
-
-    private String generateResultId(){
-        @SuppressLint("SimpleDateFormat")
-        String currentTime = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
-        return mTestId + mApplicantName + currentTime;
     }
 
     @Override

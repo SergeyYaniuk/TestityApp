@@ -44,7 +44,7 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
     @BindView(R.id.find_test_toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.title_tv)
+    @BindView(R.id.toolbar_title)
     TextView mTitle;
 
     @BindView(R.id.find_rec_view)
@@ -65,7 +65,7 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         mPresenter.onCreate();
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mTitle.setText(R.string.find_test_o);
+        mTitle.setText(R.string.find_test_title);
         mQuery = mPresenter.getTopTestsList();
         initRecyclerView();
     }
@@ -157,10 +157,15 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
     }
 
     @Override
-    public void passTest(String testId) {
-        Intent intent = new Intent(FindListActivity.this, FStartTestActivity.class);
-        intent.putExtra(TEST_ID, testId);
-        startActivity(intent);
+    public void passTest(String testId, int numberOfQues, String testTitle) {
+        if (numberOfQues > 0){
+            Intent intent = new Intent(FindListActivity.this, FStartTestActivity.class);
+            intent.putExtra(TEST_ID, testId);
+            intent.putExtra(TEST_TITLE, testTitle);
+            startActivity(intent);
+        } else {
+            showToast(this, R.string.this_test_not_completed);
+        }
     }
 
     @Override

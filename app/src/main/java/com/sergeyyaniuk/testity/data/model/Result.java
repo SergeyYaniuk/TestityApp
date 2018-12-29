@@ -29,18 +29,28 @@ public class Result {
     @ColumnInfo(name = "score")
     private double score;
 
-    @Ignore
+    @ColumnInfo(name = "user_id")
     private String userId;
+
+    @ColumnInfo(name = "user_name")
+    private String userName;
+
+    @ColumnInfo(name = "date")
+    private String date;
 
     @Ignore
     public Result() {
     }
 
-    public Result(@NonNull String id, String testId, String applicantName, double score) {
+    public Result(@NonNull String id, String testId, String applicantName, double score, String userId,
+                  String userName, String date) {
         this.id = id;
         this.testId = testId;
         this.applicantName = applicantName;
         this.score = score;
+        this.userId = userId;
+        this.userName = userName;
+        this.date = date;
     }
 
     @NonNull
@@ -82,5 +92,21 @@ public class Result {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

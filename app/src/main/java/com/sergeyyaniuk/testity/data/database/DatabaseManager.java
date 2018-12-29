@@ -1,7 +1,5 @@
 package com.sergeyyaniuk.testity.data.database;
 
-import android.util.Log;
-
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Result;
@@ -17,8 +15,6 @@ import io.reactivex.Observable;
 
 @Singleton
 public class DatabaseManager {
-
-    public static final String TAG = "MyLog";
 
     private final TestityDatabase testityDatabase;
 
@@ -37,13 +33,10 @@ public class DatabaseManager {
     }
 
     public Observable<Boolean> insertTest(final Test test){
-        Log.d(TAG, "insertTest: start");
         return Observable.fromCallable(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                Log.d(TAG, "call: before interface");
                 testityDatabase.testDao().insert(test);
-                Log.d(TAG, "call: after interface");
                 return true;
             }
         });
@@ -189,6 +182,16 @@ public class DatabaseManager {
             @Override
             public List<Result> call() throws Exception {
                 return testityDatabase.resultDao().getResulstByTest(testId);
+            }
+        });
+    }
+
+    public Observable<Boolean> deleteResult(final String resultId){
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                testityDatabase.resultDao().deleteById(resultId);
+                return true;
             }
         });
     }

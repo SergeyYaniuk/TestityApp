@@ -42,7 +42,7 @@ public class OnlineResultsFragment extends Fragment {
     private Unbinder unbinder;
 
     public interface OnlineResultsListener{
-        void onOnlineResultDelete(String resultId);
+        void onOnlineResultDelete(String resultId, int position);
     }
 
     public OnlineResultsFragment(){
@@ -76,14 +76,24 @@ public class OnlineResultsFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 final int position = viewHolder.getAdapterPosition();
                 String resultId = mAdapter.getItem(position).getId();
-                mListener.onOnlineResultDelete(resultId);
-                mAdapter.removeResult(position);
+                mListener.onOnlineResultDelete(resultId, position);
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(resultsSwipeCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
+    public void hideProgressBar(){
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    public void removeResult(int position){
+        mAdapter.removeResult(position);
+    }
+
+    public void notifyAdapterAboutChanges(){
+        mAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(Context context) {

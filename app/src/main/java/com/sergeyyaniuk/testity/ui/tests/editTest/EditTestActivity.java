@@ -3,9 +3,9 @@ package com.sergeyyaniuk.testity.ui.tests.editTest;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -24,10 +24,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EditTestActivity extends BaseActivity implements EditTestFragment.EditTestFragListener,
-        EditListFragment.EditListListener, EditQuestionFragment.EditQuestionListener{
+        EditListFragment.EditListListener, EditQuestionFragment.EditQuestionListener,
+        EditDeleteQuesDialog.EditDeleteQuesListener {
 
     public static final String TEST_ID = "test_id";
     public static final String QUESTION_ID = "question_id";
+    public static final String QUES_POSITION = "ques_position";
 
     @Inject
     EditPresenter mPresenter;
@@ -35,8 +37,14 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
     @BindView(R.id.edit_test_toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.toolbar_title)
+    TextView mTitle;
+
     private String mTestId;
     boolean isTestOnline, isTestCompleted;
+
+    EditListFragment mEditListFragment;
+    EditTestFragment mEditTestFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,7 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         mPresenter.setTestId(mTestId);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mTitle.setText(R.string.edit_test);
         showEditTestFragment();
     }
 
@@ -60,19 +69,24 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
     }
 
     public void showEditTestFragment(){
-        EditTestFragment editTestFragment = new EditTestFragment();
+        mEditTestFragment = new EditTestFragment();
         Bundle arguments = new Bundle();
         arguments.putString(TEST_ID, mTestId);
-        editTestFragment.setArguments(arguments);
-        startTransaction(editTestFragment);
+        mEditTestFragment.setArguments(arguments);
+        startTransaction(mEditTestFragment);
+    }
+
+    public void closeEditTestFragment(){
+        if (mEditTestFragment != null)
+            getSupportFragmentManager().beginTransaction().remove(mEditTestFragment).commit();
     }
 
     public void showEditListFragment(){
-        EditListFragment editListFragment = new EditListFragment();
+        mEditListFragment = new EditListFragment();
         Bundle arguments = new Bundle();
         arguments.putString(TEST_ID, mTestId);
-        editListFragment.setArguments(arguments);
-        startTransaction(editListFragment);
+        mEditListFragment.setArguments(arguments);
+        startTransaction(mEditListFragment);
     }
 
     @Override
@@ -81,7 +95,7 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         mPresenter.updateTest(test);
     }
 
-    //addQuestion button in editListFragment
+    //addQuestion button in mEditListFragment
     @Override
     public void onAddNewQuestion() {
         EditQuestionFragment editQuestionFragment = new EditQuestionFragment();
@@ -107,9 +121,25 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
 
     //Swipe item of RecView in EditListFragment
     @Override
-    public void onSwipedQuestion(String questionId) {
+    public void onSwipedQuestion(String questionId, int position) {
+        EditDeleteQuesDialog dialog = new EditDeleteQuesDialog();
+        Bundle arguments = new Bundle();
+        arguments.putString(QUESTION_ID, questionId);
+        arguments.putInt(QUES_POSITION, position);
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "dialog_edit_del_question");
+    }
+
+    @Override
+    public void onConfirmDelete(String questionId, int position) {
         mPresenter.deleteQuestion(questionId, isTestOnline);
         mPresenter.deleteAnswerList(questionId, isTestOnline);
+        mEditListFragment.removeQuestion(position);
+    }
+
+    @Override
+    public void onCancelDelete() {
+        mEditListFragment.notifyAdapterAboutChanges();
     }
 
     public void startMyTestsActivity(){

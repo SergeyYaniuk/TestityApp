@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -46,6 +47,9 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     @BindView(R.id.my_tests_toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.toolbar_title)
+    TextView mTitle;
+
     @BindView(R.id.testsRecView)
     RecyclerView mRecyclerView;
 
@@ -62,6 +66,7 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
         //setup toolbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mTitle.setText(R.string.my_tests_title);
     }
 
     //invoke from presenter
@@ -120,11 +125,6 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     }
 
     @Override
-    public void onBackPressed() {
-        startActivity(new Intent(MyTestsActivity.this, MainActivity.class));
-    }
-
-    @Override
     public void onCancelDelete() {
         mAdapter.notifyDataSetChanged();
     }
@@ -137,14 +137,20 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     }
 
     @Override
-    public void passTest(String testId, int numberOfQuestions) {
+    public void passTest(String testId, int numberOfQuestions, String title) {
         if (numberOfQuestions > 0){
             Intent intent = new Intent(MyTestsActivity.this, StartTestActivity.class);
             intent.putExtra(TEST_ID, testId);
+            intent.putExtra(TEST_TITLE, title);
             startActivity(intent);
         } else {
             showToast(this, R.string.please_add_ques);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(MyTestsActivity.this, MainActivity.class));
     }
 
     @Override

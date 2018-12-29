@@ -41,7 +41,7 @@ public class FindDetailDialog extends BaseDialogNoTitle {
     int mNum_of_ques;
 
     public interface FindDetailListener{
-        void passTest(String testId);
+        void passTest(String testId, int numberOfQues, String testTitle);
     }
 
     public FindDetailDialog() {
@@ -75,7 +75,7 @@ public class FindDetailDialog extends BaseDialogNoTitle {
 
     @OnClick(R.id.pass_btn)
     public void onPassTest(){
-        mListener.passTest(mId);
+        mListener.passTest(mId, mNum_of_ques, mTitle);
         dismiss();
     }
 

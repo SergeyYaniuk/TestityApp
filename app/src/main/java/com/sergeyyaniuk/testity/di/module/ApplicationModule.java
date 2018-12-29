@@ -49,7 +49,7 @@ public class ApplicationModule {
     @Singleton
     TestityDatabase provideDatabase(@DatabaseInfo String databaseName, Context context){
         return Room.databaseBuilder(context, TestityDatabase.class, databaseName)
-                .fallbackToDestructiveMigration().build();
+                .addMigrations(TestityDatabase.MIGRATION_6_7).build();
     }
 
     @Provides

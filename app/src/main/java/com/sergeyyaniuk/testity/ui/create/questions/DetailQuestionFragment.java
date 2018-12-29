@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -33,6 +35,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class DetailQuestionFragment extends Fragment {
 
@@ -87,6 +91,7 @@ public class DetailQuestionFragment extends Fragment {
     private String mQuestionId, mTestId;
     private boolean isUpdating;
     private List<Answer> mAnswerList;
+    private int mNumberOfChecks;
 
     public interface DetailQuestionListener{
         void onAddEditQuestionCompleted(Question question, List<Answer> answers, boolean isUpdating);
@@ -161,6 +166,12 @@ public class DetailQuestionFragment extends Fragment {
         checkAddAnswer(mAnswer6EditText.getText().toString(), 6, mAnswer6Checkbox.isChecked());
         checkAddAnswer(mAnswer7EditText.getText().toString(), 7, mAnswer7Checkbox.isChecked());
         checkAddAnswer(mAnswer8EditText.getText().toString(), 8, mAnswer8Checkbox.isChecked());
+        if (mNumberOfChecks == 0){
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.check_correct_answer, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+            return;
+        }
         mListener.onAddEditQuestionCompleted(question, mAnswerList, isUpdating);
     }
 
@@ -170,6 +181,7 @@ public class DetailQuestionFragment extends Fragment {
             Answer answer = new Answer(answerId, answerText, isCorrect, mQuestionId);
             mAnswerList.add(answer);
         }
+        if (isCorrect && answerText.length() > 0) mNumberOfChecks += 1;
     }
 
     @OnClick(R.id.add_answer3)

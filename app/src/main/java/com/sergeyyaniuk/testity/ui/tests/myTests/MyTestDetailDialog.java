@@ -42,7 +42,7 @@ public class MyTestDetailDialog extends BaseDialogNoTitle {
 
     public interface MyTestDetailListener{
         void onEditTest(String testId);
-        void passTest(String testId, int numberOfQuestions);
+        void passTest(String testId, int numberOfQuestions, String title);
     }
 
     public MyTestDetailDialog() {
@@ -82,7 +82,7 @@ public class MyTestDetailDialog extends BaseDialogNoTitle {
 
     @OnClick(R.id.pass_btn)
     public void onPassTest(){
-        mListener.passTest(mId, mNum_of_ques);
+        mListener.passTest(mId, mNum_of_ques, mTitle);
         dismiss();
     }
 

@@ -50,6 +50,9 @@ public class Test {
     @ColumnInfo(name = "user_name")
     private String userName;
 
+    @ColumnInfo(name = "date")
+    private String date;
+
     @Ignore
     private int numRatings;
 
@@ -61,7 +64,7 @@ public class Test {
     }
 
     public Test(@NonNull String id, String title, String category, String language, String description, boolean isOnline,
-                int numberOfQuestions, String userId, String userName) {
+                int numberOfQuestions, String userId, String userName, String date) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -71,6 +74,7 @@ public class Test {
         this.numberOfQuestions = numberOfQuestions;
         this.userId = userId;
         this.userName = userName;
+        this.date = date;
     }
 
     @NonNull
@@ -144,6 +148,14 @@ public class Test {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getNumRatings() {

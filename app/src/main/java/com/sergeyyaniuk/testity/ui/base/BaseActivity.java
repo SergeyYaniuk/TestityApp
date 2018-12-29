@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.sergeyyaniuk.testity.R;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -39,7 +42,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showToast(Activity activity, Integer message){
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     public void showProgressDialog(){

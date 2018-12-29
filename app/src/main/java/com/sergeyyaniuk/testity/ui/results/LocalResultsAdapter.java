@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.R;
@@ -15,10 +14,10 @@ import java.util.List;
 
 public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapter.ViewHolder>{
 
-    private List<Result> mResult;
+    private List<Result> mResults;
 
     public LocalResultsAdapter(List<Result> results) {
-        this.mResult = results;
+        this.mResults = results;
     }
 
     @NonNull
@@ -31,37 +30,31 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.mApplicantName.setText(mResult.get(i).getApplicantName());
-        viewHolder.mTestName.setText(mResult.get(i).getTestId());
-        viewHolder.mResult.setText(String.valueOf(mResult.get(i).getScore()));
-        viewHolder.mResultProgress.setProgress((int)mResult.get(i).getScore());
+        viewHolder.mApplicantName.setText(mResults.get(i).getApplicantName());
+        viewHolder.mTestName.setText(mResults.get(i).getUserName());
+        String result = String.valueOf(mResults.get(i).getScore()) + "%";
+        viewHolder.mResult.setText(result);
+        viewHolder.mDate.setText(mResults.get(i).getDate());
     }
 
     @Override
     public int getItemCount() {
-        return mResult.size();
+        return mResults.size();
     }
 
     public void removeResult(int position){
-        mResult.remove(position);
+        mResults.remove(position);
         notifyItemRemoved(position);
     }
 
-    public void updateData(List<Result> results){
-        mResult.clear();
-        mResult.addAll(results);
-        notifyDataSetChanged();
-    }
-
     public Result getItem(int position) {
-        return mResult.get(position);
+        return mResults.get(position);
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView mApplicantName, mTestName, mDate, mResult;
-        ProgressBar mResultProgress;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,7 +62,6 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
             mTestName = itemView.findViewById(R.id.test_name_tv);
             mDate = itemView.findViewById(R.id.date_tv);
             mResult = itemView.findViewById(R.id.result_tv);
-            mResultProgress = itemView.findViewById(R.id.result_progress_bar);
         }
     }
 }

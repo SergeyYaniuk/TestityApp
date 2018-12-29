@@ -20,11 +20,12 @@ public class FStartTestActivity extends BaseActivity {
 
     public static final String TEST_ID = "test_id";
     public static final String NAME = "name";
+    public static final String TEST_TITLE = "test_title";
 
     @BindView(R.id.name_edit_text)
     EditText mNameEditText;
 
-    private String mTestId, mName;
+    private String mTestId, mName, mTestTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class FStartTestActivity extends BaseActivity {
         setContentView(R.layout.activity_fstart_test);
         ButterKnife.bind(this);
         mTestId = getIntent().getStringExtra("test_id");
+        mTestTitle = getIntent().getStringExtra("test_title");
     }
 
     @OnClick(R.id.start_test_btn)
@@ -43,6 +45,7 @@ public class FStartTestActivity extends BaseActivity {
         Intent intent = new Intent(FStartTestActivity.this, FPassTestActivity.class);
         intent.putExtra(TEST_ID, mTestId);
         intent.putExtra(NAME, mName);
+        intent.putExtra(TEST_TITLE, mTestTitle);
         startActivity(intent);
     }
 

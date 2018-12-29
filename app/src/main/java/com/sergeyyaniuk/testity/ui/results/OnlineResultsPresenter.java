@@ -1,14 +1,17 @@
 package com.sergeyyaniuk.testity.ui.results;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
+import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OnlineResultsPresenter extends BasePresenter {
@@ -31,8 +34,20 @@ public class OnlineResultsPresenter extends BasePresenter {
         mFirestore.getUserResults(userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Result> results = queryDocumentSnapshots.toObjects(Result.class);
+                List<Result> results = new ArrayList<>();
+                for (DocumentSnapshot document : queryDocumentSnapshots){
+                    Result result = new Result();
+                    result.setId(document.getString("id"));
+                    result.setUserId(document.getString("userId"));
+                    result.setApplicantName(document.getString("applicantName"));
+                    result.setScore(document.getDouble("score"));
+                    result.setTestId(document.getString("testId"));
+                    result.setUserName(document.getString("userName"));
+                    result.setDate(document.getString("date"));
+                    results.add(result);
+                }
                 mFragment.setRecyclerView(results);
+                mFragment.hideProgressBar();
             }
         });
     }

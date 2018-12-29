@@ -1,7 +1,7 @@
 package com.sergeyyaniuk.testity.ui.find.findPass.passTest;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,12 +16,12 @@ import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
 import com.sergeyyaniuk.testity.ui.base.BasePresenter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FPassTestPresenter extends BasePresenter {
-
-    private static final String TAG = "MyLog";
 
     private FPassTestActivity mActivity;
     private DatabaseManager mDatabase;
@@ -88,23 +88,23 @@ public class FPassTestPresenter extends BasePresenter {
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     int number = queryDocumentSnapshots.size();
                     mPrefHelper.addCorrAnswer(number);
-                    Log.d(TAG, "onSuccess: " + mPrefHelper.getNumOfCorAnsw());
                 }
             });
         }
     }
 
-    public void saveResult(Result result){
-        result.setUserId(getUserId());
+    public void saveResult(String testId, String applicantName, String testTitle, double score){
+        String userId = mPrefHelper.getCurrentUserId();
+        String date = getCurrentDate();
+        String resultId = testId + userId + getCurrentTime();
+        Result result = new Result(resultId, testId, applicantName, score, userId, testTitle, date);
         mFirestore.addResult(result).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "onSuccess: Successful");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: Error");
             }
         });
     }
@@ -119,5 +119,15 @@ public class FPassTestPresenter extends BasePresenter {
             public void onFailure(@NonNull Exception e) {
             }
         });
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String getCurrentDate(){
+        return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String getCurrentTime(){
+        return new SimpleDateFormat("yyMMddHHmmss").format(new Date());
     }
 }

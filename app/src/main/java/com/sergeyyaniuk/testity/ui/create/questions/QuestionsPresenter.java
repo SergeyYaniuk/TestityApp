@@ -89,8 +89,10 @@ public class QuestionsPresenter extends BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
-                    mActivity.showToast(mActivity, R.string.question_deleted);
-                }, throwable -> {}));
+                    mActivity.showToast(mActivity, R.string.question_is_deleted);
+                }, throwable -> {
+                    mActivity.showToast(mActivity, R.string.unable_delete_question);
+                }));
         if (isOnline){
             mFirestore.deleteQuestion(questionId).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
@@ -24,9 +23,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestionsActivity extends BaseActivity implements QuestionsListFragment.QuestionsListListener,
-        DetailQuestionFragment.DetailQuestionListener {
+        DetailQuestionFragment.DetailQuestionListener, DeleteQuestionDialog.DeleteQuestionListener {
 
     public static final String QUESTION_ID = "question_id";
+    public static final String QUES_POSITION = "ques_position";
 
     @BindView(R.id.questions_toolbar)
     Toolbar mToolbar;
@@ -39,6 +39,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
 
     String mTestTitle;
     boolean isTestOnline, isTestCompleted;
+
+    QuestionsListFragment mQuestionsListFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,14 +55,14 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
         //setup toolbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mTitleTV.setText(mTestTitle);
+        mTitleTV.setText(R.string.add_questions);
         showQuestionsListFragment();
     }
 
     public void showQuestionsListFragment(){
-        QuestionsListFragment questionsListFragment = new QuestionsListFragment();
+        mQuestionsListFragment = new QuestionsListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, questionsListFragment);
+        transaction.add(R.id.fragmentContainer, mQuestionsListFragment);
         transaction.disallowAddToBackStack();
         transaction.commit();
     }
@@ -98,9 +100,25 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     }
 
     @Override
-    public void onSwipedQuestion(String questionId) {
+    public void onSwipedQuestion(String questionId, int position) {
+        DeleteQuestionDialog dialog = new DeleteQuestionDialog();
+        Bundle arguments = new Bundle();
+        arguments.putString(QUESTION_ID, questionId);
+        arguments.putInt(QUES_POSITION, position);
+        dialog.setArguments(arguments);
+        dialog.show(getSupportFragmentManager(), "dialog_delete_question");
+    }
+
+    @Override
+    public void onConfirmDelete(String questionId, int position) {
         mPresenter.deleteQuestion(questionId, isTestOnline);
         mPresenter.deleteAnswerList(questionId, isTestOnline);
+        mQuestionsListFragment.removeQuestion(position);
+    }
+
+    @Override
+    public void onCancelDelete() {
+        mQuestionsListFragment.notifyAdapterAboutChanges();
     }
 
     @Override
