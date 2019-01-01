@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
@@ -66,6 +67,8 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
         //setup toolbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mTitle.setText(R.string.my_tests_title);
     }
 
@@ -151,6 +154,17 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     @Override
     public void onBackPressed() {
         startActivity(new Intent(MyTestsActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

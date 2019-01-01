@@ -52,6 +52,7 @@
     <string name="google_play_services_error">Google Play Services Error</string>
 
     <!--  CreateTestActivity test activity !-->
+    <string name="create_test_title">Create test</string>
     <string name="language">Language</string>
     <string name="iq">IQ</string>
     <string name="recruiting">Career/Recruiting</string>
@@ -84,6 +85,7 @@
     <string name="answer_7">Answer #7</string>
     <string name="answer_8">Answer #8</string>
     <string name="check_correct_answer">Check at least one correct answer</string>
+    <string name="did_not_specify_answer">You did not specify any answer</string>
 
     <string name="item_removed">Item was removed from the list</string>
     <string name="undo">UNDO</string>
@@ -98,7 +100,7 @@
     <string name="required">This field is required</string>
 
     <!-- MyTestsActivity !-->
-    <string name="my_tests_title">My tests</string>
+    <string name="my_tests_title">Your tests</string>
     <string name="edit_test">edit test</string>
     <string name="number_of_questions">number of questions</string>
     <string name="pass">Pass</string>

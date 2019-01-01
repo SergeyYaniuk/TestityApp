@@ -11,5 +11,6 @@
     <color name="black_50">#96000000</color>
     <color name="black30">#2a000000</color>
     <color name="light_blue">#e1f5fe</color>
+    <color name="blue_gray">#b0bec5</color>
     <color name="trans">#00000000</color>
 </resources>

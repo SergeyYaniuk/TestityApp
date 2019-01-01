@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
@@ -57,6 +58,8 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         mPresenter.setTestId(mTestId);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mTitle.setText(R.string.edit_test);
         showEditTestFragment();
     }
@@ -154,6 +157,17 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
             mPresenter.saveQuestion(question, isTestOnline);
         }
         mPresenter.saveAnswerList(answers, isTestOnline);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

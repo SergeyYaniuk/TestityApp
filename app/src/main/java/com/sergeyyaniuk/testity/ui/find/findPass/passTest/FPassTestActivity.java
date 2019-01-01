@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -86,6 +87,8 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
         mTestTitle = getIntent().getStringExtra("test_title");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mTitle.setText(mTestTitle);
         mPresenter.cleanTotalCorr();  //clean number of total correct answers
         if (savedInstanceState != null) {
@@ -205,6 +208,17 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     @Override
     public void onCancelRating() {
         saveResults();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

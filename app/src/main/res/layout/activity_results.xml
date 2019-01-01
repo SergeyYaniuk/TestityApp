@@ -10,7 +10,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:theme="@style/ActionBarTheme.AppBarOverlay"
@@ -20,8 +20,8 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/results_toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:gravity="center"
             app:popupTheme="@style/ActionBarTheme.PopupOverlay">
@@ -30,7 +30,16 @@
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAllCaps="true" />
+                android:layout_gravity="center"
+                android:background="@drawable/background_toolbar_text"
+                android:fontFamily="@font/raleway"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:textAllCaps="true"
+                android:textColor="@color/color_white"
+                android:textSize="16sp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -47,7 +56,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>
 
 
     <android.support.design.widget.BottomNavigationView

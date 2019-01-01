@@ -172,6 +172,12 @@ public class DetailQuestionFragment extends Fragment {
             toast.show();
             return;
         }
+        if (mAnswerList.size() == 0){
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.did_not_specify_answer, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+            return;
+        }
         mListener.onAddEditQuestionCompleted(question, mAnswerList, isUpdating);
     }
 

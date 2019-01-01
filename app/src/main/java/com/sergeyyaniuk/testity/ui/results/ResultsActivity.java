@@ -57,6 +57,8 @@ public class ResultsActivity extends BaseActivity implements LocalResultsFragmen
         setBottomNavListener();
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mTitle.setText(R.string.results);
     }
 
@@ -121,6 +123,17 @@ public class ResultsActivity extends BaseActivity implements LocalResultsFragmen
     @Override
     public void onCancelDelOnlineResult() {
         mOnlineFragment.notifyAdapterAboutChanges();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

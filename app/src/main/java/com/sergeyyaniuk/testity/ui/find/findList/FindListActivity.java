@@ -65,6 +65,8 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         mPresenter.onCreate();
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mTitle.setText(R.string.find_test_title);
         mQuery = mPresenter.getTopTestsList();
         initRecyclerView();
@@ -137,6 +139,9 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         switch (item.getItemId()){
             case R.id.sort_tests:
                 showFilterDialog();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

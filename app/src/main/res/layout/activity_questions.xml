@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/coordinatorLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -19,22 +18,30 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/questions_toolbar"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:gravity="center"
             app:popupTheme="@style/ActionBarTheme.PopupOverlay">
 
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@drawable/background_toolbar_text"
+                android:fontFamily="@font/raleway"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
                 android:textAllCaps="true"
-                android:id="@+id/toolbar_title" />
+                android:textColor="@color/color_white"
+                android:textSize="16sp" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_questions"/>
+    <include layout="@layout/content_questions" />
 
 </android.support.design.widget.CoordinatorLayout>

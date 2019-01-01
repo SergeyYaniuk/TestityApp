@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:padding="8dp"
-    android:background="@drawable/background_dialog"
-    android:elevation="16dp">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:padding="8dp"
         android:text="@string/delete_result"
+        android:textSize="20sp"
+        android:fontFamily="@font/raleway"
         android:textColor="@color/color_white"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@drawable/background_dialog"/>
 
-    <Button
-        android:id="@+id/confirm_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/confirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+        android:layout_marginTop="24dp"
+        android:gravity="end"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/cancel_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/cancel"
-        app:layout_constraintEnd_toStartOf="@+id/confirm_btn"
-        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:textColor="@color/color_white"
+            android:fontFamily="@font/raleway"
+            android:background="@drawable/button_blue"
+            android:text="@string/cancel"/>
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:textColor="@color/color_white"
+            android:fontFamily="@font/raleway"
+            android:background="@drawable/button_green"
+            android:text="@string/confirm"/>
+    </LinearLayout>
+
+</LinearLayout>

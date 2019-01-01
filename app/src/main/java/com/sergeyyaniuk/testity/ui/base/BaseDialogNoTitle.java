@@ -24,7 +24,7 @@ public class BaseDialogNoTitle extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.background_dialog);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.trans);
         return dialog;
     }
 
