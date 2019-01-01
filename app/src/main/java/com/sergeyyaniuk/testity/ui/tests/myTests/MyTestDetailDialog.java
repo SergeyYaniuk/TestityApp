@@ -74,7 +74,7 @@ public class MyTestDetailDialog extends BaseDialogNoTitle {
         descriptionTV.setText(mDescription);
     }
 
-    @OnClick(R.id.edit_test_btn)
+    @OnClick(R.id.edit_test_layout)
     public void onEditTest(){
         mListener.onEditTest(mId);
         dismiss();
