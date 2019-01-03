@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_white"
     tools:context=".ui.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -24,23 +25,38 @@
             app:titleTextColor="@android:color/white"
             app:popupTheme="@style/ActionBarTheme.PopupOverlay">
 
-            <ImageView
-                android:id="@+id/user_icon"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="4dp"
-                android:src="@drawable/user"/>
-
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:padding="4dp"
-                android:fontFamily="@font/source_sans"
-                android:textColor="@color/color_white"/>
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/user_icon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="1dp"
+                    android:background="@drawable/background_white_with_left_corners"
+                    android:src="@drawable/user_main"/>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:fontFamily="@font/raleway"
+                    android:background="@drawable/background_white_line_with_right_corners"
+                    android:textColor="@color/color_white"/>
+
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
@@ -86,7 +102,7 @@
                     android:id="@+id/create_test_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:fontFamily="@font/raleway_extra_b"
                     android:padding="4dp"
                     android:text="@string/create_test"
                     android:textColor="@color/color_white"
@@ -118,7 +134,7 @@
                     android:id="@+id/my_tests_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:fontFamily="@font/raleway_extra_b"
                     android:padding="4dp"
                     android:text="@string/my_tests"
                     android:textColor="@color/color_white"
@@ -161,7 +177,7 @@
                     android:id="@+id/results_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:fontFamily="@font/raleway_extra_b"
                     android:padding="4dp"
                     android:text="@string/results"
                     android:textColor="@color/color_white"
@@ -192,7 +208,7 @@
                     android:id="@+id/find_test_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:fontFamily="@font/raleway_extra_b"
                     android:padding="4dp"
                     android:text="@string/find_test"
                     android:textColor="@color/color_white"
@@ -234,7 +250,7 @@
                     android:id="@+id/invite_friend_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:fontFamily="@font/raleway_extra_b"
                     android:padding="4dp"
                     android:text="@string/invite_friends"
                     android:textColor="@color/color_white"
@@ -265,7 +281,7 @@
                     android:id="@+id/rateus_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:fontFamily="@font/raleway_extra_b"
                     android:padding="4dp"
                     android:text="@string/rate_us"
                     android:textColor="@color/color_white"

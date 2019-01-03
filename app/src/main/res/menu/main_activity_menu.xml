@@ -4,6 +4,6 @@
         android:id="@+id/sign_out"
         app:showAsAction="ifRoom"
         android:title="@string/sign_out"
-        android:icon="@drawable/logout_icon">
+        android:icon="@drawable/logout_white">
     </item>
 </menu>

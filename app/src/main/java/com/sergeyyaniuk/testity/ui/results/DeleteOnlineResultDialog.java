@@ -44,8 +44,8 @@ public class DeleteOnlineResultDialog extends BaseDialogNoTitle {
         return view;
     }
 
-    @OnClick(R.id.confirm_btn)
-    public void onConfirmDelete(){
+    @OnClick(R.id.ok_button)
+    public void onOkDelete(){
         mListener.onConfDelOnlineResult(mResultId, mPosition);
         dismiss();
     }

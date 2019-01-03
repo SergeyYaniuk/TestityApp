@@ -4,6 +4,6 @@
         android:id="@+id/sort_tests"
         app:showAsAction="ifRoom"
         android:title="@string/sort_tests"
-        android:icon="@drawable/ic_sort_24dp">
+        android:icon="@drawable/filter">
     </item>
 </menu>

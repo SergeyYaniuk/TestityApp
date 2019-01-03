@@ -152,9 +152,14 @@ public class Firestore {
         } if (filters.hasSortBy()) {
             query = query.orderBy(filters.getSortBy(), Query.Direction.DESCENDING);
         } if (filters.hasAuthor()){
-            query = query.whereEqualTo("userName", filters.getAuthor());
+            if (!filters.hasSortBy()){
+                query = query.whereEqualTo("userName", filters.getAuthor());
+                query = query.orderBy("avgRating", Query.Direction.DESCENDING);
+            } else {
+                query = query.whereEqualTo("userName", filters.getAuthor());
+            }
         }
-        return query = query.limit(LIMIT);
+        return query.limit(LIMIT);
     }
 
     public Query getQuestionList(String testId){

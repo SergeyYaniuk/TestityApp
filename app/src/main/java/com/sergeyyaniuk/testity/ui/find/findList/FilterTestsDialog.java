@@ -95,8 +95,8 @@ public class FilterTestsDialog extends BaseDialogNoTitle {
         return mAuthorET.getText().toString();
     }
 
-    @OnClick(R.id.button_search)
-    public void onSearchClicked() {
+    @OnClick(R.id.ok_button)
+    public void onOkClicked() {
         if (mFilterListener != null) {
             mFilterListener.onFilter(getFilters());
         }

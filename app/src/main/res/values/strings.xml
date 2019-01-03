@@ -6,7 +6,7 @@
     <string name="my_tests">TESTS</string>
     <string name="results">RESULTS</string>
     <string name="find_test">FIND</string>
-    <string name="invite_friends">INVITE FRIENDS</string>
+    <string name="invite_friends">INVITE FRIEND</string>
     <string name="rate_us">RATE US</string>
     <string name="sign_out">Sign Out</string>
     <string name="anonymous">Anonymous user</string>
@@ -105,7 +105,7 @@
     <string name="number_of_questions">number of questions</string>
     <string name="pass">Pass</string>
     <string name="back">Back</string>
-    <string name="test_deleted">Test deleted</string>
+    <string name="test_deleted">The test has been deleted</string>
     <string name="delete_test">Delete this test?</string>
     <string name="confirm">Confirm</string>
     <string name="please_add_ques">Please add questions to the test.</string>
@@ -141,10 +141,11 @@
     <string name="no_sorting">------</string>
     <string name="sort_by_rating">Sort by Rating</string>
     <string name="sort_by_popularity">Sort by Popularity</string>
-    <string name="by">By: </string>
+    <string name="created_by">Created by</string>
     <string name="author">Author</string>
     <string name="no_answers">Cannot load answers</string>
     <string name="this_test_not_completed">This test is not completed</string>
+    <string name="sort_by">Sort by</string>
 
     <!--FPassTestActivity !-->
     <string name="rate_test">Rate the test</string>

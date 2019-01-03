@@ -3,58 +3,77 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp"
-    android:background="@drawable/buttons_main_activity_pressed">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rate_test"
-        android:layout_margin="16dp"
-        android:textSize="28sp"
-        android:textColor="@color/color_white"/>
-
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:id="@+id/test_rating_bar"
-        style="@style/Widget.MaterialRatingBar.RatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"/>
+    android:layout_gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
+        android:paddingTop="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/background_dialog">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_bold"
+            android:textColor="@color/color_white"
+            android:textAllCaps="true"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="@string/rate_test" />
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_white"/>
 
-        <Button
-            android:id="@+id/cancel_button"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/test_rating_bar"
+            style="@style/Widget.MaterialRatingBar.RatingBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel"
-            android:layout_margin="8dp"
-            android:background="@color/light_blue"
-            android:textColor="@color/black_50"/>
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:elevation="8dp" />
 
-
-        <Button
-            android:id="@+id/apply_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:text="@string/apply"
-            android:background="@color/green"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:textColor="@color/color_white"
+            android:fontFamily="@font/raleway"
+            android:background="@drawable/button_blue"
+            android:text="@string/cancel"/>
+
+        <Button
+            android:id="@+id/ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:textColor="@color/color_white"
+            android:fontFamily="@font/raleway"
+            android:background="@drawable/button_green"
+            android:text="@string/ok"/>
+    </LinearLayout>
 </LinearLayout>

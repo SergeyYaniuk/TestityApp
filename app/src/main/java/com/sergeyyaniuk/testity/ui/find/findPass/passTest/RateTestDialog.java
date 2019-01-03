@@ -44,13 +44,13 @@ public class RateTestDialog extends BaseDialogNoTitle {
     }
 
     @OnClick(R.id.cancel_button)
-    public void onCancel(){
+    public void onCancelClicked(){
         mListener.onCancelRating();
         dismiss();
     }
 
-    @OnClick(R.id.apply_button)
-    public void onApply(){
+    @OnClick(R.id.ok_button)
+    public void onOkClicked(){
         mListener.onRateTest(mTestRatingBar.getRating());
         dismiss();
     }

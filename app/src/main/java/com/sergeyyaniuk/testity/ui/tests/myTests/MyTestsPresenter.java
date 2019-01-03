@@ -20,8 +20,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MyTestsPresenter extends BasePresenter {
 
-    private static final String TAG = "MyLog";
-
     private MyTestsActivity mActivity;
     private DatabaseManager mDatabase;
     private Firestore mFirestore;
@@ -57,12 +55,10 @@ public class MyTestsPresenter extends BasePresenter {
             mFirestore.deleteTest(testId).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "onSuccess: delete test");
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "onFailure: delete test");
                 }
             });
 
@@ -70,7 +66,6 @@ public class MyTestsPresenter extends BasePresenter {
             mFirestore.deleteQuestionList(testId).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Log.d(TAG, "onComplete: delete answers");
                 }
             });
         }
