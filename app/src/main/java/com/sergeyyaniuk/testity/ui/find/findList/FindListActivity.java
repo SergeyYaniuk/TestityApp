@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
     public static final String TEST_CATEGORY = "test_category";
     public static final String TEST_LANGUAGE = "test_language";
     public static final String TEST_NUM_OF_QUES = "number_of_questions";
+    public static final String TEST_DATE = "test_date";
+    public static final String TEST_AUTHOR = "test_author";
     public static final String TEST_DESCR = "test_description";
 
     @Inject
@@ -50,8 +53,8 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
     @BindView(R.id.find_rec_view)
     RecyclerView mTestRecView;
 
-    @BindView(R.id.loading_test_pb)
-    ProgressBar mLoadingTestsPB;
+    @BindView(R.id.loading_layout)
+    LinearLayout mLoadingLayout;
 
     TestAdapter mAdapter;
     private Query mQuery;
@@ -79,10 +82,10 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
             protected void onDataChanged() {
                 if (getItemCount() == 0) {
                     mTestRecView.setVisibility(View.GONE);
-                    mLoadingTestsPB.setVisibility(View.VISIBLE);
+                    mLoadingLayout.setVisibility(View.VISIBLE);
                 } else {
                     mTestRecView.setVisibility(View.VISIBLE);
-                    mLoadingTestsPB.setVisibility(View.GONE);
+                    mLoadingLayout.setVisibility(View.GONE);
                 }
             }
 
@@ -105,6 +108,8 @@ public class FindListActivity extends BaseActivity implements TestAdapter.OnTest
         arguments.putString(TEST_CATEGORY, testObj.getCategory());
         arguments.putString(TEST_LANGUAGE, testObj.getLanguage());
         arguments.putInt(TEST_NUM_OF_QUES, testObj.getNumberOfQuestions());
+        arguments.putString(TEST_DATE, testObj.getDate());
+        arguments.putString(TEST_AUTHOR, testObj.getUserName());
         arguments.putString(TEST_DESCR, testObj.getDescription());
 
         dialog.setArguments(arguments);

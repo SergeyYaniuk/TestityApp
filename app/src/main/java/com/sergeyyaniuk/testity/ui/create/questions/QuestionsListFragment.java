@@ -12,7 +12,10 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
@@ -38,11 +41,8 @@ public class QuestionsListFragment extends Fragment {
     @BindView(R.id.questionsRecView)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.add_question_button)
-    ImageButton mAddQuestionButton;
-
-    @BindView(R.id.saveActionButton)
-    FloatingActionButton saveTestButton;
+    @BindView(R.id.no_ques_textView)
+    TextView mNoQuesTextView;
 
     QuestionsListAdapter mQuestionsAdapter;
     QuestionsListListener mListener;
@@ -73,10 +73,14 @@ public class QuestionsListFragment extends Fragment {
 
     //invoke from presenter
     public void setRecyclerView(List<Question> questions){
+        mRecyclerView.setVisibility(View.VISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         mQuestionsAdapter = new QuestionsListAdapter(questions, questionClickListener);
         mRecyclerView.setAdapter(mQuestionsAdapter);
         enableSwipe();
+        if (questions.size() == 0){
+            mNoQuesTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -91,7 +95,7 @@ public class QuestionsListFragment extends Fragment {
         mListener = null;
     }
 
-    @OnClick(R.id.saveActionButton)
+    @OnClick(R.id.doneButton)
     public void saveTest(){
         mListener.onTestCompleted();
     }

@@ -3,6 +3,7 @@ package com.sergeyyaniuk.testity.ui.create.questions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.di.module.QuestionsListModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
+import com.sergeyyaniuk.testity.ui.main.MainActivity;
 import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
 
 import java.util.List;
@@ -24,7 +26,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class QuestionsActivity extends BaseActivity implements QuestionsListFragment.QuestionsListListener,
-        DetailQuestionFragment.DetailQuestionListener, DeleteQuestionDialog.DeleteQuestionListener {
+        DetailQuestionFragment.DetailQuestionListener, DeleteQuestionDialog.DeleteQuestionListener,
+        StopAddQuestionsDialog.StopAddQuestionsListener {
 
     public static final String QUESTION_ID = "question_id";
     public static final String QUES_POSITION = "ques_position";
@@ -39,8 +42,9 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     QuestionsPresenter mPresenter;
 
     String mTestTitle;
-    boolean isTestOnline, isTestCompleted;
+    boolean isTestOnline, isTestCompleted, isDetailFragment;
 
+    DetailQuestionFragment mDetailQuestionFragment;
     QuestionsListFragment mQuestionsListFragment;
 
     @Override
@@ -63,19 +67,25 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
     }
 
     public void showQuestionsListFragment(){
+        isDetailFragment = false;
         mQuestionsListFragment = new QuestionsListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragmentContainer, mQuestionsListFragment);
         transaction.disallowAddToBackStack();
         transaction.commit();
+        if (mDetailQuestionFragment != null)
+            getSupportFragmentManager().beginTransaction().remove(mDetailQuestionFragment).commit();
     }
 
     public void showDetailQuestionFragment(){
-        DetailQuestionFragment detailQuestionFragment = new DetailQuestionFragment();
+        isDetailFragment = true;
+        mDetailQuestionFragment = new DetailQuestionFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, detailQuestionFragment);
+        transaction.replace(R.id.fragmentContainer, mDetailQuestionFragment);
         transaction.disallowAddToBackStack();
         transaction.commit();
+        if (mQuestionsListFragment != null)
+            getSupportFragmentManager().beginTransaction().remove(mQuestionsListFragment).commit();
     }
 
 
@@ -92,12 +102,13 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
 
     @Override
     public void onClickQuestion(String questionId) {
-        DetailQuestionFragment detailQuestionFragment = new DetailQuestionFragment();
+        isDetailFragment = true;
+        mDetailQuestionFragment = new DetailQuestionFragment();
         Bundle arguments = new Bundle();
         arguments.putString(QUESTION_ID, questionId);
-        detailQuestionFragment.setArguments(arguments);
+        mDetailQuestionFragment.setArguments(arguments);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, detailQuestionFragment);
+        transaction.replace(R.id.fragmentContainer, mDetailQuestionFragment);
         transaction.disallowAddToBackStack();
         transaction.commit();
     }
@@ -147,6 +158,22 @@ public class QuestionsActivity extends BaseActivity implements QuestionsListFrag
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isDetailFragment){
+            showQuestionsListFragment();
+        } else {
+            FragmentManager fm = getSupportFragmentManager();
+            StopAddQuestionsDialog stopAddQuestionsDialog = new StopAddQuestionsDialog();
+            stopAddQuestionsDialog.show(fm, "StopAddQuestionsDialog");
+        }
+    }
+
+    @Override
+    public void onStopAddQuestions() {
+        startActivity(new Intent(QuestionsActivity.this, MyTestsActivity.class));
     }
 
     @Override

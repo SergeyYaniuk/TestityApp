@@ -10,10 +10,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.sergeyyaniuk.testity.App;
@@ -35,8 +37,8 @@ public class EditTestFragment extends Fragment {
     @Inject
     EditTestFragPresenter mPresenter;
 
-    @BindView(R.id.titleTextInputLayout)
-    TextInputLayout mTitleEditText;
+    @BindView(R.id.titleEditText)
+    EditText mTitleEditText;
 
     @BindView(R.id.category_spinner)
     Spinner mCategorySpinner;
@@ -47,11 +49,8 @@ public class EditTestFragment extends Fragment {
     @BindView(R.id.is_online_checkbox)
     CheckBox mIsOnlineCheckBox;
 
-    @BindView(R.id.descriptionTextInputLayout)
-    TextInputLayout mDescriptionEditText;
-
-    @BindView(R.id.edit_questions_button)
-    Button aditQuestionsButton;
+    @BindView(R.id.descriptionEditText)
+    EditText mDescriptionEditText;
 
     String mTestId, mTitle, mCategory, mLanguage, mDescription;
     boolean isOnline = true;
@@ -128,12 +127,13 @@ public class EditTestFragment extends Fragment {
         mTest.setOnline(isOnline);
         mTest.setDescription(mDescription);
         mListener.onEditTestFragCompleted(mTest);
+        hideKeyboard();
     }
 
     public void enterDataToLayout(Test test){
         mTest = test;
-        mTitleEditText.getEditText().setText(test.getTitle());
-        mDescriptionEditText.getEditText().setText(test.getDescription());
+        mTitleEditText.setText(test.getTitle());
+        mDescriptionEditText.setText(test.getDescription());
         mIsOnlineCheckBox.setChecked(test.isOnline());
         String category = test.getCategory();
         String language = test.getLanguage();
@@ -160,7 +160,7 @@ public class EditTestFragment extends Fragment {
     private boolean validateForm(){
         boolean valid = true;
 
-        mTitle = mTitleEditText.getEditText().getText().toString();
+        mTitle = mTitleEditText.getText().toString();
         if (TextUtils.isEmpty(mTitle)) {
             mTitleEditText.setError(getString(R.string.required));
             valid = false;
@@ -168,7 +168,7 @@ public class EditTestFragment extends Fragment {
             mTitleEditText.setError(null);
         }
 
-        mDescription = mDescriptionEditText.getEditText().getText().toString();
+        mDescription = mDescriptionEditText.getText().toString();
         if (TextUtils.isEmpty(mDescription)) {
             mDescriptionEditText.setError(getString(R.string.required));
             valid = false;
@@ -176,6 +176,14 @@ public class EditTestFragment extends Fragment {
             mDescriptionEditText.setError(null);
         }
         return valid;
+    }
+
+    private void hideKeyboard(){
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override

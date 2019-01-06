@@ -31,13 +31,19 @@ public class FindDetailDialog extends BaseDialogNoTitle {
     @BindView(R.id.number_of_ques_tv)
     TextView numberOfQuesTV;
 
+    @BindView(R.id.date_tv)
+    TextView dateTV;
+
+    @BindView(R.id.author_tv)
+    TextView authorTV;
+
     @BindView(R.id.description_tv)
     TextView descriptionTV;
 
     private Unbinder unbinder;
     FindDetailListener mListener;
 
-    String mId, mTitle, mCategory, mLanguage, mDescription;
+    String mId, mTitle, mCategory, mLanguage, mDate, mAuthor, mDescription;
     int mNum_of_ques;
 
     public interface FindDetailListener{
@@ -64,12 +70,16 @@ public class FindDetailDialog extends BaseDialogNoTitle {
             mCategory = arguments.getString(FindListActivity.TEST_CATEGORY);
             mLanguage = arguments.getString(FindListActivity.TEST_LANGUAGE);
             mNum_of_ques = arguments.getInt(FindListActivity.TEST_NUM_OF_QUES);
+            mDate = arguments.getString(FindListActivity.TEST_DATE);
+            mAuthor = arguments.getString(FindListActivity.TEST_AUTHOR);
             mDescription = arguments.getString(FindListActivity.TEST_DESCR);
         }
         titleTV.setText(mTitle);
         categoryTV.setText(mCategory);
         languageTV.setText(mLanguage);
         numberOfQuesTV.setText(String.valueOf(mNum_of_ques));
+        dateTV.setText(mDate);
+        authorTV.setText(mAuthor);
         descriptionTV.setText(mDescription);
     }
 

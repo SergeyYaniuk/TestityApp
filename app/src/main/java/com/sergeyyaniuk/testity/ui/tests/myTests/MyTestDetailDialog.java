@@ -31,13 +31,16 @@ public class MyTestDetailDialog extends BaseDialogNoTitle {
     @BindView(R.id.number_of_ques_tv)
     TextView numberOfQuesTV;
 
+    @BindView(R.id.date_tv)
+    TextView dateTV;
+
     @BindView(R.id.description_tv)
     TextView descriptionTV;
 
     private Unbinder unbinder;
     MyTestDetailListener mListener;
 
-    String mId, mTitle, mCategory, mLanguage, mDescription;
+    String mId, mTitle, mCategory, mLanguage, mDate, mDescription;
     int mNum_of_ques;
 
     public interface MyTestDetailListener{
@@ -65,12 +68,14 @@ public class MyTestDetailDialog extends BaseDialogNoTitle {
             mCategory = arguments.getString(MyTestsActivity.TEST_CATEGORY);
             mLanguage = arguments.getString(MyTestsActivity.TEST_LANGUAGE);
             mNum_of_ques = arguments.getInt(MyTestsActivity.TEST_NUM_OF_QUES);
+            mDate = arguments.getString(MyTestsActivity.TEST_DATE);
             mDescription = arguments.getString(MyTestsActivity.TEST_DESCR);
         }
         titleTV.setText(mTitle);
         categoryTV.setText(mCategory);
         languageTV.setText(mLanguage);
         numberOfQuesTV.setText(String.valueOf(mNum_of_ques));
+        dateTV.setText(mDate);
         descriptionTV.setText(mDescription);
     }
 

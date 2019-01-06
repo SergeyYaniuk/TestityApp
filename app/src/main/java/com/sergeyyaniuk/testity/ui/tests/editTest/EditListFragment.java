@@ -116,7 +116,7 @@ public class EditListFragment extends Fragment {
         mQuestionsAdapter.notifyDataSetChanged();
     }
 
-    @OnClick(R.id.saveActionButton)
+    @OnClick(R.id.doneButton)
     public void saveTest(){
         mListener.onTestCompleted();
     }

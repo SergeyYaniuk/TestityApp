@@ -1,72 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-    android:padding="8dp"
-    android:background="@color/light_blue"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:orientation="vertical"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/background_blue_with_white_line">
 
-    <TextView
-        android:id="@+id/applicant_name_tv"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Sergey Yaniuk"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/result_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/test_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Android development test"
-        app:layout_constraintEnd_toStartOf="@+id/date_tv"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applicant_name_tv" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:padding="2dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/date_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="08.06.1988"
-        app:layout_constraintEnd_toStartOf="@+id/result_layout"
-        app:layout_constraintTop_toBottomOf="@+id/applicant_name_tv" />
+            <TextView
+                android:id="@+id/applicant_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:fontFamily="@font/raleway"
+                android:textColor="@color/color_white"
+                android:text="Sergey Yaniuk"
+                android:textSize="18sp"/>
 
-    <FrameLayout
-        android:id="@+id/result_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/buttons_main_activity_not_pressed"
-        app:layout_constraintVertical_bias="0.0">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_white"/>
 
-        <TextView
-            android:id="@+id/result_tv"
-            android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/test_name_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/background_blue_with_white_line"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/category_label_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway"
+                    android:text="@string/test_name"
+                    android:textAllCaps="true"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/test_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_two_corners"
+                    android:fontFamily="@font/raleway"
+                    android:text="Android development test"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/time_spent_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/background_blue_with_white_line"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/time_spent_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway"
+                    android:text="@string/time_spent"
+                    android:textAllCaps="true"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/time_spent_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_two_corners"
+                    android:fontFamily="@font/raleway"
+                    android:text="42 min"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/date_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/background_blue_with_white_line"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/date_label_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway"
+                    android:text="@string/date"
+                    android:textAllCaps="true"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_two_corners"
+                    android:fontFamily="@font/raleway"
+                    android:text="22-01-2019"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:padding="15dp"
-            android:text="100%" />
-    </FrameLayout>
+            android:layout_margin="4dp"
+            android:layout_gravity="center">
 
-</android.support.constraint.ConstraintLayout>
+            <ProgressBar
+                android:id="@+id/result_progress"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="100"/>
+
+            <TextView
+                android:id="@+id/result_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:fontFamily="@font/raleway_bold"
+                android:padding="8dp"
+                android:text="100%" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.sergeyyaniuk.testity.ui.tests.editTest;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.EditTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
+import com.sergeyyaniuk.testity.ui.create.questions.StopAddQuestionsDialog;
 import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
 
 import java.util.List;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class EditTestActivity extends BaseActivity implements EditTestFragment.EditTestFragListener,
         EditListFragment.EditListListener, EditQuestionFragment.EditQuestionListener,
-        EditDeleteQuesDialog.EditDeleteQuesListener {
+        EditDeleteQuesDialog.EditDeleteQuesListener, StopEditingTestDialog.StopEditingTestListener {
 
     public static final String TEST_ID = "test_id";
     public static final String QUESTION_ID = "question_id";
@@ -42,10 +44,11 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
     TextView mTitle;
 
     private String mTestId;
-    boolean isTestOnline, isTestCompleted;
+    boolean isTestOnline, isTestCompleted, isDetailQuesFrag;
 
     EditListFragment mEditListFragment;
     EditTestFragment mEditTestFragment;
+    EditQuestionFragment mEditQuestionFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,17 +82,32 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
         startTransaction(mEditTestFragment);
     }
 
-    public void closeEditTestFragment(){
+    private void closeEditTestFragment(){
         if (mEditTestFragment != null)
             getSupportFragmentManager().beginTransaction().remove(mEditTestFragment).commit();
     }
 
+    private void closeEditListFragment(){
+        if (mEditListFragment != null){
+            getSupportFragmentManager().beginTransaction().remove(mEditListFragment).commit();
+        }
+    }
+
+    private void closeEditQuestionFragment(){
+        if (mEditQuestionFragment != null){
+            getSupportFragmentManager().beginTransaction().remove(mEditQuestionFragment).commit();
+        }
+    }
+
     public void showEditListFragment(){
+        isDetailQuesFrag = false;
         mEditListFragment = new EditListFragment();
         Bundle arguments = new Bundle();
         arguments.putString(TEST_ID, mTestId);
         mEditListFragment.setArguments(arguments);
         startTransaction(mEditListFragment);
+        closeEditTestFragment();
+        closeEditQuestionFragment();
     }
 
     @Override
@@ -101,8 +119,10 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
     //addQuestion button in mEditListFragment
     @Override
     public void onAddNewQuestion() {
-        EditQuestionFragment editQuestionFragment = new EditQuestionFragment();
-        startTransaction(editQuestionFragment);
+        isDetailQuesFrag = true;
+        mEditQuestionFragment = new EditQuestionFragment();
+        startTransaction(mEditQuestionFragment);
+        closeEditListFragment();
     }
 
     //onCompleted button in EditListFragment
@@ -115,11 +135,13 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
     //onClick on RecView item in EditListFragment
     @Override
     public void onClickQuestion(String questionId) {
-        EditQuestionFragment editQuestionFragment = new EditQuestionFragment();
+        isDetailQuesFrag = true;
+        mEditQuestionFragment = new EditQuestionFragment();
         Bundle arguments = new Bundle();
         arguments.putString(QUESTION_ID, questionId);
-        editQuestionFragment.setArguments(arguments);
-        startTransaction(editQuestionFragment);
+        mEditQuestionFragment.setArguments(arguments);
+        startTransaction(mEditQuestionFragment);
+        closeEditTestFragment();
     }
 
     //Swipe item of RecView in EditListFragment
@@ -168,6 +190,22 @@ public class EditTestActivity extends BaseActivity implements EditTestFragment.E
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isDetailQuesFrag){
+            showEditListFragment();
+        } else {
+            FragmentManager fm = getSupportFragmentManager();
+            StopEditingTestDialog stopEditingTestDialog = new StopEditingTestDialog();
+            stopEditingTestDialog.show(fm, "StopEditingTestDialog");
+        }
+    }
+
+    @Override
+    public void onStopEditingTest() {
+        super.onBackPressed();
     }
 
     @Override

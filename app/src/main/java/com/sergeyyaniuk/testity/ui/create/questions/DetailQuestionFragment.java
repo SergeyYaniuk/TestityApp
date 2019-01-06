@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,15 +49,6 @@ public class DetailQuestionFragment extends Fragment {
 
     @BindView(R.id.question_editText) EditText mQuestionEditText;
 
-    @BindView(R.id.answer1TextInputLayout) TextInputLayout mAnswer1Layout;
-    @BindView(R.id.answer2TextInputLayout) TextInputLayout mAnswer2Layout;
-    @BindView(R.id.answer3TextInputLayout) TextInputLayout mAnswer3Layout;
-    @BindView(R.id.answer4TextInputLayout) TextInputLayout mAnswer4Layout;
-    @BindView(R.id.answer5TextInputLayout) TextInputLayout mAnswer5Layout;
-    @BindView(R.id.answer6TextInputLayout) TextInputLayout mAnswer6Layout;
-    @BindView(R.id.answer7TextInputLayout) TextInputLayout mAnswer7Layout;
-    @BindView(R.id.answer8TextInputLayout) TextInputLayout mAnswer8Layout;
-
     @BindView(R.id.answer1_checkbox) CheckBox mAnswer1Checkbox;
     @BindView(R.id.answer2_checkbox) CheckBox mAnswer2Checkbox;
     @BindView(R.id.answer3_checkbox) CheckBox mAnswer3Checkbox;
@@ -74,19 +66,6 @@ public class DetailQuestionFragment extends Fragment {
     @BindView(R.id.answer6_editText) EditText mAnswer6EditText;
     @BindView(R.id.answer7_editText) EditText mAnswer7EditText;
     @BindView(R.id.answer8_editText) EditText mAnswer8EditText;
-
-    @BindView(R.id.add_answer3) ImageButton addAnswer3Button;
-    @BindView(R.id.add_answer4) ImageButton addAnswer4Button;
-    @BindView(R.id.add_answer5) ImageButton addAnswer5Button;
-    @BindView(R.id.add_answer6) ImageButton addAnswer6Button;
-    @BindView(R.id.add_answer7) ImageButton addAnswer7Button;
-    @BindView(R.id.add_answer8) ImageButton addAnswer8Button;
-
-    @BindView(R.id.button4Layout) LinearLayout button4Layout;
-    @BindView(R.id.button5Layout) LinearLayout button5Layout;
-    @BindView(R.id.button6Layout) LinearLayout button6Layout;
-    @BindView(R.id.button7Layout) LinearLayout button7Layout;
-    @BindView(R.id.button8Layout) LinearLayout button8Layout;
 
     private String mQuestionId, mTestId;
     private boolean isUpdating;
@@ -128,31 +107,26 @@ public class DetailQuestionFragment extends Fragment {
     
     //set answers test if exist
     public void loadAnswerData(List<Answer> answers){
-        setAnswerData(answers,0, mAnswer1EditText, mAnswer1Checkbox, mAnswer1Layout, null);
-        setAnswerData(answers,1, mAnswer2EditText, mAnswer2Checkbox, mAnswer2Layout, null);
-        setAnswerData(answers,2, mAnswer3EditText, mAnswer3Checkbox, mAnswer3Layout, button4Layout);
-        setAnswerData(answers,3, mAnswer4EditText, mAnswer4Checkbox, mAnswer4Layout, button5Layout);
-        setAnswerData(answers,4, mAnswer5EditText, mAnswer5Checkbox, mAnswer5Layout, button6Layout);
-        setAnswerData(answers,5, mAnswer6EditText, mAnswer6Checkbox, mAnswer6Layout, button7Layout);
-        setAnswerData(answers,6, mAnswer7EditText, mAnswer7Checkbox, mAnswer7Layout, button8Layout);
-        setAnswerData(answers,7, mAnswer8EditText, mAnswer8Checkbox, mAnswer8Layout, null);
+        setAnswerData(answers,0, mAnswer1EditText, mAnswer1Checkbox);
+        setAnswerData(answers,1, mAnswer2EditText, mAnswer2Checkbox);
+        setAnswerData(answers,2, mAnswer3EditText, mAnswer3Checkbox);
+        setAnswerData(answers,3, mAnswer4EditText, mAnswer4Checkbox);
+        setAnswerData(answers,4, mAnswer5EditText, mAnswer5Checkbox);
+        setAnswerData(answers,5, mAnswer6EditText, mAnswer6Checkbox);
+        setAnswerData(answers,6, mAnswer7EditText, mAnswer7Checkbox);
+        setAnswerData(answers,7, mAnswer8EditText, mAnswer8Checkbox);
     }
 
-    private void setAnswerData(List<Answer> answers, int index, EditText editText, CheckBox checkBox,
-                               TextInputLayout editTextLayout, LinearLayout buttonLayout){
+    private void setAnswerData(List<Answer> answers, int index, EditText editText, CheckBox checkBox){
         if (index < answers.size()){
             Answer answer = answers.get(index);
             editText.setText(answer.getAnswerText());
             checkBox.setChecked(answer.isCorrect());
-            editTextLayout.setVisibility(View.VISIBLE);
-            if (buttonLayout != null){
-                buttonLayout.setVisibility(View.VISIBLE);
-            }
         }
     }
 
-    @OnClick(R.id.saveQuestionButton)
-    public void onSaveQuestion(){
+    @OnClick(R.id.doneButton)
+    public void onDoneButton(){
         if (isQuestionEmpty(mQuestionEditText)){
             return;
         }
@@ -166,18 +140,19 @@ public class DetailQuestionFragment extends Fragment {
         checkAddAnswer(mAnswer6EditText.getText().toString(), 6, mAnswer6Checkbox.isChecked());
         checkAddAnswer(mAnswer7EditText.getText().toString(), 7, mAnswer7Checkbox.isChecked());
         checkAddAnswer(mAnswer8EditText.getText().toString(), 8, mAnswer8Checkbox.isChecked());
-        if (mNumberOfChecks == 0){
-            Toast toast = Toast.makeText(getApplicationContext(), R.string.check_correct_answer, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.show();
-            return;
-        }
         if (mAnswerList.size() == 0){
             Toast toast = Toast.makeText(getApplicationContext(), R.string.did_not_specify_answer, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
             return;
         }
+        if (mNumberOfChecks == 0){
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.check_correct_answer, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+            return;
+        }
+        hideKeyboard();
         mListener.onAddEditQuestionCompleted(question, mAnswerList, isUpdating);
     }
 
@@ -189,42 +164,6 @@ public class DetailQuestionFragment extends Fragment {
         }
         if (isCorrect && answerText.length() > 0) mNumberOfChecks += 1;
     }
-
-    @OnClick(R.id.add_answer3)
-    public void setAnswer3Visible(){
-        mAnswer3Layout.setVisibility(View.VISIBLE);
-        button4Layout.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.add_answer4)
-    public void setAnswer4Visible(){
-        mAnswer4Layout.setVisibility(View.VISIBLE);
-        button5Layout.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.add_answer5)
-    public void setAnswer5Visible(){
-        mAnswer5Layout.setVisibility(View.VISIBLE);
-        button6Layout.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.add_answer6)
-    public void setAnswer6Visible(){
-        mAnswer6Layout.setVisibility(View.VISIBLE);
-        button7Layout.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.add_answer7)
-    public void setAnswer7Visible(){
-        mAnswer7Layout.setVisibility(View.VISIBLE);
-        button8Layout.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.add_answer8)
-    public void setAnswer8Visible(){
-        mAnswer8Layout.setVisibility(View.VISIBLE);
-    }
-
 
     private boolean isQuestionEmpty(EditText questionET){
         boolean isEmpty;
@@ -243,6 +182,14 @@ public class DetailQuestionFragment extends Fragment {
         @SuppressLint("SimpleDateFormat")
         String currentDateAndTime = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
         return mPresenter.getTestId() + currentDateAndTime;
+    }
+
+    private void hideKeyboard(){
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override

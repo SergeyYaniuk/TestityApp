@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.sergeyyaniuk.testity.R;
@@ -30,8 +30,8 @@ public class CreateTestFragment extends Fragment {
     private Unbinder unbinder;
     CreateTestListener mListener;
 
-    @BindView(R.id.titleTextInputLayout)
-    TextInputLayout mTitleEditText;
+    @BindView(R.id.titleEditText)
+    EditText mTitleEditText;
 
     @BindView(R.id.category_spinner)
     Spinner mCategorySpinner;
@@ -42,8 +42,8 @@ public class CreateTestFragment extends Fragment {
     @BindView(R.id.is_online_checkbox)
     CheckBox mIsOnlineCheckBox;
 
-    @BindView(R.id.descriptionTextInputLayout)
-    TextInputLayout mDescriptionEditText;
+    @BindView(R.id.descriptionEditText)
+    EditText mDescriptionEditText;
 
     @BindView(R.id.add_questions_button)
     Button addQuestionsButton;
@@ -114,7 +114,7 @@ public class CreateTestFragment extends Fragment {
     private boolean validateForm(){
         boolean valid = true;
 
-        mTitle = mTitleEditText.getEditText().getText().toString();
+        mTitle = mTitleEditText.getText().toString();
         if (TextUtils.isEmpty(mTitle)) {
             mTitleEditText.setError(getString(R.string.required));
             valid = false;
@@ -122,7 +122,7 @@ public class CreateTestFragment extends Fragment {
             mTitleEditText.setError(null);
         }
 
-        mDescription = mDescriptionEditText.getEditText().getText().toString();
+        mDescription = mDescriptionEditText.getText().toString();
         if (TextUtils.isEmpty(mDescription)) {
             mDescriptionEditText.setError(getString(R.string.required));
             valid = false;

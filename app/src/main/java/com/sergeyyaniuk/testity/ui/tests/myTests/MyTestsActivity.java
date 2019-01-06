@@ -35,6 +35,7 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
     public static final String TEST_CATEGORY = "test_category";
     public static final String TEST_LANGUAGE = "test_language";
     public static final String TEST_NUM_OF_QUES = "number_of_questions";
+    public static final String TEST_DATE = "date";
     public static final String TEST_DESCR = "test_description";
 
     public static final String POSITION = "position";
@@ -93,6 +94,7 @@ public class MyTestsActivity extends BaseActivity implements MyTestDetailDialog.
             arguments.putString(TEST_CATEGORY, test.getCategory());
             arguments.putString(TEST_LANGUAGE, test.getLanguage());
             arguments.putInt(TEST_NUM_OF_QUES, test.getNumberOfQuestions());
+            arguments.putString(TEST_DATE, test.getDate());
             arguments.putString(TEST_DESCR, test.getDescription());
 
             testDetailDialog.setArguments(arguments);

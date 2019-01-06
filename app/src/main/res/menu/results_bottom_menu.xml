@@ -5,13 +5,13 @@
         android:id="@+id/action_local_results"
         android:enabled="true"
         android:title="@string/local_results"
-        android:icon="@drawable/home_white_24dp"
+        android:icon="@drawable/local_results"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_online_results"
         android:enabled="true"
         android:title="@string/online_results"
-        android:icon="@drawable/online_results_24dp"
+        android:icon="@drawable/online_results"
         app:showAsAction="ifRoom" />
 
 </menu>

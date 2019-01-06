@@ -1,408 +1,483 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary">
+    android:background="@color/gray">
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="72dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <EditText
+                android:id="@+id/question_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/questionTextInputLayout"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:background="@drawable/background_edit_text">
-
-                <EditText
-                    android:id="@+id/question_editText"
-                    android:hint="@string/type_your_question"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/explanation_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/explanation"
-                android:textColor="@color/color_white"
-                android:layout_marginTop="16dp"
+                android:background="@drawable/background_white_with_corners"
+                android:cursorVisible="true"
+                android:elevation="8dp"
+                android:fontFamily="@font/raleway"
+                android:hint="@string/type_your_question"
+                android:imeOptions="actionNext"
+                android:inputType="text|textMultiLine"
+                android:paddingStart="16dp"
                 android:paddingTop="8dp"
+                android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                android:elevation="4dp"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="16sp"
+                android:textStyle="italic" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/light_blue" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer1TextInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text">
+                android:orientation="vertical"
+                android:layout_marginTop="32dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer1_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer1_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer1_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_bottom_corners"
+                    android:cursorVisible="true"
+                    android:fontFamily="@font/raleway"
                     android:hint="@string/answer_1"
                     android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer2TextInputLayout"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer2_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer2_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer2_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_bottom_corners"
+                    android:cursorVisible="true"
+                    android:fontFamily="@font/raleway"
                     android:hint="@string/answer_2"
                     android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/button3Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_button_add">
-
-                <ImageButton
-                    android:id="@+id/add_answer3"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/add_button"
-                    android:background="@color/trans"/>
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer3TextInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text"
-                android:visibility="gone">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer3_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer3_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer3_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_bottom_corners"
+                    android:cursorVisible="true"
+                    android:fontFamily="@font/raleway"
                     android:hint="@string/answer_3"
                     android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/button4Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="4dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:background="@drawable/background_button_add">
-
-                <ImageButton
-                    android:id="@+id/add_answer4"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/add_button"
-                    android:background="@color/trans"/>
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer4TextInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text"
-                android:visibility="gone">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer4_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer4_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer4_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_bottom_corners"
+                    android:cursorVisible="true"
+                    android:fontFamily="@font/raleway"
                     android:hint="@string/answer_4"
                     android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/button5Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="4dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:background="@drawable/background_button_add">
-
-                <ImageButton
-                    android:id="@+id/add_answer5"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/add_button"
-                    android:background="@color/trans"/>
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer5TextInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text"
-                android:visibility="gone">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer5_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer5_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer5_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_bottom_corners"
+                    android:cursorVisible="true"
+                    android:fontFamily="@font/raleway"
                     android:hint="@string/answer_5"
                     android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/button6Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="4dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:background="@drawable/background_button_add">
-
-                <ImageButton
-                    android:id="@+id/add_answer6"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/add_button"
-                    android:background="@color/trans"/>
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer6TextInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text"
-                android:visibility="gone">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer6_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer6_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer6_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_bottom_corners"
+                    android:cursorVisible="true"
+                    android:fontFamily="@font/raleway"
                     android:hint="@string/answer_6"
                     android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/button7Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="4dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:background="@drawable/background_button_add">
-
-                <ImageButton
-                    android:id="@+id/add_answer7"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/add_button"
-                    android:background="@color/trans"/>
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer7TextInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text"
-                android:visibility="gone">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer7_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer7_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer7_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_with_bottom_corners"
+                    android:cursorVisible="true"
+                    android:fontFamily="@font/raleway"
                     android:hint="@string/answer_7"
                     android:imeOptions="actionNext"
-                    android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/button8Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="4dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:background="@drawable/background_button_add">
-
-                <ImageButton
-                    android:id="@+id/add_answer8"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/add_button"
-                    android:background="@color/trans"/>
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/answer8TextInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text"
-                android:visibility="gone">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/background_blue_with_white_line">
 
-                <CheckBox
-                    android:id="@+id/answer8_checkbox"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/check_if_correct"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/raleway"
+                        android:textSize="12sp"/>
+
+                    <CheckBox
+                        android:id="@+id/answer8_checkbox"
+                        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/answer8_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/answer_8"
-                    android:imeOptions="actionDone"
+                    android:background="@drawable/background_white_with_bottom_corners"
                     android:cursorVisible="true"
-                    android:inputType="textMultiLine"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:fontFamily="@font/raleway"
+                    android:hint="@string/answer_8"
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textMultiLine"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/saveQuestionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/done"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_green"
+        android:elevation="8dp"
+        android:fontFamily="@font/raleway"
+        android:padding="4dp"
+        android:text="@string/done"
+        android:textColor="@color/color_white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,106 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/question_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".ui.tests.passTest.passTest.PassTestActivity"
-    tools:layout_editor_absoluteY="25dp">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:theme="@style/ActionBarTheme.AppBarOverlay">
+        android:theme="@style/ActionBarTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/pass_test_toolbar"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:gravity="center"
             app:popupTheme="@style/ActionBarTheme.PopupOverlay">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@color/color_white"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:fontFamily="@font/raleway"
-                android:textSize="16sp"
-                android:id="@+id/toolbar_title"
-                android:background="@drawable/background_toolbar_text"/>
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/test_progress"
+                    style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/progress_drawable" />
+
+                <TextView
+                    android:id="@+id/number_of_ques_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/raleway"
+                    android:gravity="end"
+                    android:text="5/90"
+                    android:textColor="@color/color_white"
+                    android:textStyle="italic" />
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/question_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/color_white"
-        android:gravity="center"
-        android:maxLines="5"
-        android:padding="16dp"
-        android:text="QUESTION"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/test_progress" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/answers_rec_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:padding="8dp"
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="68dp"
         app:layout_constraintBottom_toTopOf="@+id/next_question_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_question_in_pass_test"
+                android:fontFamily="@font/raleway_extra_bold"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:text="What is capital is Great Britan"
+                android:textColor="@color/color_white"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/answers_rec_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/next_question_btn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_green"
+        android:elevation="8dp"
+        android:fontFamily="@font/raleway"
+        android:padding="4dp"
         android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/test_progress"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:max="100"
+        android:textColor="@color/color_white"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

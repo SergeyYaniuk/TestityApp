@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.R;
@@ -35,6 +36,7 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
         String result = String.valueOf(mResults.get(i).getScore()) + "%";
         viewHolder.mResult.setText(result);
         viewHolder.mDate.setText(mResults.get(i).getDate());
+        viewHolder.mResultProgress.setProgress((int)mResults.get(i).getScore());
     }
 
     @Override
@@ -55,6 +57,7 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView mApplicantName, mTestName, mDate, mResult;
+        ProgressBar mResultProgress;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +65,7 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
             mTestName = itemView.findViewById(R.id.test_name_tv);
             mDate = itemView.findViewById(R.id.date_tv);
             mResult = itemView.findViewById(R.id.result_tv);
+            mResultProgress = itemView.findViewById(R.id.result_progress);
         }
     }
 }

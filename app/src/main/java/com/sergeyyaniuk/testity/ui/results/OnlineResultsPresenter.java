@@ -2,10 +2,8 @@ package com.sergeyyaniuk.testity.ui.results;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sergeyyaniuk.testity.data.database.DatabaseManager;
-import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.data.preferences.PrefHelper;
 import com.sergeyyaniuk.testity.firebase.Firestore;
@@ -30,6 +28,7 @@ public class OnlineResultsPresenter extends BasePresenter {
     }
 
     public void loadResults(){
+        mFragment.showLoadingLayout();
         String userId = mPrefHelper.getCurrentUserId();
         mFirestore.getUserResults(userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -47,7 +46,7 @@ public class OnlineResultsPresenter extends BasePresenter {
                     results.add(result);
                 }
                 mFragment.setRecyclerView(results);
-                mFragment.hideProgressBar();
+                mFragment.hideLoadingLayout();
             }
         });
     }

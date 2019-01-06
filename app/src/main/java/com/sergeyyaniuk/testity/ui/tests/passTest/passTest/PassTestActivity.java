@@ -46,9 +46,6 @@ public class PassTestActivity extends BaseActivity {
     @BindView(R.id.pass_test_toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.toolbar_title)
-    TextView mTitle;
-
     @BindView(R.id.answers_rec_view)
     RecyclerView mAnswersRecView;
 
@@ -61,8 +58,8 @@ public class PassTestActivity extends BaseActivity {
     @BindView(R.id.test_progress)
     ProgressBar mTestProgress;
 
-    @BindView(R.id.question_layout)
-    ConstraintLayout mLayout;
+    @BindView(R.id.number_of_ques_tv)
+    TextView mNumberOfQues;
 
     String mTestId, mApplicantName, mTestTitle;
     private int mCurrentIndex;
@@ -86,9 +83,6 @@ public class PassTestActivity extends BaseActivity {
         mTestTitle = getIntent().getStringExtra("test_title");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mTitle.setText(mTestTitle);
         mPresenter.cleanTotalCorr();  //clean number of total correct answers
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
@@ -130,6 +124,11 @@ public class PassTestActivity extends BaseActivity {
     private void setTestProgress(){
         int progress = (mCurrentIndex * 100) / mQuestionList.size();
         mTestProgress.setProgress(progress);
+        int secProgress = ((mCurrentIndex + 1) * 100) / mQuestionList.size();
+        mTestProgress.setSecondaryProgress(secProgress);
+        String numOfQues = String.valueOf(mCurrentIndex + 1) + " " + getString(R.string.of) + " " +
+                String.valueOf(mQuestionList.size());
+        mNumberOfQues.setText(numOfQues);
     }
 
     //invoke from presenter after answers loaded

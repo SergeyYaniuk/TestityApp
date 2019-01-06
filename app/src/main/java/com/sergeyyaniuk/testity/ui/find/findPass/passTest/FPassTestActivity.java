@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -39,16 +40,19 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     private static final String KEY_NUMBER_OF_CORRECT = "number_of_correct";
     private static final String KEY_SCORE = "score";
 
-    @BindView(R.id.pass_test_toolbar)
-    Toolbar mToolbar;
-
-    @BindView(R.id.toolbar_title)
-    TextView mTitle;
-
     @Inject
     FPassTestPresenter mPresenter;
 
     FAnswerListAdapter mAdapter;
+
+    @BindView(R.id.pass_test_toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.test_progress)
+    ProgressBar mTestProgress;
+
+    @BindView(R.id.number_of_ques_tv)
+    TextView mNumberOfQuesTV;
 
     @BindView(R.id.answers_rec_view)
     RecyclerView mAnswersRecView;
@@ -59,11 +63,8 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     @BindView(R.id.next_question_btn)
     Button mNextQuesButton;
 
-    @BindView(R.id.test_progress)
-    ProgressBar mTestProgress;
-
-    @BindView(R.id.answers_prog_bar)
-    ProgressBar mLoadingAnswers;
+    @BindView(R.id.loading_layout)
+    LinearLayout mLoadingLayout;
 
     String mTestId, mApplicantName, mTestTitle;
     private int mCurrentIndex;
@@ -87,9 +88,6 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
         mTestTitle = getIntent().getStringExtra("test_title");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mTitle.setText(mTestTitle);
         mPresenter.cleanTotalCorr();  //clean number of total correct answers
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
@@ -132,6 +130,11 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     private void setTestProgress(){
         int progress = (mCurrentIndex * 100) / mQuestionList.size();
         mTestProgress.setProgress(progress);
+        int secProgress = ((mCurrentIndex + 1) * 100) / mQuestionList.size();
+        mTestProgress.setSecondaryProgress(secProgress);
+        String numOfQues = String.valueOf(mCurrentIndex + 1) + " " + getString(R.string.of) + " " +
+                String.valueOf(mQuestionList.size());
+        mNumberOfQuesTV.setText(numOfQues);
     }
 
     //invoke from presenter after answers loaded
@@ -179,11 +182,11 @@ public class FPassTestActivity extends BaseActivity implements RateTestDialog.Ra
     }
 
     public void hideProgressBar(){
-        mLoadingAnswers.setVisibility(View.GONE);
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     private void showProgressBar(){
-        mLoadingAnswers.setVisibility(View.VISIBLE);
+        mLoadingLayout.setVisibility(View.VISIBLE);
     }
 
     private void saveResults(){

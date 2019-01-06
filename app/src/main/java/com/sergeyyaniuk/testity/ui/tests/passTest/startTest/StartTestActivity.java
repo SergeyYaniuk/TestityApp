@@ -2,8 +2,10 @@ package com.sergeyyaniuk.testity.ui.tests.passTest.startTest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
@@ -22,6 +24,12 @@ public class StartTestActivity extends BaseActivity {
     @BindView(R.id.name_edit_text)
     EditText mNameEditText;
 
+    @BindView(R.id.start_test_toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.toolbar_title)
+    TextView mTitle;
+
     private String mTestId, mName, mTestTitle;
 
     @Override
@@ -29,6 +37,11 @@ public class StartTestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_test);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mTitle.setText(R.string.start_test);
         mTestId = getIntent().getStringExtra("test_id");
         mTestTitle = getIntent().getStringExtra("test_title");
     }

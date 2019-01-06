@@ -53,12 +53,6 @@ public class TestAdapter extends FirestoreAdapter<TestAdapter.ViewHolder> {
         @BindView(R.id.language_tv)
         TextView mLanguage;
 
-        @BindView(R.id.date_tv)
-        TextView mDate;
-
-        @BindView(R.id.author_tv)
-        TextView mAuthor;
-
         @BindView(R.id.test_rating)
         MaterialRatingBar mTestRating;
 
@@ -78,8 +72,6 @@ public class TestAdapter extends FirestoreAdapter<TestAdapter.ViewHolder> {
             mTestName.setText(test.getTitle());
             mCategory.setText(test.getCategory());
             mLanguage.setText(test.getLanguage());
-            mAuthor.setText(test.getUserName());
-            mDate.setText(test.getDate());
             mTestRating.setRating((float)test.getAvgRating());
             mNumRatings.setText(String.valueOf(test.getNumRatings()));
 

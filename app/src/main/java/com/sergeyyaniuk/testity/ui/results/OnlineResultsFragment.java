@@ -11,6 +11,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.sergeyyaniuk.testity.App;
@@ -31,8 +32,8 @@ public class OnlineResultsFragment extends Fragment {
     @BindView(R.id.online_results_recycler)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.progress_bar)
-    ProgressBar mProgressBar;
+    @BindView(R.id.loading_layout)
+    LinearLayout mLoadingLayout;
 
     @Inject
     OnlineResultsPresenter mPresenter;
@@ -83,8 +84,12 @@ public class OnlineResultsFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
-    public void hideProgressBar(){
-        mProgressBar.setVisibility(View.GONE);
+    public void hideLoadingLayout(){
+        mLoadingLayout.setVisibility(View.GONE);
+    }
+
+    public void showLoadingLayout(){
+        mLoadingLayout.setVisibility(View.VISIBLE);
     }
 
     public void removeResult(int position){

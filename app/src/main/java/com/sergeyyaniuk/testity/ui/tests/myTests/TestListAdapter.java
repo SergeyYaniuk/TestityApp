@@ -1,11 +1,12 @@
 package com.sergeyyaniuk.testity.ui.tests.myTests;
 
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sergeyyaniuk.testity.R;
@@ -40,14 +41,15 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
         viewHolder.mTestName.setText(mTests.get(i).getTitle());
         viewHolder.mCategory.setText(mTests.get(i).getCategory());
         viewHolder.mLanguage.setText(mTests.get(i).getLanguage());
-        viewHolder.mDate.setText(mTests.get(i).getDate());
         boolean isOnline = mTests.get(i).isOnline();
+        Drawable whiteCircle = viewHolder.itemView.getContext().getResources().getDrawable(R.drawable.white_circle);
+        Drawable greenCircle = viewHolder.itemView.getContext().getResources().getDrawable(R.drawable.green_circle);
         if (isOnline){
             viewHolder.isOnline.setText(R.string.online);
-            viewHolder.isOnline.setBackgroundColor(Color.GREEN);
+            viewHolder.isOnlineImage.setImageDrawable(greenCircle);
         } else {
             viewHolder.isOnline.setText(R.string.offline);
-            viewHolder.isOnline.setBackgroundColor(Color.GRAY);
+            viewHolder.isOnlineImage.setImageDrawable(whiteCircle);
         }
     }
 
@@ -67,7 +69,8 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView mTestName, mCategory, mLanguage, mDate, isOnline;
+        TextView mTestName, mCategory, mLanguage, isOnline;
+        ImageView isOnlineImage;
 
         TestClickListener mListener;
 
@@ -77,8 +80,8 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
             mTestName = itemView.findViewById(R.id.test_name_tv);
             mCategory = itemView.findViewById(R.id.category_tv);
             mLanguage = itemView.findViewById(R.id.language_tv);
-            mDate = itemView.findViewById(R.id.date_tv);
             isOnline = itemView.findViewById(R.id.is_online_tv);
+            isOnlineImage = itemView.findViewById(R.id.is_online_image);
             itemView.setOnClickListener(this);
         }
 

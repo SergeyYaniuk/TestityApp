@@ -53,12 +53,10 @@ public class EditPresenter extends BasePresenter {
             mFirestore.updateTest(test).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    mActivity.closeEditTestFragment();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    mActivity.closeEditTestFragment();
                 }
             });
         }
