@@ -33,6 +33,7 @@
     <string name="cannot_create_acc">Cannot create account</string>
     <string name="pass_sent">Link to reset password have been sent to your email</string>
     <string name="unable_set_name">Unable to set user name</string>
+    <string name="or">OR</string>
     <string name="unable_send">Unable to send link to reset password</string>
     <string name="no_email">No Email</string>
     <string name="no_connection">No internet connection!\nPlease connect and try again</string>

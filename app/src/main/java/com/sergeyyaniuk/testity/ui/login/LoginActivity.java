@@ -206,7 +206,7 @@ public class LoginActivity extends BaseActivity implements CreateAccountDialog.C
                 TextView tv = (TextView) v;
                 tv.setText(" ");
                 tv.setBackgroundDrawable(getResources().getDrawable(
-                        R.drawable.google_plus));
+                        R.drawable.google_login_icon));
                 return;
             }
         }

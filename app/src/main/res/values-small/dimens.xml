@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- MainActivity image sizes !-->
-    <dimen name="image_width">80dp</dimen>
-    <dimen name="image_height">80dp</dimen>
-
-    <!--elevation!-->
-    <dimen name="elevation">2dp</dimen>
-
-    <!--margin!-->
-    <dimen name="margin_small">3dp</dimen>
-    <dimen name="margin_middle">6dp</dimen>
-    <dimen name="margin_large">12dp</dimen>
-    <dimen name="margin_xlarge">18dp</dimen>
-
-    <!--padding!-->
-    <dimen name="padding_small">3dp</dimen>
-    <dimen name="padding_middle">6dp</dimen>
-    <dimen name="padding_large">12dp</dimen>
-    <dimen name="padding_xlarge">18dp</dimen>
-
-    <!-- text size !-->
-    <dimen name="text_size_small">6sp</dimen>
-    <dimen name="text_size_middle">10sp</dimen>
-    <dimen name="text_size_large">16sp</dimen>
-    <dimen name="text_size_xlarge">22sp</dimen>
+    <!-- LoginActivity !-->
+    <dimen name="login_activity_image">92dp</dimen>
+    <dimen name="login_small_images">42dp</dimen>
+    <dimen name="large_margin">28dp</dimen>
+    <dimen name="middle_margin">12dp</dimen>
+    <dimen name="extra_small_margin">3dp</dimen>
+    <dimen name="middle_padding">12dp</dimen>
+    <dimen name="very_small_padding">3dp</dimen>
+    <dimen name="small_padding">6dp</dimen>
+    <dimen name="extra_small_padding">2dp</dimen>
+    <dimen name="large_elevation">12dp</dimen>
+    <dimen name="middle_elevation">6dp</dimen>
+    <dimen name="text_extra_large">18sp</dimen>
+    <dimen name="text_large">14sp</dimen>
+    <dimen name="text_middle">10sp</dimen>
+    <dimen name="button_height">30dp</dimen>
 
 </resources>
