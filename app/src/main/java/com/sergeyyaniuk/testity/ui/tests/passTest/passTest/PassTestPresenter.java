@@ -48,6 +48,9 @@ public class PassTestPresenter extends BasePresenter {
                         questions -> {
                             mActivity.setQuestionList(questions);
                             getNumberOfCorrectAnswers(questions);
+                            String currentTime = getCurrentTime();
+                            long time = Long.parseLong(currentTime);
+                            mPrefHelper.setStartTestTime(time);
                         }, throwable -> { }));
     }
 
@@ -82,9 +85,11 @@ public class PassTestPresenter extends BasePresenter {
 
     public void saveResult(String testId, String applicantName,String testTitle, double score){
         String userId = mPrefHelper.getCurrentUserId();
+        String userName = mPrefHelper.getCurrentUserName();
         String date = getCurrentDate();
         String resultId = testId + userId + getCurrentTime();
-        Result result = new Result(resultId, testId, applicantName, score, userId, testTitle, date);
+        int timeSpent = calculateTime();
+        Result result = new Result(resultId, testId, applicantName, score, userId, userName, date, testTitle, timeSpent);
         getCompositeDisposable().add(mDatabase.insertResult(result)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -101,5 +106,12 @@ public class PassTestPresenter extends BasePresenter {
     @SuppressLint("SimpleDateFormat")
     private String getCurrentTime(){
         return new SimpleDateFormat("yyMMddHHmmss").format(new Date());
+    }
+
+    private int calculateTime(){
+        long startTime = mPrefHelper.getStartTestTime();
+        String currentTime = getCurrentTime();
+        long endTime = Long.parseLong(currentTime);
+        return ((int)(endTime - startTime) / 100);
     }
 }

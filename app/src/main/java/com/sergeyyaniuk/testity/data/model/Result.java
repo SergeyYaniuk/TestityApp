@@ -38,12 +38,18 @@ public class Result {
     @ColumnInfo(name = "date")
     private String date;
 
+    @ColumnInfo(name = "test_name")
+    private String testName;
+
+    @ColumnInfo(name = "time_spent")
+    private int timeSpent;
+
     @Ignore
     public Result() {
     }
 
     public Result(@NonNull String id, String testId, String applicantName, double score, String userId,
-                  String userName, String date) {
+                  String userName, String date, String testName, int timeSpent) {
         this.id = id;
         this.testId = testId;
         this.applicantName = applicantName;
@@ -51,6 +57,8 @@ public class Result {
         this.userId = userId;
         this.userName = userName;
         this.date = date;
+        this.testName = testName;
+        this.timeSpent = timeSpent;
     }
 
     @NonNull
@@ -108,5 +116,21 @@ public class Result {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+    public int getTimeSpent() {
+        return timeSpent;
+    }
+
+    public void setTimeSpent(int timeSpent) {
+        this.timeSpent = timeSpent;
     }
 }

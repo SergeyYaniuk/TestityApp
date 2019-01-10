@@ -93,8 +93,8 @@
 
                 <ImageView
                     android:id="@+id/create_test_image"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/main_act_images"
+                    android:layout_height="@dimen/main_act_images"
                     android:padding="4dp"
                     android:src="@drawable/create_test_image" />
 
@@ -102,11 +102,11 @@
                     android:id="@+id/create_test_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_extra_b"
+                    android:fontFamily="@font/raleway_e_bold"
                     android:padding="4dp"
                     android:text="@string/create_test"
                     android:textColor="@color/color_white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/main_act_text_size" />
 
             </LinearLayout>
 
@@ -125,8 +125,8 @@
 
                 <ImageView
                     android:id="@+id/my_tests_image"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/main_act_images"
+                    android:layout_height="@dimen/main_act_images"
                     android:padding="4dp"
                     android:src="@drawable/my_tests_image" />
 
@@ -134,11 +134,11 @@
                     android:id="@+id/my_tests_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_extra_b"
+                    android:fontFamily="@font/raleway_e_bold"
                     android:padding="4dp"
                     android:text="@string/my_tests"
                     android:textColor="@color/color_white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/main_act_text_size" />
 
             </LinearLayout>
         </LinearLayout>
@@ -168,8 +168,8 @@
 
                 <ImageView
                     android:id="@+id/results_image"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/main_act_images"
+                    android:layout_height="@dimen/main_act_images"
                     android:padding="4dp"
                     android:src="@drawable/results_image" />
 
@@ -177,11 +177,11 @@
                     android:id="@+id/results_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_extra_b"
+                    android:fontFamily="@font/raleway_e_bold"
                     android:padding="4dp"
                     android:text="@string/results"
                     android:textColor="@color/color_white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/main_act_text_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -199,8 +199,8 @@
 
                 <ImageView
                     android:id="@+id/find_test_image"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/main_act_images"
+                    android:layout_height="@dimen/main_act_images"
                     android:padding="4dp"
                     android:src="@drawable/find_test_image" />
 
@@ -208,11 +208,11 @@
                     android:id="@+id/find_test_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_extra_b"
+                    android:fontFamily="@font/raleway_e_bold"
                     android:padding="4dp"
                     android:text="@string/find_test"
                     android:textColor="@color/color_white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/main_act_text_size" />
             </LinearLayout>
         </LinearLayout>
 
@@ -241,8 +241,9 @@
 
                 <ImageView
                     android:id="@+id/invite_friend_image"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/main_act_images"
+                    android:layout_height="@dimen/main_act_images"
+                    android:layout_gravity="center"
                     android:padding="4dp"
                     android:src="@drawable/invite_friend_image" />
 
@@ -250,11 +251,12 @@
                     android:id="@+id/invite_friend_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_extra_b"
+                    android:fontFamily="@font/raleway_e_bold"
                     android:padding="4dp"
+                    android:layout_gravity="center"
                     android:text="@string/invite_friends"
                     android:textColor="@color/color_white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/main_act_text_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -272,8 +274,8 @@
 
                 <ImageView
                     android:id="@+id/rateus_image"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/main_act_images"
+                    android:layout_height="@dimen/main_act_images"
                     android:padding="4dp"
                     android:src="@drawable/rate_us_image" />
 
@@ -281,11 +283,11 @@
                     android:id="@+id/rateus_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_extra_b"
+                    android:fontFamily="@font/raleway_e_bold"
                     android:padding="4dp"
                     android:text="@string/rate_us"
                     android:textColor="@color/color_white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/main_act_text_size" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

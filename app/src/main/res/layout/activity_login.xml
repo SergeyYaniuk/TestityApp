@@ -27,7 +27,7 @@
             android:layout_height="@dimen/login_activity_image"
             android:layout_marginTop="@dimen/large_margin"
             android:layout_marginBottom="@dimen/large_margin"
-            android:src="@drawable/testity_logo" />
+            android:src="@drawable/logo" />
 
         <View
             android:layout_width="match_parent"

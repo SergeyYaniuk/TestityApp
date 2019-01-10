@@ -35,11 +35,14 @@ public class OnlineResultsAdapter extends RecyclerView.Adapter<OnlineResultsAdap
     @Override
     public void onBindViewHolder(@NonNull OnlineResultsAdapter.ViewHolder viewHolder, int i) {
         viewHolder.mApplicantName.setText(mResults.get(i).getApplicantName());
-        viewHolder.mTestName.setText(mResults.get(i).getUserName());
+        viewHolder.mTestName.setText(mResults.get(i).getTestName());
         String result = String.valueOf(mResults.get(i).getScore()) + "%";
         viewHolder.mResultTV.setText(result);
         viewHolder.mDate.setText(mResults.get(i).getDate());
         viewHolder.mResultProgress.setProgress((int)mResults.get(i).getScore());
+        String timeSpent = Integer.toString(mResults.get(i).getTimeSpent()) + " "
+                + viewHolder.itemView.getContext().getResources().getString(R.string.minutes);
+        viewHolder.mTimeSpent.setText(timeSpent);
     }
 
     @Override
@@ -72,6 +75,9 @@ public class OnlineResultsAdapter extends RecyclerView.Adapter<OnlineResultsAdap
 
         @BindView(R.id.result_progress)
         ProgressBar mResultProgress;
+
+        @BindView(R.id.time_spent_tv)
+        TextView mTimeSpent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

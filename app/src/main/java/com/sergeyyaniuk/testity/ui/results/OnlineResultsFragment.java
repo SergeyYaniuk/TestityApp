@@ -64,7 +64,7 @@ public class OnlineResultsFragment extends Fragment {
         return view;
     }
 
-    public void setRecyclerView(List<Result> results){
+    public void setRecyclerView(List<Result> results) throws NullPointerException {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         mAdapter = new OnlineResultsAdapter(results);
         mRecyclerView.setAdapter(mAdapter);

@@ -48,7 +48,6 @@
                     android:layout_marginBottom="2dp"
                     android:fontFamily="@font/raleway"
                     android:gravity="end"
-                    android:text="5/90"
                     android:textColor="@color/color_white"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -81,12 +80,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_question_in_pass_test"
-                android:fontFamily="@font/raleway_extra_bold"
+                android:fontFamily="@font/raleway_e_b"
                 android:padding="16dp"
                 android:layout_marginTop="16dp"
                 android:elevation="8dp"
                 android:gravity="center"
-                android:text="What is capital is Great Britan"
                 android:textColor="@color/color_white"
                 android:textSize="16sp" />
 

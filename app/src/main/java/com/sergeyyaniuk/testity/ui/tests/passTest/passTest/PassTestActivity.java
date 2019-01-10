@@ -1,9 +1,7 @@
 package com.sergeyyaniuk.testity.ui.tests.passTest.passTest;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,14 +14,11 @@ import com.sergeyyaniuk.testity.App;
 import com.sergeyyaniuk.testity.R;
 import com.sergeyyaniuk.testity.data.model.Answer;
 import com.sergeyyaniuk.testity.data.model.Question;
-import com.sergeyyaniuk.testity.data.model.Result;
 import com.sergeyyaniuk.testity.di.module.PassTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
 import com.sergeyyaniuk.testity.ui.tests.passTest.endTest.EndTestActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;

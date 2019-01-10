@@ -32,7 +32,6 @@
                 android:gravity="center"
                 android:fontFamily="@font/raleway"
                 android:textColor="@color/color_white"
-                android:text="Sergey Yaniuk"
                 android:textSize="18sp"/>
 
             <View
@@ -71,7 +70,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_white_with_two_corners"
                     android:fontFamily="@font/raleway"
-                    android:text="Android development test"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:paddingTop="4dp"
@@ -112,7 +110,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_white_with_two_corners"
                     android:fontFamily="@font/raleway"
-                    android:text="42 min"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:paddingTop="4dp"
@@ -154,7 +151,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_white_with_two_corners"
                     android:fontFamily="@font/raleway"
-                    android:text="22-01-2019"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:paddingTop="4dp"
@@ -187,8 +183,7 @@
             android:gravity="center"
             android:textColor="@color/color_white"
             android:fontFamily="@font/raleway_bold"
-            android:padding="8dp"
-            android:text="100%" />
+            android:padding="8dp"/>
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

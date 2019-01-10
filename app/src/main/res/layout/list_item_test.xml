@@ -24,8 +24,7 @@
             android:fontFamily="@font/raleway"
             android:textColor="@color/color_white"
             android:layout_marginEnd="4dp"
-            android:textSize="12sp"
-            android:text="online" />
+            android:textSize="12sp"/>
 
         <ImageView
             android:id="@+id/is_online_image"
@@ -44,8 +43,7 @@
         android:paddingEnd="8dp"
         android:fontFamily="@font/raleway_bold"
         android:textColor="@color/color_white"
-        android:textSize="18sp"
-        android:text="Android development test"/>
+        android:textSize="18sp" />
 
     <View
         android:id="@+id/white_line"
@@ -83,7 +81,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_white_with_two_corners"
             android:fontFamily="@font/raleway"
-            android:text="Geogrphic"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:paddingTop="4dp"
@@ -124,7 +121,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_white_with_two_corners"
             android:fontFamily="@font/raleway"
-            android:text="English"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:paddingTop="4dp"

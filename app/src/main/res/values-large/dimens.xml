@@ -17,5 +17,7 @@
     <dimen name="text_large">18sp</dimen>
     <dimen name="text_middle">14sp</dimen>
     <dimen name="button_height">36dp</dimen>
+    <dimen name="main_act_images">160dp</dimen>
+    <dimen name="main_act_text_size">28sp</dimen>
 
 </resources>

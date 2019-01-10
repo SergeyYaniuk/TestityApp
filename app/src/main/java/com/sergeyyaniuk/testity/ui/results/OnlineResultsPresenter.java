@@ -43,6 +43,9 @@ public class OnlineResultsPresenter extends BasePresenter {
                     result.setTestId(document.getString("testId"));
                     result.setUserName(document.getString("userName"));
                     result.setDate(document.getString("date"));
+                    result.setTestName(document.getString("testName"));
+                    int timeSpent = document.getLong("timeSpent").intValue();
+                    result.setTimeSpent(timeSpent);
                     results.add(result);
                 }
                 mFragment.setRecyclerView(results);

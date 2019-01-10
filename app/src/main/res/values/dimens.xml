@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- LoginActivity !-->
     <dimen name="login_activity_image">98dp</dimen>
     <dimen name="login_small_images">48dp</dimen>
     <dimen name="large_margin">32dp</dimen>
@@ -17,5 +16,7 @@
     <dimen name="text_large">16sp</dimen>
     <dimen name="text_middle">12sp</dimen>
     <dimen name="button_height">32dp</dimen>
+    <dimen name="main_act_images">130dp</dimen>
+    <dimen name="main_act_text_size">24sp</dimen>
 
 </resources>

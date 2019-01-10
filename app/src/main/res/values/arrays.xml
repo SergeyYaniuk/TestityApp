@@ -59,11 +59,10 @@
         <item>@string/books</item>
         <item>@string/iq</item>
         <item>@string/kids</item>
+        <item>@string/school</item>
         <item>@string/movie</item>
-        <item>@string/health</item>
         <item>@string/personality</item>
-        <item>@string/think_memory</item>
-        <item>@string/science</item>
+        <item>@string/astrology</item>
         <item>@string/other</item>
     </string-array>
 
@@ -74,11 +73,10 @@
         <item>@string/books</item>
         <item>@string/iq</item>
         <item>@string/kids</item>
+        <item>@string/school</item>
         <item>@string/movie</item>
-        <item>@string/health</item>
         <item>@string/personality</item>
-        <item>@string/think_memory</item>
-        <item>@string/science</item>
+        <item>@string/astrology</item>
         <item>@string/other</item>
     </string-array>
 

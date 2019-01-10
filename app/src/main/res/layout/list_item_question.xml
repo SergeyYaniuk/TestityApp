@@ -12,7 +12,7 @@
         android:id="@+id/number_of_question"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:fontFamily="@font/raleway_extra_bold"
+        android:fontFamily="@font/raleway_e_b"
         android:gravity="center"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
@@ -32,7 +32,6 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:textSize="16sp"
-        android:text=" b  njbbbvbnbvbnbnnnnnnnnn"
         android:fontFamily="@font/raleway"
         android:textColor="@color/color_white"/>
 

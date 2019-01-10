@@ -16,7 +16,6 @@ import com.sergeyyaniuk.testity.data.model.Question;
 import com.sergeyyaniuk.testity.data.model.Test;
 import com.sergeyyaniuk.testity.di.module.EditTestModule;
 import com.sergeyyaniuk.testity.ui.base.BaseActivity;
-import com.sergeyyaniuk.testity.ui.create.questions.StopAddQuestionsDialog;
 import com.sergeyyaniuk.testity.ui.tests.myTests.MyTestsActivity;
 
 import java.util.List;

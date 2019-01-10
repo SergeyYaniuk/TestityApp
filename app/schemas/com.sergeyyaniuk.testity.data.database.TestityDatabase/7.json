@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 7,
-    "identityHash": "bce40d335420f0640c68cc0818852a22",
+    "identityHash": "26a7f56084db7ac3d7b2c9e9cf62be9d",
     "entities": [
       {
         "tableName": "users",
@@ -308,7 +308,7 @@
       },
       {
         "tableName": "results",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `test_id` TEXT, `applicant_name` TEXT, `score` REAL NOT NULL, `user_id` TEXT, `user_name` TEXT, `date` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`test_id`) REFERENCES `tests`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `test_id` TEXT, `applicant_name` TEXT, `score` REAL NOT NULL, `user_id` TEXT, `user_name` TEXT, `date` TEXT, `test_name` TEXT, `time_spent` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`test_id`) REFERENCES `tests`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -351,6 +351,18 @@
             "columnName": "date",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "testName",
+            "columnName": "test_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "timeSpent",
+            "columnName": "time_spent",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -394,7 +406,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"bce40d335420f0640c68cc0818852a22\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"26a7f56084db7ac3d7b2c9e9cf62be9d\")"
     ]
   }
 }

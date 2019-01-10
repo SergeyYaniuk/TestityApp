@@ -38,4 +38,12 @@ public abstract class TestityDatabase extends RoomDatabase {
             database.execSQL("ALTER TABLE results ADD COLUMN date TEXT");
         }
     };
+
+    public static final Migration MIGRATION_7_8 = new Migration(7,8) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE results ADD COLUMN test_name TEXT");
+            database.execSQL("ALTER TABLE results ADD COLUMN time_spent INTEGER");
+        }
+    };
 }

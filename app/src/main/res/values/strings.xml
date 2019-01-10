@@ -6,7 +6,7 @@
     <string name="my_tests">TESTS</string>
     <string name="results">RESULTS</string>
     <string name="find_test">FIND</string>
-    <string name="invite_friends">INVITE FRIEND</string>
+    <string name="invite_friends">INVITE</string>
     <string name="rate_us">RATE US</string>
     <string name="sign_out">Sign Out</string>
     <string name="anonymous">Anonymous user</string>
@@ -36,33 +36,35 @@
     <string name="or">OR</string>
     <string name="unable_send">Unable to send link to reset password</string>
     <string name="no_email">No Email</string>
-    <string name="no_connection">No internet connection!\nPlease connect and try again</string>
+    <string name="no_connection">No internet connection! Please connect and try again</string>
 
     <!-- For Facebook login !-->
-    <string name="facebook_app_id">694422630950774</string>
-    <string name="fb_login_protocol_scheme">fb694422630950774</string>
+    <string name="facebook_app_id" translatable="false">694422630950774</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb694422630950774</string>
 
     <!-- Invite friends !-->
     <string name="invitation_title">SEND INVITATION</string>
     <string name="invitation_message">Try to pass test in Testity!</string>
-    <string name="invitation_custom_image">https://developers.google.com/identity/images/g-logo.png</string>
-    <string name="invitation_deep_link">http://sergeyyaniuk.com/testity/</string>
+    <string name="invitation_custom_image" translatable="false">https://developers.google.com/identity/images/g-logo.png</string>
+    <string name="invitation_deep_link" translatable="false">http://sergeyyaniuk.com/testity/</string>
     <string name="invitation_cta">Install!</string>
     <string name="invitation_sent">Invitation sent successfully</string>
     <string name="send_invitation_failed">Sending invitations failed</string>
-    <string name="google_play_services_error">Google Play Services Error</string>
+    <string name="google_play_services_error" translatable="false">Google Play Services Error</string>
 
     <!--  CreateTestActivity test activity !-->
     <string name="create_test_title">Create test</string>
     <string name="language">Language</string>
-    <string name="iq">IQ</string>
+    <string name="iq" translatable="false">IQ</string>
     <string name="recruiting">Career/Recruiting</string>
     <string name="books">Books</string>
-    <string name="kids">Kids</string>
+    <string name="kids">For kids</string>
+    <string name="school">School/University</string>
     <string name="other">Other</string>
     <string name="movie">Movie</string>
     <string name="health">Health</string>
     <string name="personality">Personality</string>
+    <string name="astrology">Astrology</string>
     <string name="think_memory">Think/Memory</string>
     <string name="science">Science</string>
 
@@ -70,14 +72,14 @@
     <string name="hint_description_test">Description</string>
     <string name="category">Category</string>
     <string name="available_online">Available online</string>
-    <string name="add_questions">Add questions</string>
+    <string name="add_questions">Continue</string>
     <string name="stop_edit_test">Do you want to stop editing test?</string>
 
     <string name="done">Done</string>
     <string name="add">Add</string>
 
     <string name="type_your_question">Type your question here</string>
-    <string name="explanation">Write your answers below and mark correct.</string>
+    <string name="explanation">Write your answers below and mark if correct.</string>
     <string name="answer_1">Answer #1</string>
     <string name="answer_2">Answer #2</string>
     <string name="answer_3">Answer #3</string>
@@ -86,9 +88,9 @@
     <string name="answer_6">Answer #6</string>
     <string name="answer_7">Answer #7</string>
     <string name="answer_8">Answer #8</string>
-    <string name="check_correct_answer">Check at least one correct answer</string>
+    <string name="check_correct_answer">Mark at least one correct answer</string>
     <string name="did_not_specify_answer">You did not specify any answer</string>
-    <string name="check_if_correct">Check if correct</string>
+    <string name="check_if_correct">Mark, if correct</string>
 
     <string name="item_removed">Item was removed from the list</string>
     <string name="undo">UNDO</string>
@@ -122,7 +124,7 @@
 
 
     <!-- EditTestActivity !-->
-    <string name="edit_questions">Edit questions</string>
+    <string name="edit_questions">Continue</string>
     <string name="cannot_update_test">Cannot update test</string>
 
     <!-- StartTestActivity !-->
@@ -139,13 +141,13 @@
     <!-- FindListActivity !-->
     <string name="find_test_title">FIND TEST</string>
     <string name="sort_tests">Sort tests</string>
-    <string name="header_filters">Filter tests</string>
+    <string name="header_filters">Test Filter</string>
     <string name="apply">Apply</string>
     <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
     <string name="no_tests_error">Cannot load tests</string>
     <string name="all_categories">All categories</string>
     <string name="all_languages">All languages</string>
-    <string name="no_sorting">------</string>
+    <string name="no_sorting" translatable="false">------</string>
     <string name="sort_by_rating">Sort by Rating</string>
     <string name="sort_by_popularity">Sort by Popularity</string>
     <string name="created_by">Created by</string>
@@ -167,5 +169,6 @@
     <string name="test_name">Test name</string>
     <string name="date">Date</string>
     <string name="time_spent">Time spent</string>
+    <string name="minutes">min</string>
 
 </resources>

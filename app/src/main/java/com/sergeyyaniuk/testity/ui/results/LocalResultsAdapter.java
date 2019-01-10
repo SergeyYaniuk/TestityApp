@@ -32,11 +32,14 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.mApplicantName.setText(mResults.get(i).getApplicantName());
-        viewHolder.mTestName.setText(mResults.get(i).getUserName());
+        viewHolder.mTestName.setText(mResults.get(i).getTestName());
         String result = String.valueOf(mResults.get(i).getScore()) + "%";
         viewHolder.mResult.setText(result);
         viewHolder.mDate.setText(mResults.get(i).getDate());
         viewHolder.mResultProgress.setProgress((int)mResults.get(i).getScore());
+        String timeSpent = Integer.toString(mResults.get(i).getTimeSpent()) + " "
+                + viewHolder.itemView.getContext().getResources().getString(R.string.minutes);
+        viewHolder.mTimeSpent.setText(timeSpent);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView mApplicantName, mTestName, mDate, mResult;
+        TextView mApplicantName, mTestName, mDate, mResult, mTimeSpent;
         ProgressBar mResultProgress;
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,6 +69,7 @@ public class LocalResultsAdapter extends RecyclerView.Adapter<LocalResultsAdapte
             mDate = itemView.findViewById(R.id.date_tv);
             mResult = itemView.findViewById(R.id.result_tv);
             mResultProgress = itemView.findViewById(R.id.result_progress);
+            mTimeSpent = itemView.findViewById(R.id.time_spent_tv);
         }
     }
 }

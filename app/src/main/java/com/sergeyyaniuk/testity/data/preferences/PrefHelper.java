@@ -7,11 +7,10 @@ public class PrefHelper {
 
     private static final String CURRENT_USER_ID = "CURRENT_USER_ID";
     private static final String CURRENT_USER_NAME = "CURRENT_USER_NAME";
-    private static final String CURRENT_USER_EMAIL = "CURRENT_USER_EMAIL";
-
     private static final String CURRENT_TEST_ID = "CURRENT_TEST_ID";
-
     private static final String NUM_OF_COR_ANS = "NUM_OF_COR_ANS";
+    public static final String TEST_START_TIME = "TEST_START_TIME";
+
     private final SharedPreferences mPrefs;
 
     public PrefHelper(Context context, String prefFileName){
@@ -74,5 +73,13 @@ public class PrefHelper {
 
     public void cleanNumOfCorAnsw(){
         mPrefs.edit().remove(NUM_OF_COR_ANS).apply();
+    }
+
+    public void setStartTestTime(long time){
+        mPrefs.edit().putLong(TEST_START_TIME, time).apply();
+    }
+
+    public long getStartTestTime(){
+        return mPrefs.getLong(TEST_START_TIME, 0L);
     }
 }
