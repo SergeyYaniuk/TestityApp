@@ -108,7 +108,7 @@
     <string name="my_tests_title">Your tests</string>
     <string name="edit_test">edit test</string>
     <string name="number_of_questions">number of questions</string>
-    <string name="no_questions">No questions</string>
+    <string name="no_questions">No questions yet</string>
     <string name="pass">Pass</string>
     <string name="back">Back</string>
     <string name="test_deleted">The test has been deleted</string>
@@ -170,5 +170,7 @@
     <string name="date">Date</string>
     <string name="time_spent">Time spent</string>
     <string name="minutes">min</string>
+
+    <string name="logo_url" translatable="false">https://imgur.com/a/Gifi3zs</string>
 
 </resources>

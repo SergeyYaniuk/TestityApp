@@ -82,7 +82,7 @@
     <string name="my_tests_title">Ваши тесты</string>
     <string name="edit_test">редактировать тест</string>
     <string name="number_of_questions">количество вопросов</string>
-    <string name="no_questions">Нет вопросов</string>
+    <string name="no_questions">Вопросов пока нет</string>
     <string name="pass">Пройти</string>
     <string name="back">Назад</string>
     <string name="test_deleted">Тест был удален</string>
